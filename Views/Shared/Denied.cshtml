@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Недостаточно полномочий";
+    string backController = ViewBag.BackController;
+}
+
+<h2>
+    Не возможно выполнить это действие, т.к Вы не являетесь автором этой заявки.
+</h2>
+
+@Html.ActionLink("Вернуться к списку", "Index", backController, null, new { @class = "btn btn-primary"})

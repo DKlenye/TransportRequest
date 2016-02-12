@@ -1,0 +1,69 @@
+﻿body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.field-validation-error
+{
+    color: #B94A48;
+}
+
+.multi-line
+{
+    height:8em;
+    width:37.5em;   
+}
+
+.createdby
+{
+    font-family:Calibri;
+    font-size:small;    
+    text-align:right;
+}
+
+.nomargin
+{
+    margin: 0 0 0 0;
+}
+
+.smallfont
+{
+    font-size: small;
+}
+
+.decimal-value
+{
+    width:75px;
+}
+    
+#progress, #lepPowerPermission
+{
+    display: none;    
+}
+
+.alert 
+{
+    margin-bottom:5px;
+}
+
+.dips-messages 
+{
+    margin-bottom:20px;
+}
+
+.dips-messages p
+{
+    font-family:Calibri;
+    margin-left:20px;
+}
+
+.nav-icon {
+    padding:0px 5px;
+}
+.customercolumn {
+    font-size:small;
+}

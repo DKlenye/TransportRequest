@@ -1,0 +1,32 @@
+﻿@model Intranet.Models.RequestCraneSlinger
+
+<tr class="slingerRow">
+    <td>
+        <div class="editor-field">
+            @Html.HiddenFor(c => c.SlingerId)
+            @Html.TextBoxFor(c => c.Office, new { style = "width:200px" })
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.TextBoxFor(c => c.FIO, new { style = "width:250px" })
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.TextBoxFor(c => c.CertificateNumber, new { style = "width:150px" })
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.DateKnowledge)
+            @Html.HiddenFor(c => c.IsDeleted)
+        </div>
+    </td>  
+    <td style="vertical-align:top">
+        <div style="margin-top:4px" id="row-btn">            
+        </div>
+    </td>
+</tr>
+
+

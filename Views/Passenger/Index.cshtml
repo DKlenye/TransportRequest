@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Intranet.Models.RequestPassenger>
+
+@{
+    ViewBag.Title = "Заявки на пассажирский транспорт";
+    ViewBag.Active = "Passenger";
+}
+
+
+<table style="width:100%">
+    <tr>
+        <td>
+            <h4>Заявки на пассажирский транспорт</h4>
+        </td>
+        <td>
+        @*    <div class="pull-right" style="vertical-align:middle">
+    @using (Ajax.BeginForm("FilterKPs", "Kp", new AjaxOptions
+            {
+                UpdateTargetId = "kpstable",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                LoadingElementId = "progress"
+            },
+        new { @class = "form-inline", style= "margin: 0" }))
+    {
+                            
+        <label class="muted smallfont" for="num">
+            №</label>
+        <input type="text" name="num" class="input-small" placeholder="№" /> 
+        <label class="muted smallfont" for="fio">
+            Автор</label>
+        <input type="text" name="fio" class="input-small" data-autocomplete="@Url.Action("QuickSearch", "Kp")" placeholder="Автор" />   
+        <input type="submit" value="Поиск" class="btn btn-small" />    
+    }
+</div>*@
+        </td>
+    </tr>
+</table>
+
+<div id="prtable">
+    <div class="well well-small">
+        <table style="width:100%">
+            <tr>
+                <td>
+                    @Html.ActionLink("Создать новую заявку", "Create", null, new { @class = "btn btn-primary" })             
+                </td>
+                <td id="progress">                
+                    <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               
+                </td>                
+                <td style="text-align:right">
+                    @*<div class="muted smallfont">
+                        В таблице показаны все конкурсы                        
+                        @Ajax.ActionLink("Показать только мои конкурсы",
+                            "ShowOnlyMyKPs", null,
+                            new AjaxOptions
+                            {
+                                UpdateTargetId = "kpstable",
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "GET",
+                                LoadingElementId = "progress"
+                            },
+                            new { @class = "btn btn-mini" })
+                    </div>*@
+                </td>
+            </tr>
+        </table>
+    </div>
+    @Html.Partial("_Table", Model)
+</div>
+
+
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+       
+        <th>
+            Пункт назначения
+        </th>
+        <th>
+            На дату
+        </th>
+        <th>
+            Цель поездки
+        </th>
+        <th>
+            Автор
+        </th>
+        <th>
+            Создано
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>        
+        <td>
+            @Html.DisplayFor(modelItem => item.DestinationPoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Request.RequestDate)
+        </td>       
+        <td>
+            @Html.DisplayFor(modelItem => item.TripPurpose)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Request.UserFio)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.Request.PublishDate)
+        </td>                          
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RequestId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.RequestId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RequestId })
+        </td>
+    </tr>
+}
+
+</table>*@

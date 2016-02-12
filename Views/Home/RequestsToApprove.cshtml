@@ -1,0 +1,109 @@
+﻿@model Intranet.ViewModels.IndexList
+
+@{    
+    if (Request.QueryString["layout"] == "fluid")
+    {
+        ViewBag.Title = "Home Page Fluid Layout";
+        ViewBag.Message = "Bootstrap Fluid Layout";
+        Layout = "~/Views/Shared/_LayoutFluid.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Заявки, направленные Вам на подпись";
+        ViewBag.Message = "Заявки, направленные Вам на подпись";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<table style="width:100%">
+    <tr>
+        <td>
+            <h4>Заявки, направленные Вам на подпись</h4>
+        </td>
+        <td>
+            @*<div class="pull-right" style="vertical-align:middle">
+    @using (Ajax.BeginForm("FilterRequests", "Home", new AjaxOptions
+            {
+                UpdateTargetId = "rqtable",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                LoadingElementId = "progress"
+            },
+        new { @class = "form-inline", style= "margin: 0" }))
+    {   
+        <label class="muted smallfont" for="request_date">
+            Дата поездки</label>
+        <input type="text" name="rDate" class="input-small" data-datepicker="True" placeholder="Дата поездки" />   
+        <input type="submit" value="Поиск" class="btn btn-small" />    
+    }
+</div>*@
+        </td>
+    </tr>
+</table>
+
+<div id="prtable">
+    <div class="well well-small">
+        
+         <table style="width:100%">
+            <tr>
+                <td>
+                    @Html.ActionLink("Подписать все", "SignAll", new { Id = Intranet.Utils.AccountManager.IsApprover(User.Identity.Name).Item1 }, new { @class = "btn btn-success" })
+                
+                     @Html.ActionLink("Вернуться в общий список заявок", "Index", null, new { @class = "btn"})
+                </td>
+                <td id="progress">                
+                    <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               
+                </td>                
+                <td style="text-align:right">
+                    <div class="muted smallfont">
+                                                
+                        @Ajax.ActionLink("Показать подписанные и неподписанные",
+                            "ShowAllRequestsToApprover", new { id = Intranet.Utils.AccountManager.IsApprover(User.Identity.Name).Item1},
+                            new AjaxOptions
+                            {
+                                UpdateTargetId = "prtable",
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "GET",
+                                LoadingElementId = "progress"
+                            },
+                            new { @class = "btn btn-mini" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+
+        @*<table style="width:100%">
+            <tr>
+                <td class="span3">
+                    @Html.ActionLink("Подписать все", "SignAll", new { Id = Intranet.Utils.AccountManager.IsApprover(User.Identity.Name).Item1 }, new { @class = "btn btn-success" })                                        
+                </td>
+                <td class="span4">
+                    @Html.ActionLink("Вернуться в общий список заявок", "Index", null, new { @class = "btn"})                   
+                </td>
+                <td id="progress">                
+                    <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               
+                </td>                
+                <td style="text-align:right">
+                    <div class="muted smallfont">
+                        в таблице показаны все конкурсы                        
+                        @ajax.actionlink("показать только мои конкурсы",
+                            "showonlymykps", null,
+                            new ajaxoptions
+                            {
+                                updatetargetid = "kpstable",
+                                insertionmode = insertionmode.replace,
+                                httpmethod = "get",
+                                loadingelementid = "progress"
+                            },
+                            new { @class = "btn btn-mini" })
+                    </div>
+                </td>
+            </tr>
+        </table>*@
+    </div>
+    <div id="rqtable">
+        @Html.Partial("_Table", Model)
+    </div>
+</div>
+

@@ -1,0 +1,147 @@
+﻿@model Intranet.Models.RequestPassenger
+
+@{
+    ViewBag.Title = "Просмотр заявки на пассажирский транспорт";
+    ViewBag.Active = "Passenger";
+}
+
+<fieldset>
+    <legend>Заявка № @Model.RequestId, на выделение пассажирского транспорта    
+
+    @Html.Raw(Intranet.Utils.StatusChecker.Check(Model.Request.Status))
+   
+    </legend>
+    <table class="table table-bordered">
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.DestinationPoint)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.DestinationPoint)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.Request.RequestDate)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Request.RequestDate)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.PassengerAmount)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.PassengerAmount)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.ChildAmount)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.ChildAmount)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.TripDuration)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.TripDuration)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.Request.CustomerId)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Request.v_RequestCustomer.CustomerName)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.TripPurpose)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.TripPurpose)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.SeatPlace)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.SeatPlace)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.SecondedPeople)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.SecondedPeople)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    Номер, дата, название приказа о командировании
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.OrderNumber), @Html.DisplayFor(model => model.OrderDate), @Html.DisplayFor(model => model.OrderName)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+
+@if (Model.Request.RequestEvents.Count != 0)
+{
+    <div class="dips-messages">
+    <p>
+        Операции с заявкой
+    </p>
+    @Html.DisplayFor(model => model.Request.RequestEvents)
+    </div>
+}
+ @Html.Partial("_DetailViewButtons", Model.Request)

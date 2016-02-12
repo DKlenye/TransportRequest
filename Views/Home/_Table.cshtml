@@ -1,0 +1,49 @@
+﻿@model Intranet.ViewModels.IndexList
+
+@{
+    var grid = new WebGrid(rowsPerPage: Model.RowPerPage >=1?Model.RowPerPage:1 , canPage: true, ajaxUpdateContainerId:"grid");
+    grid.Bind(Model.Requests, rowCount: Model.TotalRows, autoSortAndPage: false);          
+    @grid.Table(
+        tableStyle: "table table-hover smallfont",
+        htmlAttributes: new {id="grid"},
+        columns: grid.Columns(
+
+                    grid.Column(null, "№", canSort: false, format: (item) =>
+                    {
+                        return new HtmlString(item.DetailsLink);
+                    }),
+                    grid.Column("Status", "Статус", canSort: false, format: (item) =>
+                    {
+                        return new HtmlString(Intranet.Utils.StatusChecker.Check(item.Status));
+                    }),
+                    grid.Column("Customer", "Заказчик", canSort: false, style: "customercolumn"),
+                    grid.Column("RequestDate", "Дата поездки", canSort: true, format: (item) => string.Format("{0:dd.MM.yyyy}", item.RequestDate)),
+                            grid.Column(null, "Тип", canSort: false, format: (item) => { return new HtmlString(item.RequestTypeLabel); }),
+                    grid.Column("PublishDate", "Опубликовано", canSort: true, format: (item) => string.Format("{0:dd.MM.yyyy}", item.PublishDate)),
+                    grid.Column("UserFio", "Автор", canSort: false, style: "customercolumn"),
+                    grid.Column(null, "", canSort: false, format: (item) =>
+                    {
+                        return new HtmlString(item.DetailsButton);
+                    })
+        )
+  )
+
+<div class="pagination pagination-small pagination-right">
+    @grid.PagerList(mode: WebGridPagerModes.All)
+</div>    
+    
+  if (!string.IsNullOrWhiteSpace(grid.SortColumn))
+  {
+      <script type="text/javascript">
+          var sortDir = "@(grid.SortDirection == SortDirection.Ascending ? "ASC" : "DESC")";
+          var sd;
+          if (sortDir === "ASC")
+              sd = " <i class='icon-chevron-up'></i>";
+          else
+              sd = " <i class='icon-chevron-down'></i>";
+
+          $('thead > tr > th > a[href*="sort=@grid.SortColumn"]').parent().append(sd);
+      </script>
+  }
+
+}

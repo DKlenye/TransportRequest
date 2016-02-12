@@ -1,0 +1,38 @@
+﻿@model int
+<div>
+    <table>
+<tr class="slingerRow">
+    <td>
+        <div class="editor-field">
+            <input id="RequestCraneSlingers_@(Model)_SlingerId" name="RequestCraneSlingers[@(Model)].SlingerId"
+                type="hidden" value='' class="point"/>
+            <input id="RequestCraneSlingers_@(Model)_Office" name="RequestCraneSlingers[@(Model)].Office"
+                type="text" value='' style="width:200px" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestCraneSlingers_@(Model)_FIO" name="RequestCraneSlingers[@(Model)].FIO"
+                type="text"  style="width:250px" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestCraneSlingers_@(Model)_CertificateNumber" name="RequestCraneSlingers[@(Model)].CertificateNumber"
+                type="text" style="width:150px" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestCraneSlingers_@(Model)_DateKnowledge" name="RequestCraneSlingers[@(Model)].DateKnowledge" type="text" value="" class="knowledgedate lastSlingerInput" style="width:150px" />                            
+            <input id="RequestCraneSlingers_@(Model)__IsDeleted" name="RequestCraneSlingers[@(Model)].IsDeleted" type="hidden" value="False">
+        </div>
+    </td>    
+    <td style="vertical-align:top">
+        <div style="margin-top:4px" id="row-btn">
+            <a href="#" class="btn btn-danger btn-mini btn-del-slinger">удалить</a>
+        </div>
+    </td>
+</tr>
+</table>
+    </div>

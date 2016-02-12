@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Intranet.Models.RequestFreight>
+
+@{
+    ViewBag.Title = "Заявки на грузовой транспорт";
+    ViewBag.Active = "Freight";
+}
+
+
+<table style="width:100%">
+    <tr>
+        <td>
+            <h4>Заявки на грузовой транспорт</h4>
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+
+<div id="prtable">
+    <div class="well well-small">
+        <table style="width:100%">
+            <tr>
+                <td>
+                    @Html.ActionLink("Создать новую заявку", "Create", null, new { @class = "btn btn-primary" })             
+                </td>
+                <td id="progress">                
+                    <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               
+                </td>                
+                <td style="text-align:right">
+                </td>
+            </tr>
+        </table>
+    </div>
+    @Html.Partial("_Table", Model)
+</div>

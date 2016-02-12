@@ -1,0 +1,14 @@
+﻿<ul class="nav">    
+    @*<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        Home
+        <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+            <li><a href="@Url.Content("~/home/?layout=standard")">Standard Layout</a></li>
+            <li><a href="@Url.Content("~/home/?layout=fluid")">Fluid Layout</a></li>
+        </ul>
+    </li>  
+    <li><a href="@Url.Content("~/home/about")" id="about">About</a></li>     *@    
+    <li class="@(ViewBag.Active == "Passenger" ? "active" : "")"><a href="@Url.Content("~/Passenger")" id="passenger"><img src="/Content/images/Car_Grey.png" class="nav-icon" />Пассажирский</a></li>
+    <li class="@(ViewBag.Active == "Freight" ? "active" : "")"><a href="@Url.Content("~/Freight")" id="freight"><img src="/Content/images/Truck_Yellow.png" class="nav-icon" />Грузовой</a></li>
+    <li class="@(ViewBag.Active == "Crane" ? "active" : "")"><a href="@Url.Content("~/Crane")" id="crane"><img src="/Content/images/TruckMountedCrane_Yellow.png" class="nav-icon" />Грузоподъемный кран</a></li>
+</ul>                                   

@@ -1,0 +1,41 @@
+﻿@model Intranet.Models.RequestFreightCargo
+
+<tr class="cargoRow">
+    <td>
+        <div class="editor-field">
+            @Html.HiddenFor(c => c.CargoId)
+            @Html.TextBoxFor(c => c.CargoName, new { style = "width:380px" })
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Weight)
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Length)
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Width)
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Height)
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Volume)
+            @Html.HiddenFor(c => c.IsDeleted)
+        </div>
+    </td>
+    <td style="vertical-align:top">
+        <div style="margin-top:4px" id="row-btn">            
+        </div>
+    </td>
+</tr>
+

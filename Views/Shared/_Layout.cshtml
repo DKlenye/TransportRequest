@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="SHORTCUT ICON" href="@Url.Content("~/content/images/bus.ico")"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" type="text/css" />
+    
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui-1.9.1.custom.min.css")" rel="stylesheet"
+        type="text/css" />
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui-timepicker-addon.css")" rel="stylesheet" 
+        type="text/css" />    
+    <link href="@Url.Content("~/Content/chosen.css")" rel="stylesheet" type="text/css" />
+    @Content.Script("jquery-1.8.2.min.js", Url)
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">    
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="@Url.Content("~/")">Заявки на транспорт</a>
+                @Html.Partial("_NavPartial")
+                @Html.Partial("_LogOnPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()        
+        <hr />
+        <footer>
+            <div class="container" style="font-size:small; font-family:Calibri">
+                <div class="row">
+                    <div class="span6">
+                        <div>Диспетчерская служба</div>
+                    </div>
+                    <div class="span6">
+                        <div class="pull-right">2013, ОАО «Нафтан»</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                         <img src="/Content/images/phone.png" title="Телефон" /> 59-8309                       
+                    </div>
+                    <div class="span6">
+                        <div class="pull-right"><i class="icon-envelope"></i><a href="mailto:DKlenye@naftan.vitebsk.by">DKlenye@naftan.vitebsk.by</a></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                         <img src="/Content/images/fax.png" title="Факс" /> 59-4684                         
+                    </div>
+                    <div class="span6">                        
+
+                    </div>
+                </div>                   
+            </div>
+        </footer>
+    </div>        
+    @Content.Script("bootstrap.min.js", Url)    
+    @Content.Script("jquery.unobtrusive-ajax.min.js", Url)
+    @Content.Script("jquery-ui-1.9.1.custom.min.js", Url)
+    @Content.Script("jquery-ui-timepicker-addon.js", Url)
+    @Content.Script("jquery.validate.min.js", Url)
+    @Content.Script("site.js", Url)
+    @RenderSection("scripts", false)
+</body>
+</html>

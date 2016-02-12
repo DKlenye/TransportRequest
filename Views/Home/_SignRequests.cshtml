@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Intranet.Models.Request>
+@{
+    string message = ViewBag.Message;
+    string lnktxt = ViewBag.LinkText;
+    string actname = ViewBag.ActionName;
+}
+
+<div id="prtable">
+    <div class="well well-small">
+         <table style="width:100%">
+            <tr>
+                <td>
+                    @Html.ActionLink("Подписать все", "SignAll", new { Id = Intranet.Utils.AccountManager.IsApprover(User.Identity.Name).Item1 }, new { @class = "btn btn-success" })
+               
+                     @Html.ActionLink("Вернуться в общий список заявок", "Index", null, new { @class = "btn"})
+                </td>
+                <td id="progress">                
+                    <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               
+                </td>                
+                <td style="text-align:right">
+                    <div class="muted smallfont">
+                                                
+                        @Ajax.ActionLink(lnktxt,
+                            actname, new { id = Intranet.Utils.AccountManager.IsApprover(User.Identity.Name).Item1},
+                            new AjaxOptions
+                            {
+                                UpdateTargetId = "prtable",
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "GET",
+                                LoadingElementId = "progress"
+                            },
+                            new { @class = "btn btn-mini" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="rqtable">
+        @Html.Partial("_Table", Model)
+    </div>
+</div>

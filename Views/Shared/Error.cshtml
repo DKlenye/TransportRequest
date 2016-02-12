@@ -1,0 +1,12 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Ошибка";    
+    string backController = ViewBag.BackController;
+}
+
+<h2>
+   @ViewBag.ErrMessage
+</h2>
+
+@Html.ActionLink("Вернуться к списку", "Index", backController, null, new { @class = "btn btn-primary"})

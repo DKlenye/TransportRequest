@@ -1,0 +1,38 @@
+﻿@model Intranet.Models.RequestFreightCargo
+
+<div class="cargoRow">
+    <table>
+        <tr>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.CargoName, new { style = "width:400px" })
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Weight, new { style = "width:80px" })
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Length, new { style = "width:80px" })
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Width, new { style = "width:80px" })
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Height, new { style = "width:80px" })
+                </div>
+            </td>
+            <td>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Volume, new { style = "width:80px" })
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

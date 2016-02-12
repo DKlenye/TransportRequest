@@ -1,0 +1,168 @@
+﻿@model Intranet.Models.RequestPassenger
+
+@{
+    ViewBag.Title = "Удаление заявки на пассажирский транспорт";
+    ViewBag.Active = "Passenger";
+}
+
+<h2>Удаление записи</h2>
+<h3>Вы действительно хотите удалить эту заявку?</h3>
+
+@using (Html.BeginForm())
+{
+<fieldset>
+    <legend>Заявка № @Model.RequestId, на выделение пассажирского транспорта</legend>
+    <table class="table table-bordered">
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.DestinationPoint)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.DestinationPoint)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.Request.RequestDate)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Request.RequestDate)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.PassengerAmount)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.PassengerAmount)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.ChildAmount)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.ChildAmount)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.TripDuration)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.TripDuration)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.Request.CustomerId)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Request.v_RequestCustomer.CustomerName)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.TripPurpose)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.TripPurpose)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.SeatPlace)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.SeatPlace)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.SecondedPeople)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.SecondedPeople)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    Номер, дата, название приказа о командировании
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.OrderNumber), @Html.DisplayFor(model => model.OrderDate), @Html.DisplayFor(model => model.OrderName)
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+    
+    <table style="width:100%">
+    <tr>
+        <td>
+            <div class="pull-right muted nomargin createdby">
+    Запись создана @Html.DisplayFor(model => model.Request.PublishDate) пользователем @Html.DisplayFor(model => model.Request.UserFio)</div>
+        </td>
+    </tr>
+       <tr>
+           <td>
+               <div class="form-actions nomargin">
+                   <table style="width: 100%">
+                       <tr>
+                           <td>
+                           @*@Html.ActionLink("Удалить", "DeleteItem", new {id = Model.Id}, new {@class="btn btn-danger"})*@
+                               <input type="submit" value="Удалить" class="btn btn-danger"/>                                       
+                           </td>
+                           <td>
+                               @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary pull-right" })
+                           </td>
+                       </tr>
+                   </table>
+               </div>
+           </td>
+       </tr>
+</table>
+    
+}
+
+
+

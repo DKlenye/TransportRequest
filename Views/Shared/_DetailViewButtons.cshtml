@@ -1,0 +1,56 @@
+﻿@model Intranet.Models.Request
+
+@*@{
+    string approverFio = String.Empty;
+    if (Model.Employee != null)
+    {
+        string ln = Model.Employee.LastName;
+        ln = ln.Substring(0, 1) + ln.ToLower().Substring(1, ln.Length - 1);    
+        approverFio = ln + " " + Model.Employee.FirstName.Substring(0, 1) + "." + Model.Employee.MiddleName.Substring(0, 1) + ".";
+    }
+}*@
+
+<table style="width: 100%">
+    <tr>
+        <td>
+            <div class="pull-right muted nomargin createdby">
+                Запись создана @Html.DisplayFor(model => model.PublishDate) пользователем @Html.DisplayFor(model => model.UserFio)
+                @if (Model.Employee != null)
+                {
+                    <br />
+                    <text> отправлена на подпись @Model.Employee.Fio</text>
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="form-actions nomargin">
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            @if (Model.UserLogin.ToLower() == User.Identity.Name.ToLower() || User.IsInRole("LAN\\TR_Managers"))
+                            {
+                                @Html.ActionLink("Редактировать", "Edit", new { id = Model.RequestId }, new { @class = "btn btn-primary", style = "margin-right: 5px;" })
+                                @Html.ActionLink("Удалить", "Delete", new { id = Model.RequestId }, new { @class = "btn", style = "margin-right: 5px;" })
+                            }
+                            @if (User.IsInRole("LAN\\TR_Managers"))
+                            {
+                                @Html.ActionLink("Принять \\ Отклонить", "Process", new { id = Model.RequestId }, new { @class = "btn btn-warning", style = "margin-right: 5px;" })
+                            }
+                            @if (Intranet.Utils.AccountManager.IsApprover(User.Identity.Name).Item2 || User.IsInRole("LAN\\TR_Admins"))
+                            {
+                                @Html.ActionLink("Подписать \\ Отклонить", "Process", new { id = Model.RequestId }, new { @class = "btn btn-warning", style = "margin-right: 5px;" })
+                            }
+                        </td>
+                        <td>
+                            <div class="pull-right">
+                                @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary" })
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>

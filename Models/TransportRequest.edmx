@@ -1,0 +1,947 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="transportModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="transportModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="transportModel.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Request" EntityType="transportModel.Store.Request" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestApprover" EntityType="transportModel.Store.RequestApprover" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestAttachments" EntityType="transportModel.Store.RequestAttachments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestCrane" EntityType="transportModel.Store.RequestCrane" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestCraneSlingers" EntityType="transportModel.Store.RequestCraneSlingers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestEvent" EntityType="transportModel.Store.RequestEvent" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestFreight" EntityType="transportModel.Store.RequestFreight" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestFreightCargo" EntityType="transportModel.Store.RequestFreightCargo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RequestPassengers" EntityType="transportModel.Store.RequestPassengers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="v_RequestCustomers" EntityType="transportModel.Store.v_RequestCustomers" store:Type="Views" store:Schema="dbo" store:Name="v_RequestCustomers">
+            <DefiningQuery>SELECT 
+      [v_RequestCustomers].[CustomerId] AS [CustomerId], 
+      [v_RequestCustomers].[CustomerName] AS [CustomerName]
+      FROM [dbo].[v_RequestCustomers] AS [v_RequestCustomers]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Request_Employee" Association="transportModel.Store.FK_Request_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestApprover_Employee" Association="transportModel.Store.FK_RequestApprover_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="RequestApprover" EntitySet="RequestApprover" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestAttachments_Request" Association="transportModel.Store.FK_RequestAttachments_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestAttachments" EntitySet="RequestAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestCraneSlingers_RequestCrane" Association="transportModel.Store.FK_RequestCraneSlingers_RequestCrane">
+            <End Role="RequestCrane" EntitySet="RequestCrane" />
+            <End Role="RequestCraneSlingers" EntitySet="RequestCraneSlingers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestFreightCargo_RequestFreight" Association="transportModel.Store.FK_RequestFreightCargo_RequestFreight">
+            <End Role="RequestFreight" EntitySet="RequestFreight" />
+            <End Role="RequestFreightCargo" EntitySet="RequestFreightCargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK49D9AC63E11D1708" Association="transportModel.Store.FK49D9AC63E11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestFreight" EntitySet="RequestFreight" />
+          </AssociationSet>
+          <AssociationSet Name="FK5DCEAED9FBF1EE3B" Association="transportModel.Store.FK5DCEAED9FBF1EE3B">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="RequestApprover" EntitySet="RequestApprover" />
+          </AssociationSet>
+          <AssociationSet Name="FK994383D5E11D1708" Association="transportModel.Store.FK994383D5E11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestEvent" EntitySet="RequestEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK9D6A83D1E11D1708" Association="transportModel.Store.FK9D6A83D1E11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestCrane" EntitySet="RequestCrane" />
+          </AssociationSet>
+          <AssociationSet Name="FKD8385831E11D1708" Association="transportModel.Store.FKD8385831E11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestCraneSlingers" EntitySet="RequestCraneSlingers" />
+          </AssociationSet>
+          <AssociationSet Name="FKF72657FBE11D1708" Association="transportModel.Store.FKF72657FBE11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestPassengers" EntitySet="RequestPassengers" />
+          </AssociationSet>
+          <AssociationSet Name="FKFF33B50EE11D1708" Association="transportModel.Store.FKFF33B50EE11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestFreightCargo" EntitySet="RequestFreightCargo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_men" Type="int" />
+          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MiddleName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="EmployeeNumber" Type="varchar" Nullable="false" MaxLength="5" />
+          <Property Name="Department" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="Office" Type="varchar" MaxLength="160" />
+          <Property Name="IncomeDate" Type="date" />
+          <Property Name="DismissDate" Type="date" />
+          <Property Name="DSC" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="UserFio" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserLogin" Type="nvarchar" MaxLength="255" />
+          <Property Name="ApproverEmployeeId" Type="int" />
+          <Property Name="ApproverFio" Type="nvarchar" MaxLength="255" />
+          <Property Name="ApproverLogin" Type="nvarchar" MaxLength="255" />
+          <Property Name="PublishDate" Type="datetime" />
+          <Property Name="ApproveDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="RequestTaskId" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+        </EntityType>
+        <EntityType Name="RequestApprover">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestAttachments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Cont" Type="image" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestCrane">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="LicenceNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="WorkPlace" Type="nvarchar" MaxLength="511" />
+          <Property Name="WorkObject" Type="nvarchar" MaxLength="511" />
+          <Property Name="WorkType" Type="nvarchar" MaxLength="511" />
+          <Property Name="CraneType" Type="nvarchar" MaxLength="511" />
+          <Property Name="PowerLineExists" Type="bit" Nullable="false" />
+          <Property Name="PowerPermission" Type="nvarchar" MaxLength="255" />
+          <Property Name="Responsible" Type="nvarchar" MaxLength="511" />
+          <Property Name="ProjectExists" Type="bit" Nullable="false" />
+          <Property Name="ResponsibleOrder" Type="nvarchar" MaxLength="255" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="511" />
+        </EntityType>
+        <EntityType Name="RequestCraneSlingers">
+          <Key>
+            <PropertyRef Name="SlingerId" />
+          </Key>
+          <Property Name="SlingerId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestId" Type="int" />
+          <Property Name="Office" Type="nvarchar" MaxLength="255" />
+          <Property Name="FIO" Type="nvarchar" MaxLength="255" />
+          <Property Name="CertificateNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="DateKnowledge" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestEvent">
+          <Key>
+            <PropertyRef Name="RequestEventId" />
+          </Key>
+          <Property Name="RequestEventId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EventDate" Type="datetime" />
+          <Property Name="Message" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="int" />
+          <Property Name="RequestId" Type="int" />
+        </EntityType>
+        <EntityType Name="RequestFreight">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="DestinationPoint" Type="varchar" MaxLength="511" />
+          <Property Name="OrderNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="LoadingType" Type="nvarchar" MaxLength="511" />
+          <Property Name="LoadingAddress" Type="nvarchar" MaxLength="511" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="511" />
+          <Property Name="Responsible" Type="nvarchar" MaxLength="511" />
+          <Property Name="VehicleType" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="RequestFreightCargo">
+          <Key>
+            <PropertyRef Name="CargoId" />
+          </Key>
+          <Property Name="CargoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestId" Type="int" />
+          <Property Name="CargoName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Weight" Type="decimal" Precision="19" Scale="5" />
+          <Property Name="Length" Type="decimal" Precision="19" Scale="5" />
+          <Property Name="Width" Type="decimal" Precision="19" Scale="5" />
+          <Property Name="Height" Type="decimal" Precision="19" Scale="5" />
+          <Property Name="Volume" Type="decimal" Precision="19" Scale="5" />
+          <Property Name="DestAdress" Type="nvarchar" MaxLength="511" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestPassengers">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="DestinationPoint" Type="nvarchar" MaxLength="511" />
+          <Property Name="PassengerAmount" Type="smallint" />
+          <Property Name="ChildAmount" Type="smallint" />
+          <Property Name="TripPurpose" Type="nvarchar" MaxLength="511" />
+          <Property Name="SeatPlace" Type="nvarchar" MaxLength="511" />
+          <Property Name="TripDuration" Type="smallint" />
+          <Property Name="SecondedPeople" Type="nvarchar" MaxLength="1023" />
+          <Property Name="OrderNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="OrderName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'transport.dbo.v_RequestCustomers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="v_RequestCustomers">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Request_Employee">
+          <End Role="Employee" Type="transportModel.Store.Employee" Multiplicity="0..1" />
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ApproverEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestApprover_Employee">
+          <End Role="Employee" Type="transportModel.Store.Employee" Multiplicity="1" />
+          <End Role="RequestApprover" Type="transportModel.Store.RequestApprover" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="RequestApprover">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestAttachments_Request">
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
+          <End Role="RequestAttachments" Type="transportModel.Store.RequestAttachments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestAttachments">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestCraneSlingers_RequestCrane">
+          <End Role="RequestCrane" Type="transportModel.Store.RequestCrane" Multiplicity="0..1" />
+          <End Role="RequestCraneSlingers" Type="transportModel.Store.RequestCraneSlingers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestCrane">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestCraneSlingers">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestFreightCargo_RequestFreight">
+          <End Role="RequestFreight" Type="transportModel.Store.RequestFreight" Multiplicity="0..1" />
+          <End Role="RequestFreightCargo" Type="transportModel.Store.RequestFreightCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestFreight">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestFreightCargo">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK49D9AC63E11D1708">
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="1" />
+          <End Role="RequestFreight" Type="transportModel.Store.RequestFreight" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestFreight">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK5DCEAED9FBF1EE3B">
+          <End Role="Employee" Type="transportModel.Store.Employee" Multiplicity="1" />
+          <End Role="RequestApprover" Type="transportModel.Store.RequestApprover" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="RequestApprover">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK994383D5E11D1708">
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
+          <End Role="RequestEvent" Type="transportModel.Store.RequestEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestEvent">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK9D6A83D1E11D1708">
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="1" />
+          <End Role="RequestCrane" Type="transportModel.Store.RequestCrane" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestCrane">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKD8385831E11D1708">
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
+          <End Role="RequestCraneSlingers" Type="transportModel.Store.RequestCraneSlingers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestCraneSlingers">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKF72657FBE11D1708">
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="1" />
+          <End Role="RequestPassengers" Type="transportModel.Store.RequestPassengers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestPassengers">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKFF33B50EE11D1708">
+          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
+          <End Role="RequestFreightCargo" Type="transportModel.Store.RequestFreightCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestFreightCargo">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="transportModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="transportEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="RequestPassengers" EntityType="transportModel.RequestPassenger" />
+          <EntitySet Name="RequestCraneSlingers" EntityType="transportModel.RequestCraneSlinger" />
+          <EntitySet Name="RequestCranes" EntityType="transportModel.RequestCrane" />
+          <AssociationSet Name="FK_RequestCraneSlingers_RequestCrane" Association="transportModel.FK_RequestCraneSlingers_RequestCrane">
+            <End Role="RequestCrane" EntitySet="RequestCranes" />
+            <End Role="RequestCraneSlinger" EntitySet="RequestCraneSlingers" />
+          </AssociationSet>
+          <EntitySet Name="RequestFreightCargoes" EntityType="transportModel.RequestFreightCargo" />
+          <EntitySet Name="RequestFreights" EntityType="transportModel.RequestFreight" />
+          <AssociationSet Name="FK_RequestFreightCargo_RequestFreight" Association="transportModel.FK_RequestFreightCargo_RequestFreight">
+            <End Role="RequestFreight" EntitySet="RequestFreights" />
+            <End Role="RequestFreightCargo" EntitySet="RequestFreightCargoes" />
+          </AssociationSet>
+          <EntitySet Name="RequestAttachments" EntityType="transportModel.RequestAttachment" />
+          <EntitySet Name="RequestEvents" EntityType="transportModel.RequestEvent" />
+          <EntitySet Name="Employees" EntityType="transportModel.Employee" />
+          <EntitySet Name="Requests" EntityType="transportModel.Request" />
+          <EntitySet Name="RequestApprovers" EntityType="transportModel.RequestApprover" />
+          <AssociationSet Name="FK_Request_Employee" Association="transportModel.FK_Request_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestApprover_Employee" Association="transportModel.FK_RequestApprover_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="RequestApprover" EntitySet="RequestApprovers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestAttachments_Request" Association="transportModel.FK_RequestAttachments_Request">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestAttachment" EntitySet="RequestAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK49D9AC63E11D1708" Association="transportModel.FK49D9AC63E11D1708">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestFreight" EntitySet="RequestFreights" />
+          </AssociationSet>
+          <AssociationSet Name="FK994383D5E11D1708" Association="transportModel.FK994383D5E11D1708">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestEvent" EntitySet="RequestEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK9D6A83D1E11D1708" Association="transportModel.FK9D6A83D1E11D1708">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestCrane" EntitySet="RequestCranes" />
+          </AssociationSet>
+          <AssociationSet Name="FKD8385831E11D1708" Association="transportModel.FKD8385831E11D1708">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestCraneSlinger" EntitySet="RequestCraneSlingers" />
+          </AssociationSet>
+          <AssociationSet Name="FKF72657FBE11D1708" Association="transportModel.FKF72657FBE11D1708">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestPassenger" EntitySet="RequestPassengers" />
+          </AssociationSet>
+          <AssociationSet Name="FKFF33B50EE11D1708" Association="transportModel.FKFF33B50EE11D1708">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestFreightCargo" EntitySet="RequestFreightCargoes" />
+          </AssociationSet>
+          <EntitySet Name="v_RequestCustomers" EntityType="transportModel.v_RequestCustomers" />
+          <AssociationSet Name="Requestv_RequestCustomers" Association="transportModel.Requestv_RequestCustomers">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="v_RequestCustomers" EntitySet="v_RequestCustomers" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="RequestPassenger">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Type="Int32" Name="RequestId" Nullable="false" />
+          <Property Type="String" Name="DestinationPoint" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="PassengerAmount" />
+          <Property Type="Int16" Name="ChildAmount" />
+          <Property Type="String" Name="TripPurpose" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SeatPlace" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="TripDuration" />
+          <Property Type="String" Name="SecondedPeople" MaxLength="1023" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OrderNumber" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="OrderDate" Precision="3" />
+          <Property Type="String" Name="OrderName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FKF72657FBE11D1708" FromRole="RequestPassenger" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="RequestCraneSlinger">
+          <Key>
+            <PropertyRef Name="SlingerId" />
+          </Key>
+          <Property Type="Int32" Name="SlingerId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RequestId" />
+          <Property Type="String" Name="Office" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FIO" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CertificateNumber" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="DateKnowledge" Precision="3" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <NavigationProperty Name="RequestCrane" Relationship="transportModel.FK_RequestCraneSlingers_RequestCrane" FromRole="RequestCraneSlinger" ToRole="RequestCrane" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FKD8385831E11D1708" FromRole="RequestCraneSlinger" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="RequestCrane">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Type="Int32" Name="RequestId" Nullable="false" />
+          <Property Type="String" Name="LicenceNumber" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkPlace" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkObject" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WorkType" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CraneType" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="PowerLineExists" Nullable="false" />
+          <Property Type="String" Name="PowerPermission" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Responsible" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="ProjectExists" Nullable="false" />
+          <Property Type="String" Name="ResponsibleOrder" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CustomerName" MaxLength="511" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RequestCraneSlingers" Relationship="transportModel.FK_RequestCraneSlingers_RequestCrane" FromRole="RequestCrane" ToRole="RequestCraneSlinger" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FK9D6A83D1E11D1708" FromRole="RequestCrane" ToRole="Request" />
+        </EntityType>
+        <Association Name="FK_RequestCraneSlingers_RequestCrane">
+          <End Type="transportModel.RequestCrane" Role="RequestCrane" Multiplicity="0..1" />
+          <End Type="transportModel.RequestCraneSlinger" Role="RequestCraneSlinger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestCrane">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestCraneSlinger">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RequestFreightCargo">
+          <Key>
+            <PropertyRef Name="CargoId" />
+          </Key>
+          <Property Type="Int32" Name="CargoId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RequestId" />
+          <Property Type="String" Name="CargoName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Weight" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="Length" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="Width" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="Height" Precision="19" Scale="5" />
+          <Property Type="Decimal" Name="Volume" Precision="19" Scale="5" />
+          <Property Type="String" Name="DestAdress" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <NavigationProperty Name="RequestFreight" Relationship="transportModel.FK_RequestFreightCargo_RequestFreight" FromRole="RequestFreightCargo" ToRole="RequestFreight" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FKFF33B50EE11D1708" FromRole="RequestFreightCargo" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="RequestFreight">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Type="Int32" Name="RequestId" Nullable="false" />
+          <Property Type="String" Name="OrderNumber" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoadingType" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LoadingAddress" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ContactName" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Responsible" MaxLength="511" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RequestFreightCargoes" Relationship="transportModel.FK_RequestFreightCargo_RequestFreight" FromRole="RequestFreight" ToRole="RequestFreightCargo" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FK49D9AC63E11D1708" FromRole="RequestFreight" ToRole="Request" />
+          <Property Type="String" Name="VehicleType" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DestinationPoint" MaxLength="511" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_RequestFreightCargo_RequestFreight">
+          <End Type="transportModel.RequestFreight" Role="RequestFreight" Multiplicity="0..1" />
+          <End Type="transportModel.RequestFreightCargo" Role="RequestFreightCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequestFreight">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestFreightCargo">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RequestAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RequestId" />
+          <Property Type="String" Name="Name" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Cont" MaxLength="Max" FixedLength="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FK_RequestAttachments_Request" FromRole="RequestAttachment" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="RequestEvent">
+          <Key>
+            <PropertyRef Name="RequestEventId" />
+          </Key>
+          <Property Type="Int32" Name="RequestEventId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="EventDate" Precision="3" />
+          <Property Type="String" Name="Message" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Status" />
+          <Property Type="Int32" Name="RequestId" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FK994383D5E11D1708" FromRole="RequestEvent" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Type="Int32" Name="EmployeeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="id_men" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EmployeeNumber" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Department" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Office" MaxLength="160" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="IncomeDate" Precision="0" />
+          <Property Type="DateTime" Name="DismissDate" Precision="0" />
+          <Property Type="Byte" Name="DSC" Nullable="false" />
+          <NavigationProperty Name="Requests" Relationship="transportModel.FK_Request_Employee" FromRole="Employee" ToRole="Request" />
+          <NavigationProperty Name="RequestApprover" Relationship="transportModel.FK_RequestApprover_Employee" FromRole="Employee" ToRole="RequestApprover" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Type="Int32" Name="RequestId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="RequestDate" Precision="3" />
+          <Property Type="Int32" Name="Status" />
+          <Property Type="String" Name="UserFio" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserLogin" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ApproverEmployeeId" />
+          <Property Type="String" Name="ApproverFio" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ApproverLogin" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="PublishDate" Precision="3" />
+          <Property Type="DateTime" Name="ApproveDate" Precision="3" />
+          <Property Type="Boolean" Name="IsDeleted" />
+          <Property Type="Int32" Name="RequestTaskId" />
+          <NavigationProperty Name="Employee" Relationship="transportModel.FK_Request_Employee" FromRole="Request" ToRole="Employee" />
+          <NavigationProperty Name="RequestAttachments" Relationship="transportModel.FK_RequestAttachments_Request" FromRole="Request" ToRole="RequestAttachment" />
+          <NavigationProperty Name="RequestFreight" Relationship="transportModel.FK49D9AC63E11D1708" FromRole="Request" ToRole="RequestFreight" />
+          <NavigationProperty Name="RequestEvents" Relationship="transportModel.FK994383D5E11D1708" FromRole="Request" ToRole="RequestEvent" />
+          <NavigationProperty Name="RequestCrane" Relationship="transportModel.FK9D6A83D1E11D1708" FromRole="Request" ToRole="RequestCrane" />
+          <NavigationProperty Name="RequestCraneSlingers" Relationship="transportModel.FKD8385831E11D1708" FromRole="Request" ToRole="RequestCraneSlinger" />
+          <NavigationProperty Name="RequestPassenger" Relationship="transportModel.FKF72657FBE11D1708" FromRole="Request" ToRole="RequestPassenger" />
+          <NavigationProperty Name="RequestFreightCargoes" Relationship="transportModel.FKFF33B50EE11D1708" FromRole="Request" ToRole="RequestFreightCargo" />
+          <Property Type="Int32" Name="CustomerId" />
+          <NavigationProperty Name="v_RequestCustomer" Relationship="transportModel.Requestv_RequestCustomers" FromRole="Request" ToRole="v_RequestCustomers" />
+        </EntityType>
+        <EntityType Name="RequestApprover">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Type="Int32" Name="EmployeeId" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="transportModel.FK_RequestApprover_Employee" FromRole="RequestApprover" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Request_Employee">
+          <End Type="transportModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ApproverEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestApprover_Employee">
+          <End Type="transportModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="transportModel.RequestApprover" Role="RequestApprover" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="RequestApprover">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestAttachments_Request">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="transportModel.RequestAttachment" Role="RequestAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestAttachment">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK49D9AC63E11D1708">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="transportModel.RequestFreight" Role="RequestFreight" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestFreight">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK994383D5E11D1708">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="transportModel.RequestEvent" Role="RequestEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestEvent">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK9D6A83D1E11D1708">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="transportModel.RequestCrane" Role="RequestCrane" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestCrane">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKD8385831E11D1708">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="transportModel.RequestCraneSlinger" Role="RequestCraneSlinger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestCraneSlinger">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKF72657FBE11D1708">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="transportModel.RequestPassenger" Role="RequestPassenger" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestPassenger">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKFF33B50EE11D1708">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="transportModel.RequestFreightCargo" Role="RequestFreightCargo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestFreightCargo">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="v_RequestCustomers">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Type="Int32" Name="CustomerId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="CustomerName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="transportModel.Requestv_RequestCustomers" FromRole="v_RequestCustomers" ToRole="Request" />
+        </EntityType>
+        <Association Name="Requestv_RequestCustomers">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
+          <End Type="transportModel.v_RequestCustomers" Role="v_RequestCustomers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="v_RequestCustomers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="transportModelStoreContainer" CdmEntityContainer="transportEntities">
+          <EntitySetMapping Name="RequestPassengers">
+            <EntityTypeMapping TypeName="transportModel.RequestPassenger">
+              <MappingFragment StoreEntitySet="RequestPassengers">
+                <ScalarProperty Name="OrderName" ColumnName="OrderName" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="SecondedPeople" ColumnName="SecondedPeople" />
+                <ScalarProperty Name="TripDuration" ColumnName="TripDuration" />
+                <ScalarProperty Name="SeatPlace" ColumnName="SeatPlace" />
+                <ScalarProperty Name="TripPurpose" ColumnName="TripPurpose" />
+                <ScalarProperty Name="ChildAmount" ColumnName="ChildAmount" />
+                <ScalarProperty Name="PassengerAmount" ColumnName="PassengerAmount" />
+                <ScalarProperty Name="DestinationPoint" ColumnName="DestinationPoint" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestCraneSlingers">
+            <EntityTypeMapping TypeName="transportModel.RequestCraneSlinger">
+              <MappingFragment StoreEntitySet="RequestCraneSlingers">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DateKnowledge" ColumnName="DateKnowledge" />
+                <ScalarProperty Name="CertificateNumber" ColumnName="CertificateNumber" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="SlingerId" ColumnName="SlingerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestCranes">
+            <EntityTypeMapping TypeName="transportModel.RequestCrane">
+              <MappingFragment StoreEntitySet="RequestCrane">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="ResponsibleOrder" ColumnName="ResponsibleOrder" />
+                <ScalarProperty Name="ProjectExists" ColumnName="ProjectExists" />
+                <ScalarProperty Name="Responsible" ColumnName="Responsible" />
+                <ScalarProperty Name="PowerPermission" ColumnName="PowerPermission" />
+                <ScalarProperty Name="PowerLineExists" ColumnName="PowerLineExists" />
+                <ScalarProperty Name="CraneType" ColumnName="CraneType" />
+                <ScalarProperty Name="WorkType" ColumnName="WorkType" />
+                <ScalarProperty Name="WorkObject" ColumnName="WorkObject" />
+                <ScalarProperty Name="WorkPlace" ColumnName="WorkPlace" />
+                <ScalarProperty Name="LicenceNumber" ColumnName="LicenceNumber" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestFreightCargoes">
+            <EntityTypeMapping TypeName="transportModel.RequestFreightCargo">
+              <MappingFragment StoreEntitySet="RequestFreightCargo">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DestAdress" ColumnName="DestAdress" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="CargoName" ColumnName="CargoName" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="CargoId" ColumnName="CargoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestFreights">
+            <EntityTypeMapping TypeName="transportModel.RequestFreight">
+              <MappingFragment StoreEntitySet="RequestFreight">
+                <ScalarProperty Name="DestinationPoint" ColumnName="DestinationPoint" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="Responsible" ColumnName="Responsible" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="LoadingAddress" ColumnName="LoadingAddress" />
+                <ScalarProperty Name="LoadingType" ColumnName="LoadingType" />
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestAttachments">
+            <EntityTypeMapping TypeName="transportModel.RequestAttachment">
+              <MappingFragment StoreEntitySet="RequestAttachments">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Cont" ColumnName="Cont" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestEvents">
+            <EntityTypeMapping TypeName="transportModel.RequestEvent">
+              <MappingFragment StoreEntitySet="RequestEvent">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="RequestEventId" ColumnName="RequestEventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="transportModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="DSC" ColumnName="DSC" />
+                <ScalarProperty Name="DismissDate" ColumnName="DismissDate" />
+                <ScalarProperty Name="IncomeDate" ColumnName="IncomeDate" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="id_men" ColumnName="id_men" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="transportModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="RequestTaskId" ColumnName="RequestTaskId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="ApproverLogin" ColumnName="ApproverLogin" />
+                <ScalarProperty Name="ApproverFio" ColumnName="ApproverFio" />
+                <ScalarProperty Name="ApproverEmployeeId" ColumnName="ApproverEmployeeId" />
+                <ScalarProperty Name="UserLogin" ColumnName="UserLogin" />
+                <ScalarProperty Name="UserFio" ColumnName="UserFio" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestApprovers">
+            <EntityTypeMapping TypeName="transportModel.RequestApprover">
+              <MappingFragment StoreEntitySet="RequestApprover">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_RequestCustomers">
+            <EntityTypeMapping TypeName="transportModel.v_RequestCustomers">
+              <MappingFragment StoreEntitySet="v_RequestCustomers">
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="TransportRequest" ZoomLevel="85">
+        <EntityTypeShape EntityType="transportModel.RequestPassenger" Width="1.5" PointX="2.75" PointY="9.875" Height="2.9070849609374996" />
+        <EntityTypeShape EntityType="transportModel.RequestCraneSlinger" Width="1.5" PointX="7.125" PointY="6" Height="2.4140429687500005" />
+        <EntityTypeShape EntityType="transportModel.RequestCrane" Width="1.5" PointX="4.625" PointY="6" Height="3.2357796223958326" />
+        <AssociationConnector Association="transportModel.FK_RequestCraneSlingers_RequestCrane" >
+          <ConnectorPoint PointX="6.125" PointY="7.207021484375" />
+          <ConnectorPoint PointX="6.463541666666667" PointY="7.2070214843749989" />
+          <ConnectorPoint PointX="6.630208333333333" PointY="7.207021484375" />
+          <ConnectorPoint PointX="7.125" PointY="7.207021484375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="transportModel.RequestFreightCargo" Width="1.5" PointX="8.875" PointY="0.625" Height="2.9070849609374996" />
+        <EntityTypeShape EntityType="transportModel.RequestFreight" Width="1.5" PointX="5.875" PointY="0.875" Height="2.2496956380208317" />
+        <AssociationConnector Association="transportModel.FK_RequestFreightCargo_RequestFreight" >
+          <ConnectorPoint PointX="4.5" PointY="2.9998478190104159" />
+          <ConnectorPoint PointX="6.75" PointY="2.9998478190104159" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="transportModel.RequestAttachment" Width="2.25" PointX="4.875" PointY="10.125" Height="1.9210009765624996" />
+        <EntityTypeShape EntityType="transportModel.RequestEvent" Width="1.5" PointX="8.5" PointY="10.125" />
+        <EntityTypeShape EntityType="transportModel.Employee" Width="1.5" PointX="2.75" PointY="13.625" FillColor="Green" />
+        <EntityTypeShape EntityType="transportModel.Request" Width="1.5" PointX="0.875" PointY="4.125" />
+        <EntityTypeShape EntityType="transportModel.RequestApprover" Width="1.5" PointX="5.625" PointY="14.5" FillColor="Green" />
+        <AssociationConnector Association="transportModel.FK_Request_Employee" />
+        <AssociationConnector Association="transportModel.FK_RequestApprover_Employee" />
+        <AssociationConnector Association="transportModel.FK_RequestAttachments_Request" />
+        <AssociationConnector Association="transportModel.FK49D9AC63E11D1708" />
+        <AssociationConnector Association="transportModel.FK994383D5E11D1708" />
+        <AssociationConnector Association="transportModel.FK9D6A83D1E11D1708" />
+        <AssociationConnector Association="transportModel.FKD8385831E11D1708" />
+        <AssociationConnector Association="transportModel.FKF72657FBE11D1708" />
+        <AssociationConnector Association="transportModel.FKFF33B50EE11D1708" />
+        <EntityTypeShape EntityType="transportModel.v_RequestCustomers" Width="2.625" PointX="2.5" PointY="1.125" FillColor="255, 128, 128" />
+        <AssociationConnector Association="transportModel.Requestv_RequestCustomers" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

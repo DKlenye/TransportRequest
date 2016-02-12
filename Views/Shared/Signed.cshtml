@@ -1,0 +1,7 @@
+﻿@{
+    ViewBag.Title = "Подпись заявок на транспорт";
+    string message = ViewBag.Message;
+}
+
+<h2>@message</h2>
+@Html.ActionLink("Вернуться к общему списку", "Index", "Home", null, new { @class = "btn btn-primary"})

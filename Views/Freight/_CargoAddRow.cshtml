@@ -1,0 +1,53 @@
+﻿@model int
+
+<div>
+   
+<table>
+<tr class="cargoRow">
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_CargoId" name="RequestFreightCargoes[@(Model)].CargoId"
+                type="hidden" value='' class="point"/>
+            <input id="RequestFreightCargoes_@(Model)_CargoName" name="RequestFreightCargoes[@(Model)].CargoName"
+                type="text" value='' style="width: 380px" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_Weight" name="RequestFreightCargoes[@(Model)].Weight"
+                type="text" class="decimal-value" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_Length" name="RequestFreightCargoes[@(Model)].Length"
+                type="text" class="decimal-value" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_Width" name="RequestFreightCargoes[@(Model)].Width" type="text"
+                class="decimal-value" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_Height" name="RequestFreightCargoes[@(Model)].Height"
+                type="text" class="decimal-value" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_Volume" name="RequestFreightCargoes[@(Model)].Volume"
+                type="text" class="decimal-value" />
+            <input id="RequestFreightCargoes_@(Model)__IsDeleted" name="RequestFreightCargoes[@(Model)].IsDeleted" type="hidden" value="False">
+        </div>
+    </td>
+    <td style="vertical-align:top">
+        <div style="margin-top:4px" id="row-btn">
+            <a href="#" class="btn btn-danger btn-mini btn-del-cargo">удалить</a>
+        </div>
+    </td>
+</tr>
+</table>
+</div>

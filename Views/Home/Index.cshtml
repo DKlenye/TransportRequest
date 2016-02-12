@@ -1,0 +1,94 @@
+﻿@using Intranet.Utils
+@model Intranet.ViewModels.IndexList
+
+@{    
+    if (Request.QueryString["layout"] == "fluid")
+    {
+        ViewBag.Title = "Home Page Fluid Layout";
+        ViewBag.Message = "Bootstrap Fluid Layout";
+        Layout = "~/Views/Shared/_LayoutFluid.cshtml";
+    }
+    else
+    {
+        ViewBag.Title = "Заявки на транспорт";
+        ViewBag.Message = "Заявки на транспорт";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<table style="width:100%">
+    <tr>
+        <td>
+            @Html.ActionLink("Общий список заявок", "Index", "Home", new { style ="font-size: 13pt;color: black;font-weight: bold;"})            
+        </td>
+        <td>
+            <div class="pull-right" style="vertical-align:middle">
+    @using (Ajax.BeginForm("FilterRequests", "Home", new AjaxOptions
+            {
+                UpdateTargetId = "rqtable",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                LoadingElementId = "progress"
+            },
+        new { @class = "form-inline", style= "margin: 0", id = "searchForm" }))
+    {   
+        <label class="muted smallfont" for="request_date">
+            Дата поездки</label>
+        <input type="text" name="rDate" class="input-small" data-datepicker="True" placeholder="Дата поездки" id="searchDate" />   
+        <input type="submit" value="Поиск" class="btn btn-small" />    
+    }
+</div>
+        </td>
+    </tr>
+</table>
+
+<div id="prtable">
+    <div class="well well-small">
+        <table style="width:100%">
+            <tr>
+                <td class="span3">
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Создать новую заявку
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>
+                              @Html.ActionLink("На пассажирский транспорт", "Create", "Passenger", null, null) 
+                          </li>
+                          <li>
+                              @Html.ActionLink("На грузовой транспорт", "Create", "Freight", null, null) 
+                          </li>
+                          <li>
+                              @Html.ActionLink("На грузоподъемный кран", "Create", "Crane", null, null) 
+                          </li>
+                        </ul>
+                    </div>                    
+                </td>
+                <td class="span3">
+                    @{
+                        Tuple<int, bool> user = AccountManager.IsApprover(User.Identity.Name);
+
+                        if (user.Item2)
+                        {                        
+                        @Html.ActionLink("Заявки на подпись", "RequestsToApprove", new { id = user.Item1 }, new { @class = "btn" })
+                        <span class="badge badge-warning">@RequstsToSign.RequstsToSignCount(user.Item1)</span>             
+                        }
+                        
+                    }
+                </td>
+                <td id="progress">                
+                    <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               
+                </td>                
+                <td style="text-align:right">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="rqtable">
+        @Html.Partial("_Table", Model)
+    </div>
+</div>
+
+
+

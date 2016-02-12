@@ -1,0 +1,36 @@
+﻿@model Intranet.Models.Request
+
+<div class="form-actions nomargin">
+    @using (Html.BeginForm("Action", "Home", FormMethod.Post))
+    {
+        <table style="width: 100%">
+            <tr>
+                <td colspan="2">
+                    @Html.HiddenFor(model => model.RequestId)
+                    <p style="font-family: Calibri">Можно оставить заметку, которую увидит автор заявки</p>
+                    <textarea id="message" name="message" class="text-box" style="height: 5em; width: 100%;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if (User.IsInRole("LAN\\TR_Managers"))
+                    {
+                        <input type="submit" name="accept" value="Принять заявку" class="btn btn-success" />
+                        <input type="submit" name="reject" value="Отклонить заявку" class="btn btn-danger" />
+                    }
+                    @if (User.IsInRole("LAN\\TR_Admins") || Intranet.Utils.AccountManager.IsApprover(User.Identity.Name).Item2)
+                    {
+                        <input type="submit" name="sign" value="Подписать заявку" class="btn btn-success" />
+                        <input type="submit" name="reject" value="Отклонить заявку" class="btn btn-danger" />                                                 
+                    }
+                </td>
+                <td>
+                    <div class="pull-right">
+                        @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+   }
+</div>
+

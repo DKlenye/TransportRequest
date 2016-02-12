@@ -1,0 +1,204 @@
+﻿@model Intranet.Models.RequestCrane
+
+@{
+    ViewBag.Title = "Просмотр заявки на выделение грузоподъемного крана";
+    ViewBag.Active = "Crane";
+}
+
+<fieldset>
+    <legend>Заявка № @Model.RequestId, на выделение грузоподъемного крана
+
+        @Html.Raw(Intranet.Utils.StatusChecker.Check(Model.Request.Status))
+               
+    </legend>
+    <table class="table table-bordered">
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.Request.RequestDate)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Request.RequestDate)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.Request.CustomerId)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Request.v_RequestCustomer.CustomerName)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.LicenceNumber)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.LicenceNumber)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.WorkPlace)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.WorkPlace)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.WorkObject)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.WorkObject)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.WorkType)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.WorkType)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.CraneType)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.CraneType)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.PowerLineExists)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.PowerLineExists)
+                </div>
+            </td>
+        </tr>
+
+        @if (Model.PowerLineExists == true)
+        {
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.PowerPermission)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.PowerPermission)
+                </div>
+            </td>
+        </tr>
+        }
+        
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.Responsible)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.Responsible)
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 33%">
+                Данные о стропальщиках
+            </td>
+            <td class="display-field">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>
+                            @Html.LabelFor(model => model.RequestCraneSlingers.First().Office)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestCraneSlingers.First().FIO)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestCraneSlingers.First().CertificateNumber)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestCraneSlingers.First().DateKnowledge)
+                        </th>                        
+                    </tr>
+                    @Html.DisplayFor(model => model.RequestCraneSlingers)
+                 
+                </table>               
+            </td>
+        </tr>      
+
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.ProjectExists)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.ProjectExists)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 33%">
+                <div class="display-label">
+                    @Html.LabelFor(model => model.ResponsibleOrder)
+                </div>
+            </td>
+            <td>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.ResponsibleOrder)
+                </div>
+            </td>
+        </tr>              
+    </table>
+</fieldset>
+
+@if (Model.Request.RequestEvents.Count != 0)
+{
+    <div class="dips-messages">
+    <p>
+        Операции с заявкой
+    </p>
+    @Html.DisplayFor(model => model.Request.RequestEvents)
+    </div>
+}
+
+@Html.Partial("_DetailViewButtons", Model.Request)   

@@ -1,0 +1,8 @@
+﻿@model Intranet.Models.RequestEvent
+
+<div class="alert alert-info">
+    <strong>@Model.EventDate</strong>
+    Заявка @Html.Raw(Intranet.Utils.StatusChecker.Check(Model.Status))
+    @Model.Message    
+</div>
+
