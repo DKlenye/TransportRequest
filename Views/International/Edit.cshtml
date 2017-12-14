@@ -1,0 +1,55 @@
+﻿@model Intranet.Models.RequestInternational
+
+@{
+    ViewBag.Title = "Редактирование заявки на грузовой транспорт за пределами витебской области";
+    ViewBag.Active = "International";
+}
+
+@section scripts{
+    @Content.Script("jquery.validate.unobtrusive.min.js", Url)
+    @Content.Script("chosen.jquery.min.js", Url)
+    @Content.Script("dropdownlist.js", Url)
+}
+
+@using (Html.BeginForm("Edit", "International", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+     <fieldset>
+        <legend>Заявка № @Model.RequestId, на выделение грузового транспорт за пределами витебской области</legend>
+        @Html.HiddenFor(model => model.RequestId)
+        @Html.Partial("_EditInfo",Model) 
+        <table>
+            <tr>
+                Отправить заявку на подпись
+            </tr>
+            <tr>
+                <td>
+                    @{
+                        var _db = new Intranet.Models.transportEntities();
+                        Dictionary<int, string> approvers = new Dictionary<int, string>();
+                        foreach (var apr in _db.RequestApprovers.OrderBy(a => a.Employee.LastName).ToList())
+                        {
+                            approvers.Add(apr.EmployeeId, apr.Employee.Fio + ", " + apr.Employee.Office); 
+                        }
+                     }
+                    @Html.DropDownListFor(model => model.Request.ApproverEmployeeId, new SelectList(approvers, "Key", "Value"), new { @class = "span9 chzn-select"})
+
+                </td>
+            </tr>
+        </table>
+                       
+    </fieldset>
+     <br />
+    <div class="form-actions nomargin">
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    <input type="submit" value="Сохранить изменения" class="btn btn-success" />
+                </td>
+                <td>
+                    @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary pull-right" })
+                </td>
+            </tr>
+        </table>
+    </div>
+}

@@ -1,0 +1,358 @@
+﻿@model Intranet.Models.RequestInternational
+
+<table class="table table-bordered">
+    
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Way)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Way)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DepartmentId)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.ServiceDepartment.DepartmentName)
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DeliveryBasis)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DeliveryBasis)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+               Дата загрузки
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Request.RequestDate)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DeliveryDate)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DeliveryDate)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Consignor)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Consignor)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.LoadingContactName)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.LoadingContactName)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DepartureCustoms)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DepartureCustoms)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DeliveryAddress)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DeliveryAddress)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.UnloadingContactName)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.UnloadingContactName)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.ReturnCustoms)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.ReturnCustoms)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.CargoName)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CargoName)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DangerCargo)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DangerCargo)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.PackageListNumber)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.PackageListNumber)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Code)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Code)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.CargoPlaces)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CargoPlaces)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.CargoDimensions)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CargoDimensions)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Brutto)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Brutto)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Netto)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Netto)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.CargoVolume)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CargoVolume)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.VehicleType)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.VehicleType)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.VehicleCapacityTonns)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.VehicleCapacityTonns)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.VehicleCount)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.VehicleCount)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.LoadingType)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.LoadingType)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.CargoCost)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CargoCost)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.CargoOverloading)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CargoOverloading)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.CargoStackability)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.CargoStackability)
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Request.OtherInformation)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Request.OtherInformation)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                <label>Файлы</label>
+            </div>
+        </td>
+        <td>
+            @foreach (Intranet.Models.RequestAttachment file in Model.Request.RequestAttachments.Where(a => a.IsDeleted != true).ToList())
+            {
+                <div>
+                    @Html.ActionLink(file.Name, "DownloadFile", new { fId = file.Id })
+                </div>
+            }
+        </td>
+    </tr>
+</table>    

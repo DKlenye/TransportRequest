@@ -1,0 +1,9 @@
+﻿@model Intranet.Models.RequestAttachment
+           
+<div class="fileDelRow">
+    <p>
+    <input type="hidden" name="oldFiles" id="@Model.Id" value="@Model.Id"/>
+    @Html.ActionLink(Model.Name, "DownloadFile", new { fId = Model.Id })
+    <a href="#" class="deleteRow btn btn-danger btn-mini">удалить</a>
+    </p>
+</div>

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Intranet.Models.RequestInternational>
+
+@{
+    ViewBag.Title = "Заявки на грузовой транспорт за предалами витебской области";
+    ViewBag.Active = "International";
+}
+
+
+<table style="width:100%">
+    <tr>
+        <td>
+            <h4>Заявки на грузовой транспорт за пределами витебской области</h4>
+        </td>
+        <td>
+            <div class="pull-right" style="vertical-align:middle">
+                @using (Ajax.BeginForm("FilterRequests", "International", new AjaxOptions
+            {
+                UpdateTargetId = "rqtable",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                LoadingElementId = "progress"
+            },
+        new { @class = "form-inline", style = "margin: 0", id = "searchForm" }))
+                {
+                    <label class="muted smallfont">
+                        Автор
+                    </label>
+                    <input type="text" name="userFio" placeholder="" id="searchUserFio" />
+                    <input type="submit" value="Поиск" class="btn btn-small" />
+                }
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="prtable">
+    <div class="well well-small">
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Создать новую заявку
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                @Html.ActionLink("На пассажирский транспорт", "Create", "Passenger", null, null)
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="javascript:void(0)">На грузовой транспорт</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("В пределах витебской области", "Create", "Freight", null, null) </li>
+                                    <li>@Html.ActionLink("За пределами витебской области", "Create", "International", null, null) </li>
+                                </ul>
+                            </li>
+                            <li>
+                                @Html.ActionLink("На грузоподъемный кран", "Create", "Crane", null, null)
+                            </li>
+                        </ul>
+                    </div>             
+                </td>
+                <td id="progress">                
+                    <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               
+                </td>                
+                <td style="text-align:right">
+                </td>
+            </tr>
+        </table>
+    </div >
+    <div id="rqtable">
+        @Html.Partial("_Table", Model)
+    </div>
+</div>

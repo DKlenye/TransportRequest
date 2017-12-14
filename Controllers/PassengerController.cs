@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Intranet.Models;
 using Intranet.Utils;
@@ -66,9 +64,18 @@ namespace Intranet.Controllers
         //
         // GET: /Passenger/Create
 
-        public ActionResult Create()
-        {            
-            return View(new RequestPassenger());
+        public ActionResult Create(int? id)
+        {
+            var model = new RequestPassenger();
+
+            if (id != null)
+            {
+                model = _db.Requests.Single(pr => pr.RequestId == id).RequestPassenger;
+                model.Request.RequestEvents = null;
+                model.RequestId = 0;
+            }
+
+            return View(model);
         } 
 
         //
@@ -84,8 +91,39 @@ namespace Intranet.Controllers
                     ViewBag.ErrorMessage = "Веберите руководителя, который подпишет заявку!";
                     return View(rp);
                 }
-                try
+
+                if ((rp.Request.DepartmentGroupId ?? 0) == 0)
                 {
+                    ViewBag.ErrorMessage = "Веберите структурное подразделение!";
+                    return View(rp);
+                }
+
+                if ((rp.Request.DirectionId ?? 0) == 0)
+                {
+                    ViewBag.ErrorMessage = "Веберите направление перевозки!";
+                    return View(rp);
+                }
+
+                if ((rp.Request.AgreementPurposeId ?? 0) == 0)
+                {
+                    ViewBag.ErrorMessage = "Веберите цель перевозки!";
+                    return View(rp);
+                }
+
+                
+               /* try
+                {*/
+
+                    var customer = _db.v_RequestCustomers.FirstOrDefault(
+                    x => x.DirectionId == rp.Request.DirectionId && x.PurposeId == rp.Request.AgreementPurposeId);
+
+                    if (customer == null)
+                    {
+                        ViewBag.ErrorMessage = "Не найден заказчик по направлению и цели перевозки.";
+                        return View(rp);
+                    }
+
+                    rp.Request.CustomerId = customer.CustomerId;
                     
                     rp.Request.Status = 0;
                     rp.Request.UserLogin = User.Identity.Name;
@@ -95,30 +133,32 @@ namespace Intranet.Controllers
 
                     if (Utils.AccountManager.IsApprover(User.Identity.Name).Item2)
                     {
+                        rp.Request.SendToSpecTrans = true;
                         rp.Request.Status = 1;
                         rp.Request.ApproveDate = DateTime.Now;
                         rp.Request.ApproverLogin = User.Identity.Name;
                         rp.Request.ApproverFio = Utils.AccountManager.GetUserDisplayName(User.Identity.Name);
                        
-                        RequestEvent re = new RequestEvent();
-                        re.Status = 1;                        
-                        re.EventDate = DateTime.Now;
+                        var re = new RequestEvent {Status = 1, EventDate = DateTime.Now};
                         rp.Request.RequestEvents.Add(re);
                     }
 
                     if (rp.Request.CustomerId == 0)
                         rp.Request.CustomerId = null;
 
+                    if (rp.Request.RequestTypeId == 0)
+                        rp.Request.RequestTypeId = null;
+
                     _db.RequestPassengers.Add(rp);
                     _db.SaveChanges();                    
                     return View("Published", rp.Request.RequestId);
-                }
+                /*}
                 catch
                 {
                     ViewBag.ErrMessage = "Ошибка при создании записи";
                     ViewBag.BackController = "Passenger";
                     return View("Error");                   
-                }
+                }*/
             }
             return View();
         }
@@ -135,6 +175,12 @@ namespace Intranet.Controllers
             //    ViewBag.BackController = "Passenger";
             //    return View("Denied");
             //}
+
+            if (model.Request.SpecTransReceived != null && model.Request.SpecTransReceived.Value)
+            {
+                ViewBag.BackController = "Home";
+                return View("Sended");
+            }
 
             //редактировать только автору, менеджеру, админу
             if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") || User.IsInRole("LAN\\TR_Admins"))
@@ -173,12 +219,32 @@ namespace Intranet.Controllers
                     model.TripDuration = rp.TripDuration;
                     model.SeatPlace = rp.SeatPlace;
                     model.SecondedPeople = rp.SecondedPeople;
+                    model.ConfirmEmail = rp.ConfirmEmail;
+                    model.ConfirmTelFax = rp.ConfirmTelFax;
+                    model.Request.OtherInformation = rp.Request.OtherInformation;
                     model.Request.ApproverEmployeeId = rp.Request.ApproverEmployeeId;
+                    model.Request.RequestTime = rp.Request.RequestTime;
+                    model.Request.Responsible = rp.Request.Responsible;
 
                     if (rp.Request.CustomerId == 0)
                         rp.Request.CustomerId = null;
 
-                    model.Request.CustomerId = rp.Request.CustomerId;
+                    if (rp.Request.RequestTypeId == 0)
+                        rp.Request.RequestTypeId = null;
+
+
+                    var customer = _db.v_RequestCustomers.FirstOrDefault(
+                    x => x.DirectionId == rp.Request.DirectionId && x.PurposeId == rp.Request.AgreementPurposeId);
+
+                    if (customer == null)
+                    {
+                        ViewBag.ErrorMessage = "Не найден заказчик по направлению и цели перевозки. Возможно не выбрана цель и направление перевозки";
+                        return View(rp);
+                    }
+
+                    model.Request.CustomerId = customer.CustomerId;
+
+                    model.Request.RequestTypeId = rp.Request.RequestTypeId;
 
                     if (model.Request.Status == 3 && User.Identity.Name.ToLower() == model.Request.UserLogin.ToLower())
                     {
@@ -215,6 +281,13 @@ namespace Intranet.Controllers
             //    ViewBag.BackController = "Passenger";
             //    return View("Denied");
             //}
+
+            if (model.Request.SpecTransReceived != null && model.Request.SpecTransReceived.Value)
+            {
+                ViewBag.BackController = "Home";
+                return View("Sended");
+            }
+
 
             //удалять только автору, менеджеру, админу
             if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") || User.IsInRole("LAN\\TR_Admins"))

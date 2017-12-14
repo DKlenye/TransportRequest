@@ -24,7 +24,11 @@
                     grid.Column(null, "", canSort: false, format: (item) =>
                     {
                         return new HtmlString(item.DetailsButton);
-                    })
+                    }),
+                            grid.Column(null, "", canSort: false, format: (item) =>
+                            {
+                                return new HtmlString(item.CopyButton);
+                            },style:"copycolumn")
         )
   )
 

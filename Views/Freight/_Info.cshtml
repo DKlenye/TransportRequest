@@ -1,0 +1,369 @@
+﻿@model Intranet.Models.RequestFreight
+
+   <table class="table table-bordered">
+       
+       <tr>
+           <td style="width: 33%">
+               <div class="display-label">
+                   Вид заявки
+               </div>
+           </td>
+           <td>
+               <div class="display-field">
+                   @Html.DisplayFor(model => model.Request.v_RequestType.RequestTypeName)
+               </div>
+           </td>
+       </tr>
+
+       <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                Тип заявки
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @if (@Model.WithInvoice)
+                {
+                    <label>По договору №3 062/2.13.11782 (на фрахтование ТС для перевозки грузов)</label>
+                }
+                @if (!@Model.WithInvoice)
+                {
+                    <label>По договору №2 062/2.13.11781 (на внутризаводские перевозки грузов)</label>
+                }
+            </div>
+        </td> 
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Request.RequestDate)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Request.RequestDate)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.LoadingTime)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.LoadingTime)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Shipper)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Shipper)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.LoadingAddress)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.LoadingAddress)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.ContactName)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.ContactName)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Consignee)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Consignee)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DestinationPoint)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DestinationPoint)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.ConsigneeContactName)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.ConsigneeContactName)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.DeliveryTime)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.DeliveryTime)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            Данные о характере груза
+        </td>
+        <td class="display-field">
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().CargoName)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().NumberOfPackages)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().KindOfPacking)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().Weight)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().Length)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().Width)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().Height)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().Volume)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().Cost)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => model.RequestFreightCargoes.First().SpecialProperties)
+                    </th>
+                </tr>
+                @Html.DisplayFor(model => model.RequestFreightCargoes)
+
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="display-label">
+                <label>Файлы</label>
+            </div>
+        </td>
+        <td>
+            @foreach (Intranet.Models.RequestAttachment file in Model.Request.RequestAttachments.Where(a => a.IsDeleted != true).ToList())
+            {
+                <div>
+                    @Html.ActionLink(file.Name, "DownloadFile", new { fId = file.Id })
+                </div>
+            }
+        </td>
+    </tr>
+
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.VehicleType)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.VehicleType)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.VehicleCount)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.VehicleCount)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.VehicleCapacityTonns)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.VehicleCapacityTonns)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.LoadingType)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.LoadingType)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                Дополнительные условия
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Request.OtherInformation)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                Информирование
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @if (@Model.MobileConnection)
+                {
+                    @Html.LabelFor(x => x.MobileConnection)
+                }
+                <br />
+                @if (@Model.LocationInfo)
+                {
+                    @Html.LabelFor(x => x.LocationInfo)
+                }
+                <br />
+                @if (@Model.ChangesInfo)
+                {
+                    @Html.LabelFor(x => x.ChangesInfo)
+                }
+            </div>
+        </td>
+    </tr>
+       
+       <!--
+       <tr>
+           <td style="width: 33%">
+               <div class="display-label">
+                   @Html.LabelFor(model => model.Request.CustomerId)
+               </div>
+           </td>
+           <td>
+               <div class="display-field">
+                   @Html.DisplayFor(model => model.Request.v_RequestCustomer.CustomerName)
+               </div>
+           </td>
+       </tr>
+       -->
+       
+       <tr>
+           <td style="width: 33%">
+               <div class="display-label">
+                   @Html.LabelFor(model => model.Request.DepartmentGroupId)
+               </div>
+           </td>
+           <td>
+               <div class="display-field">
+                   @Html.DisplayFor(model => model.Request.view_ServiceDepartmentGroup.Name)
+               </div>
+           </td>
+       </tr>
+       
+       <tr>
+           <td style="width: 33%">
+               <div class="display-label">
+                   @Html.LabelFor(model => model.Request.DirectionId)
+               </div>
+           </td>
+           <td>
+               <div class="display-field">
+                   @Html.DisplayFor(model => model.Request.view_ServiceDirection.DirectionName)
+               </div>
+           </td>
+       </tr>
+       
+       <tr>
+           <td style="width: 33%">
+               <div class="display-label">
+                   @Html.LabelFor(model => model.Request.AgreementPurposeId)
+               </div>
+           </td>
+           <td>
+               <div class="display-field">
+                   @Html.DisplayFor(model => model.Request.view_ServicePurpose.PurposeName)
+               </div>
+           </td>
+       </tr>
+
+
+       <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.OrderNumber)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.OrderNumber)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 33%">
+            <div class="display-label">
+                @Html.LabelFor(model => model.Responsible)
+            </div>
+        </td>
+        <td>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Responsible)
+            </div>
+        </td>
+    </tr>
+</table>

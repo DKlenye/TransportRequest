@@ -17,6 +17,7 @@ namespace Intranet.Models
         public Employee()
         {
             this.Requests = new HashSet<Request>();
+            this.Requests1 = new HashSet<Request>();
         }
     
         public int EmployeeId { get; set; }
@@ -30,9 +31,11 @@ namespace Intranet.Models
         public Nullable<System.DateTime> IncomeDate { get; set; }
         public Nullable<System.DateTime> DismissDate { get; set; }
         public byte DSC { get; set; }
+        public string Login { get; set; }
     
         public virtual ICollection<Request> Requests { get; set; }
         public virtual RequestApprover RequestApprover { get; set; }
+        public virtual ICollection<Request> Requests1 { get; set; }
     }
     
 }

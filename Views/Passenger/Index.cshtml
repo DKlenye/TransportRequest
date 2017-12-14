@@ -41,7 +41,27 @@
         <table style="width:100%">
             <tr>
                 <td>
-                    @Html.ActionLink("Создать новую заявку", "Create", null, new { @class = "btn btn-primary" })             
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Создать новую заявку
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                @Html.ActionLink("На пассажирский транспорт", "Create", "Passenger", null, null)
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="javascript:void(0)">На грузовой транспорт</a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("В пределах витебской области", "Create", "Freight", null, null) </li>
+                                    <li>@Html.ActionLink("За пределами витебской области", "Create", "International", null, null) </li>
+                                </ul>
+                            </li>
+                            <li>
+                                @Html.ActionLink("На грузоподъемный кран", "Create", "Crane", null, null)
+                            </li>
+                        </ul>
+                    </div>            
                 </td>
                 <td id="progress">                
                     <img src="@Url.Content("~/Content/images/ajax-loader.gif")" alt="loader" />               

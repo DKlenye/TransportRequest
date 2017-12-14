@@ -1,0 +1,47 @@
+﻿@model Intranet.Models.RequestInternational
+
+@{
+    ViewBag.Title = "Удаление заявки на грузовой транспорт за пределами витебской области";
+    ViewBag.Active = "International";
+}
+
+<h2>Удаление записи</h2>
+<h3>Вы действительно хотите удалить эту заявку?</h3>
+
+@using (Html.BeginForm())
+{
+<fieldset>
+    <legend>Заявка № @Model.RequestId, на выделение грузового транспорта за пределами витебской области</legend>
+    @Html.Partial("_Info", Model)
+</fieldset>
+    
+    <table style="width:100%">
+    <tr>
+        <td>
+            <div class="pull-right muted nomargin createdby">
+    Запись создана @Html.DisplayFor(model => model.Request.PublishDate) пользователем @Html.DisplayFor(model => model.Request.UserFio)</div>
+        </td>
+    </tr>
+       <tr>
+           <td>
+               <div class="form-actions nomargin">
+                   <table style="width: 100%">
+                       <tr>
+                           <td>
+                           @*@Html.ActionLink("Удалить", "DeleteItem", new {id = Model.Id}, new {@class="btn btn-danger"})*@
+                               <input type="submit" value="Удалить" class="btn btn-danger"/>                                       
+                           </td>
+                           <td>
+                               @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary pull-right" })
+                           </td>
+                       </tr>
+                   </table>
+               </div>
+           </td>
+       </tr>
+</table>
+    
+}
+
+
+

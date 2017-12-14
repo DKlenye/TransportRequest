@@ -1,0 +1,68 @@
+﻿@model Intranet.Models.RequestInternational
+
+@{
+    ViewBag.Title = "Создание заявки на выделение грузового транспорта за пределами витебской области";
+    ViewBag.Active = "Freight";
+    string errorMessage = ViewBag.ErrorMessage;
+}
+
+@section scripts{
+    @Content.Script("jquery.validate.unobtrusive.min.js", Url)
+    @Content.Script("chosen.jquery.min.js", Url)
+    @Content.Script("dropdownlist.js", Url)
+}
+
+@using (Html.BeginForm("Create", "International", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Новая заявка на выделение грузового транспорта за пределами витебской области</legend>
+        @Html.Partial("_EditInfo",Model)    
+        <table>
+            <tr>
+                <td>Отправить заявку на подпись
+                    <div class="alert">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Внимание!</strong> Диспетчер не увидит вашу заявку, пока её не подпишет руководитель
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @{          
+                        var _db = new Intranet.Models.transportEntities();              
+                        Dictionary<int, string> approvers = new Dictionary<int, string>();
+                        approvers.Add(0, String.Empty);
+                        foreach (var apr in _db.RequestApprovers.OrderBy(a => a.Employee.LastName).ToList())
+                        {                            
+                            approvers.Add(apr.EmployeeId, apr.Employee.Fio + ", " + apr.Employee.Office); 
+                        }                        
+                     }
+                    @{
+                        if (errorMessage != String.Empty)
+                        {
+                            <div style="color: red">
+                            @errorMessage
+                            </div>
+                        }            
+                    }
+                    @Html.DropDownListFor(model => model.Request.ApproverEmployeeId, new SelectList(approvers, "Key", "Value"), new { @class = "span7 chzn-select", data_placeholder="Выберите руководителя, который подпишет вашу заявку..."})                    
+                </td>
+            </tr>
+        </table>
+                       
+    </fieldset>
+    <br />
+    <div class="form-actions nomargin">
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    <input type="submit" value="Опубликовать" class="btn btn-success" />
+                </td>
+                <td>
+                    @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary pull-right" })
+                </td>
+            </tr>
+        </table>
+    </div>
+}

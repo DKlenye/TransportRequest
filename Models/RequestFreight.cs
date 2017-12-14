@@ -27,6 +27,17 @@ namespace Intranet.Models
         public string Responsible { get; set; }
         public string VehicleType { get; set; }
         public string DestinationPoint { get; set; }
+        public string LoadingTime { get; set; }
+        public string Shipper { get; set; }
+        public string Consignee { get; set; }
+        public string ConsigneeContactName { get; set; }
+        public string DeliveryTime { get; set; }
+        public Nullable<int> VehicleCount { get; set; }
+        public Nullable<int> VehicleCapacityTonns { get; set; }
+        public bool MobileConnection { get; set; }
+        public bool LocationInfo { get; set; }
+        public bool ChangesInfo { get; set; }
+        public bool WithInvoice { get; set; }
     
         public virtual ICollection<RequestFreightCargo> RequestFreightCargoes { get; set; }
         public virtual Request Request { get; set; }

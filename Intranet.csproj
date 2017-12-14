@@ -53,9 +53,6 @@
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -65,6 +62,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -79,6 +77,7 @@
   <ItemGroup>
     <Content Include="App_Code\WebGridExtensions.cs" />
     <Compile Include="Controllers\CraneController.cs" />
+    <Compile Include="Controllers\InternationalController.cs" />
     <Compile Include="Controllers\FreightController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PassengerController.cs" />
@@ -112,7 +111,13 @@
     <Compile Include="Models\RequestFreightCargo.cs">
       <DependentUpon>TransportRequest.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestInternational.cs">
+      <DependentUpon>TransportRequest.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RequestPassenger.cs">
+      <DependentUpon>TransportRequest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ServiceDepartment.cs">
       <DependentUpon>TransportRequest.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TransportRequest.Context.cs">
@@ -136,13 +141,27 @@
     <Compile Include="Models\TransportRequestMetadata\RequestEventMetadata.cs" />
     <Compile Include="Models\TransportRequestMetadata\RequestFreightCargoMetadata.cs" />
     <Compile Include="Models\TransportRequestMetadata\RequestFreightMetadata.cs" />
+    <Compile Include="Models\TransportRequestMetadata\RequestInternationalMetadata.cs" />
     <Compile Include="Models\TransportRequestMetadata\RequestMetadata.cs" />
     <Compile Include="Models\TransportRequestMetadata\RequestPassengerMetadata.cs" />
+    <Compile Include="Models\view_ServiceDepartmentGroup.cs">
+      <DependentUpon>TransportRequest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_ServiceDirection.cs">
+      <DependentUpon>TransportRequest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\view_ServicePurpose.cs">
+      <DependentUpon>TransportRequest.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\v_RequestCustomers.cs">
+      <DependentUpon>TransportRequest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\v_RequestType.cs">
       <DependentUpon>TransportRequest.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\AccountManager.cs" />
+    <Compile Include="Utils\EmailSender.cs" />
     <Compile Include="Utils\HttpParamActionAttribute .cs" />
     <Compile Include="Utils\RequestType.cs" />
     <Compile Include="Utils\RequstsToSign.cs" />
@@ -150,6 +169,7 @@
     <Compile Include="Utils\Translit.cs" />
     <Compile Include="Validation\FutureDateAttribute.cs" />
     <Compile Include="Validation\NotZero.cs" />
+    <Compile Include="ViewModels\InternationalIndexList.cs" />
     <Compile Include="ViewModels\IndexList.cs" />
     <Compile Include="ViewModels\RequestPassengerViewModel.cs" />
   </ItemGroup>
@@ -170,6 +190,7 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\TruckMountedCrane_Yellow.png" />
+    <Content Include="Content\images\Truck_red.png" />
     <Content Include="Content\images\Truck_Yellow.png" />
     <Content Include="Content\site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -202,9 +223,12 @@
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="Global.asax" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\chosen.jquery.min1.js" />
     <Content Include="Scripts\dropdownlist.js" />
     <Content Include="Scripts\jquery-1.8.0-vsdoc.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
@@ -316,6 +340,24 @@
     <Content Include="Views\Shared\Published.cshtml" />
     <Content Include="Views\Home\_SignRequests.cshtml" />
     <None Include="Properties\PublishProfiles\cms_tr.pubxml" />
+    <Content Include="Views\Passenger\_Info.cshtml" />
+    <Content Include="Views\Passenger\_EditInfo.cshtml" />
+    <Content Include="Views\Freight\_EditInfo.cshtml" />
+    <Content Include="Views\Freight\_Info.cshtml" />
+    <Content Include="Views\International\Create.cshtml" />
+    <Content Include="Views\International\_EditInfo.cshtml" />
+    <Content Include="Views\International\Index.cshtml" />
+    <Content Include="Views\International\_Table.cshtml" />
+    <Content Include="Views\International\Details.cshtml" />
+    <Content Include="Views\International\_Info.cshtml" />
+    <Content Include="Views\International\Delete.cshtml" />
+    <Content Include="Views\International\Process.cshtml" />
+    <Content Include="Views\International\Edit.cshtml" />
+    <Content Include="Views\International\_FileAddRow.cshtml" />
+    <Content Include="Views\International\_FileDelRow.cshtml" />
+    <Content Include="Views\International\SendToSpectrans.cshtml" />
+    <Content Include="Views\Crane\_EditInfo.cshtml" />
+    <Content Include="Views\Shared\Sended.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -7,9 +7,21 @@
     <td>
         <div class="editor-field">
             <input id="RequestFreightCargoes_@(Model)_CargoId" name="RequestFreightCargoes[@(Model)].CargoId"
-                type="hidden" value='' class="point"/>
+                   type="hidden" value='' class="point"/>
             <input id="RequestFreightCargoes_@(Model)_CargoName" name="RequestFreightCargoes[@(Model)].CargoName"
-                type="text" value='' style="width: 380px" />
+                   type="text" value='' style="width: 200px" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_NumberOfPackages" name="RequestFreightCargoes[@(Model)].NumberOfPackages"
+                   type="text" class="decimal-value" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_KindOfPacking" name="RequestFreightCargoes[@(Model)].KindOfPacking"
+                   type="text" class="decimal-value" />
         </div>
     </td>
     <td>
@@ -39,10 +51,22 @@
     <td>
         <div class="editor-field">
             <input id="RequestFreightCargoes_@(Model)_Volume" name="RequestFreightCargoes[@(Model)].Volume"
-                type="text" class="decimal-value" />
+                   type="text" class="decimal-value" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_Cost" name="RequestFreightCargoes[@(Model)].Cost" type="text" class="decimal-value" />
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            <input id="RequestFreightCargoes_@(Model)_SpecialProperties" name="RequestFreightCargoes[@(Model)].SpecialProperties"
+                   type="text" style="width: 150px" />
             <input id="RequestFreightCargoes_@(Model)__IsDeleted" name="RequestFreightCargoes[@(Model)].IsDeleted" type="hidden" value="False">
         </div>
     </td>
+    
     <td style="vertical-align:top">
         <div style="margin-top:4px" id="row-btn">
             <a href="#" class="btn btn-danger btn-mini btn-del-cargo">удалить</a>

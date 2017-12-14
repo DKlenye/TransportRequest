@@ -36,5 +36,11 @@ namespace Intranet.Models
         public DbSet<Request> Requests { get; set; }
         public DbSet<RequestApprover> RequestApprovers { get; set; }
         public DbSet<v_RequestCustomers> v_RequestCustomers { get; set; }
+        public DbSet<v_RequestType> v_RequestType { get; set; }
+        public DbSet<RequestInternational> RequestInternationals { get; set; }
+        public DbSet<view_ServiceDepartmentGroup> view_ServiceDepartmentGroup { get; set; }
+        public DbSet<view_ServiceDirection> view_ServiceDirection { get; set; }
+        public DbSet<view_ServicePurpose> view_ServicePurpose { get; set; }
+        public DbSet<ServiceDepartment> ServiceDepartments { get; set; }
     }
 }

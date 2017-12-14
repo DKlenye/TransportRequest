@@ -1,0 +1,39 @@
+﻿
+
+@model Intranet.Models.RequestInternational
+
+@{
+    ViewBag.Title = "Принять или отклонить заявку на грузовой транспорт за пределами витебской области";
+    ViewBag.Active = "International";
+}
+
+@section scripts {
+    @Content.Script("scrolldown.js", Url)
+}
+
+<fieldset>
+    <legend>
+        Принять\Отклонить заявку № @Model.RequestId, на выделение пассажирского транспорта
+        @Html.Raw(Intranet.Utils.StatusChecker.Check(Model.Request.Status))
+    </legend>
+    @Html.Partial("_Info", Model)
+</fieldset>
+<table style="width: 100%">
+    <tr>
+        <td>
+            <div class="pull-right muted nomargin createdby">
+                Запись создана @Html.DisplayFor(model => model.Request.PublishDate) пользователем @Html.DisplayFor(model => model.Request.UserFio)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Partial("_AcceptingBlock", Model.Request)
+        </td>
+    </tr>
+</table>
+<script>
+
+    window.scrollTo(0, document.body.scrollHeight);
+
+</script>

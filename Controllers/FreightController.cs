@@ -13,31 +13,35 @@ namespace Intranet.Controllers
 {
     public class FreightController : Controller
     {
-        transportEntities _db = new transportEntities();
+        private transportEntities _db = new transportEntities();
 
         //
         // GET: /Freight/
 
         public ActionResult Index()
         {
-            if (User.IsInRole("LAN\\TR_Managers") || AccountManager.IsApprover(User.Identity.Name).Item2 || User.IsInRole("LAN\\TR_Viewers"))
+            if (User.IsInRole("LAN\\TR_Managers") || AccountManager.IsApprover(User.Identity.Name).Item2 ||
+                User.IsInRole("LAN\\TR_Viewers"))
             {
                 var model = _db.RequestFreights
-                   .Where(rf => (rf.Request.IsDeleted == false || rf.Request.IsDeleted == null))
-                   .OrderByDescending(rf => rf.Request.PublishDate)
-                   .ToList();
+                    .Where(rf => (rf.Request.IsDeleted == false || rf.Request.IsDeleted == null))
+                    .OrderByDescending(rf => rf.Request.PublishDate)
+                    .ToList();
 
                 return View(model);
             }
             else
             {
                 var model = _db.RequestFreights
-                   .Where(rf => ((rf.Request.IsDeleted == false || rf.Request.IsDeleted == null) && rf.Request.UserLogin == User.Identity.Name))
-                   .OrderByDescending(rf => rf.Request.PublishDate)
-                   .ToList();
+                    .Where(
+                        rf =>
+                            ((rf.Request.IsDeleted == false || rf.Request.IsDeleted == null) &&
+                             rf.Request.UserLogin == User.Identity.Name))
+                    .OrderByDescending(rf => rf.Request.PublishDate)
+                    .ToList();
 
                 return View(model);
-            }            
+            }
         }
 
         //
@@ -55,26 +59,46 @@ namespace Intranet.Controllers
             //}
 
             //Показать детали  только автору, менеджеру, аппруверу, админу, либо вьюверу
-            if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") || AccountManager.IsApprover(User.Identity.Name).Item2 || User.IsInRole("LAN\\TR_Admins") || User.IsInRole("LAN\\TR_Viewers"))
+            if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") ||
+                AccountManager.IsApprover(User.Identity.Name).Item2 || User.IsInRole("LAN\\TR_Admins") ||
+                User.IsInRole("LAN\\TR_Viewers"))
             {
                 return View(model);
             }
             else
             {
                 ViewBag.BackController = "Home";
-                return View("Denied"); 
+                return View("Denied");
             }
         }
 
         //
         // GET: /Freight/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             var model = new RequestFreight();
             model.RequestFreightCargoes.Add(new RequestFreightCargo());
+
+
+            if (id != null)
+            {
+                model = _db.Requests.Single(rf => rf.RequestId == id).RequestFreight;
+                model.RequestId = 0;
+                model.Request.RequestEvents = null;
+                model.Request.RequestAttachments = null;
+
+                model.RequestFreightCargoes = model.Request.RequestFreightCargoes.ToList();
+                model.RequestFreightCargoes.ToList().ForEach(x=> { 
+                    x.CargoId = 0;
+                    x.RequestId = 0;
+                });
+            }
+
+            
             return View(model);
-        } 
+        }
+
 
         //
         // POST: /Freight/Create
@@ -84,9 +108,29 @@ namespace Intranet.Controllers
         {
             if (rf.Request.ApproverEmployeeId == 0)
             {
-                    ViewBag.ErrorMessage = "Веберите руководителя, который подпишет заявку!";
-                    return View(rf);             
+                ViewBag.ErrorMessage = "Веберите руководителя, который подпишет заявку!";
+                return View(rf);
             }
+             
+
+            if ((rf.Request.DepartmentGroupId??0) == 0)
+            {
+                ViewBag.ErrorMessage = "Веберите структурное подразделение!";
+                return View(rf);
+            }
+
+            if ((rf.Request.DirectionId??0) == 0)
+            {
+                ViewBag.ErrorMessage = "Веберите направление перевозки!";
+                return View(rf);
+            }
+
+            if ((rf.Request.AgreementPurposeId??0) == 0)
+            {
+                ViewBag.ErrorMessage = "Веберите цель перевозки!";
+                return View(rf);
+            }
+
 
             try
             {
@@ -96,11 +140,25 @@ namespace Intranet.Controllers
                 rf.Request.PublishDate = DateTime.Now;
                 rf.Request.IsDeleted = false;
 
-                if (rf.Request.CustomerId == 0)
-                    rf.Request.CustomerId = null;
+
+                var customer = _db.v_RequestCustomers.FirstOrDefault(
+                    x => x.DirectionId == rf.Request.DirectionId && x.PurposeId == rf.Request.AgreementPurposeId);
+
+                if (customer == null)
+                {
+                    ViewBag.ErrorMessage = "Не найден заказчик по направлению и цели перевозки.";
+                    return View(rf);
+                }
+
+                rf.Request.CustomerId = customer.CustomerId;
+
+
+                if (rf.Request.RequestTypeId == 0)
+                    rf.Request.RequestTypeId = null;
 
                 if (Utils.AccountManager.IsApprover(User.Identity.Name).Item2)
                 {
+                    rf.Request.SendToSpecTrans = true;
                     rf.Request.Status = 1;
                     rf.Request.ApproveDate = DateTime.Now;
                     rf.Request.ApproverLogin = User.Identity.Name;
@@ -146,7 +204,8 @@ namespace Intranet.Controllers
                 {
                     foreach (var validationError in validationErrors.ValidationErrors)
                     {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName,
+                            validationError.ErrorMessage);
                         //TODO: Попытка удалить запись, у которой ExpDate истек
                     }
                 }
@@ -162,12 +221,14 @@ namespace Intranet.Controllers
         {
             return PartialView("_CargoAddRow", id);
         }
-        
+
         //
         // GET: /Freight/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
+
+
             var model = _db.RequestFreights.Single(rf => rf.RequestId == id);
             model.RequestFreightCargoes = model.RequestFreightCargoes.Where(rfc => rfc.IsDeleted == false).ToList();
 
@@ -177,8 +238,16 @@ namespace Intranet.Controllers
             //    return View("Denied");
             //}
 
+            if (model.Request.SpecTransReceived != null && model.Request.SpecTransReceived.Value)
+            {
+                ViewBag.BackController = "Home";
+                return View("Sended");
+            }
+
+            
             //редактировать только автору, менеджеру, админу
-            if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") || User.IsInRole("LAN\\TR_Admins"))
+            if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") ||
+                User.IsInRole("LAN\\TR_Admins"))
             {
                 return View(model);
             }
@@ -198,9 +267,31 @@ namespace Intranet.Controllers
             try
             {
                 var model = _db.RequestFreights.Single(m => m.RequestId == rf.RequestId);
+
+
+                if (model.Request.SpecTransReceived != null && model.Request.SpecTransReceived.Value)
+                {
+                    ViewBag.BackController = "Home";
+                    return View("Sended");
+                }
+
+
                 var respCargoes = rf.RequestFreightCargoes;
 
                 model.DestinationPoint = rf.DestinationPoint;
+                model.ChangesInfo = rf.ChangesInfo;
+                model.Consignee = rf.Consignee;
+                model.ConsigneeContactName = rf.ConsigneeContactName;
+                model.DeliveryTime = rf.DeliveryTime;
+                model.LoadingTime = rf.LoadingTime;
+                model.LocationInfo = rf.LocationInfo;
+                model.MobileConnection = rf.MobileConnection;
+                model.Request.OtherInformation = rf.Request.OtherInformation;
+                model.Shipper = rf.Shipper;
+                model.VehicleCapacityTonns = rf.VehicleCapacityTonns;
+                model.VehicleCount = rf.VehicleCount;
+                model.WithInvoice = rf.WithInvoice;
+
                 model.OrderNumber = rf.OrderNumber;
                 model.LoadingType = rf.LoadingType;
                 model.LoadingAddress = rf.LoadingAddress;
@@ -210,9 +301,26 @@ namespace Intranet.Controllers
                 model.Request.ApproverEmployeeId = rf.Request.ApproverEmployeeId;
                 model.VehicleType = rf.VehicleType;
 
-                if (rf.Request.CustomerId == 0)
-                    rf.Request.CustomerId = null;
-                model.Request.CustomerId = rf.Request.CustomerId;
+                model.Request.DepartmentGroupId = rf.Request.DepartmentGroupId;
+                model.Request.DirectionId = rf.Request.DirectionId;
+                model.Request.AgreementPurposeId = rf.Request.AgreementPurposeId;
+
+                var customer = _db.v_RequestCustomers.FirstOrDefault(
+                    x => x.DirectionId == rf.Request.DirectionId && x.PurposeId == rf.Request.AgreementPurposeId);
+
+                if (customer == null)
+                {
+                    ViewBag.ErrorMessage = "Не найден заказчик по направлению и цели перевозки. Возможно не выбрана цель и направление перевозки";
+                    return View(rf);
+                }
+
+                model.Request.CustomerId = customer.CustomerId;
+
+                if (rf.Request.RequestTypeId == 0)
+                    rf.Request.RequestTypeId = null;
+                model.Request.RequestTypeId = rf.Request.RequestTypeId;
+
+
 
                 if (model.Request.Status == 3 && User.Identity.Name.ToLower() == model.Request.UserLogin.ToLower())
                 {
@@ -231,7 +339,7 @@ namespace Intranet.Controllers
                     //Существует ли такой груз в респонсе
                     bool cargoExistInResponse = false;
 
-                    foreach(var respCargo in respCargoes)
+                    foreach (var respCargo in respCargoes)
                     {
                         //Если обновление груза
                         if (respCargo.CargoId == modelCargo.CargoId)
@@ -242,6 +350,10 @@ namespace Intranet.Controllers
                             modelCargo.Height = respCargo.Height;
                             modelCargo.Width = respCargo.Width;
                             modelCargo.Volume = respCargo.Volume;
+                            modelCargo.KindOfPacking = respCargo.KindOfPacking;
+                            modelCargo.NumberOfPackages = respCargo.NumberOfPackages;
+                            modelCargo.SpecialProperties = respCargo.SpecialProperties;
+                            modelCargo.Cost = respCargo.Cost;
 
                             cargoExistInResponse = true;
                         }
@@ -264,7 +376,9 @@ namespace Intranet.Controllers
                 }
                 else //Если пользователь удаляет все файлы
                 {
-                    attForRemoving = model.Request.RequestAttachments.Where(a => (a.IsDeleted == false || a.IsDeleted == null)).ToList();
+                    attForRemoving =
+                        model.Request.RequestAttachments.Where(a => (a.IsDeleted == false || a.IsDeleted == null))
+                            .ToList();
                 }
                 foreach (var att in attForRemoving)
                 {
@@ -293,7 +407,7 @@ namespace Intranet.Controllers
                         }
                     }
                 }
-                
+
                 _db.SaveChanges();
 
                 return RedirectToAction("Index", "Home");
@@ -308,7 +422,7 @@ namespace Intranet.Controllers
 
         //
         // GET: /Freight/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             var model = _db.RequestFreights.Single(rf => rf.RequestId == id);
@@ -320,8 +434,16 @@ namespace Intranet.Controllers
             //}
             //return View(model);
 
+
+            if (model.Request.SpecTransReceived != null && model.Request.SpecTransReceived.Value)
+            {
+                ViewBag.BackController = "Home";
+                return View("Sended");
+            }
+
             //удалять только автору, менеджеру, админу
-            if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") || User.IsInRole("LAN\\TR_Admins"))
+            if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") ||
+                User.IsInRole("LAN\\TR_Admins"))
             {
                 return View(model);
             }
@@ -329,7 +451,7 @@ namespace Intranet.Controllers
             {
                 ViewBag.BackController = "Home";
                 return View("Denied");
-            }   
+            }
         }
 
         //
@@ -369,7 +491,7 @@ namespace Intranet.Controllers
                 return View("Error");
             }
         }
-  
+
 
         public ActionResult FileAddRow()
         {
@@ -392,5 +514,62 @@ namespace Intranet.Controllers
             }
 
         }
+
+        public string _FindCustomers(bool withInvoice)
+        {
+            var _db = new transportEntities();
+            var customers = new List<string>();
+
+            _db.v_RequestCustomers.Where(customer => customer.SHZ == (withInvoice ? "Д3" : "Д2"))
+                .OrderBy(c => c.CustomerName).ToList()
+                .ForEach(
+                    c =>
+                        customers.Add(String.Format(@"<option value=""{0}"">{1}</option>", c.CustomerId,
+                            "[" + c.SHZ + "] " + c.CustomerName.Replace("Договор 2", "").Replace("Договор 3", ""))));
+            return @"<option value=""0""></option>" + String.Join("", customers.ToArray());
+
+        }
+
+        public string _FindDirection(int agreementId, int departmentGroupId)
+        {
+            var _db = new transportEntities();
+            var directions = new List<string>();
+
+            //var AgreementId = withInvoice ? 3 : 2;
+
+            _db.view_ServiceDirection.Where(
+                x => x.AgreementId == agreementId && x.ServiceDepartmentGroupId == departmentGroupId)
+                .ToList()
+                .ForEach(
+                    d =>
+                        directions.Add(String.Format(@"<option value=""{0}"">{1}</option>", d.DirectionId,
+                            d.DirectionName)));
+
+            return @"<option value=""0""></option>" + String.Join("", directions.ToArray());
+        }
+
+        public string _FindPurpose(int agreementId, int departmentGroupId)
+        {
+            var _db = new transportEntities();
+            var purposes = new List<string>();
+
+            //var AgreementId = withInvoice ? 3 : 2;
+
+            if (departmentGroupId != 0)
+            {
+                _db.view_ServicePurpose.Where(
+                    x =>
+                        x.AgreementId == agreementId &&
+                        (x.ServiceDepartmentGroupId == null || x.ServiceDepartmentGroupId == departmentGroupId))
+                    .ToList()
+                    .ForEach(
+                        d =>
+                            purposes.Add(String.Format(@"<option value=""{0}"">{1}</option>", d.AgreementPurposeId,
+                                d.PurposeName)));
+
+            }
+            return @"<option value=""0""></option>" + String.Join("", purposes.ToArray());
+        }
+
     }
 }

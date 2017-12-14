@@ -21,6 +21,9 @@ namespace Intranet.Models
     
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public string SHZ { get; set; }
+        public Nullable<int> DirectionId { get; set; }
+        public Nullable<int> PurposeId { get; set; }
     
         public virtual ICollection<Request> Requests { get; set; }
     }

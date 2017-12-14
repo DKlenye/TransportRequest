@@ -5,42 +5,10 @@
     @grid.Table(         
         tableStyle: "table table-hover smallfont",
         columns: grid.Columns(
-            @*grid.Column("Nomer", "№", canSort: false),
-            grid.Column("ObjectZakupki", "Предмет закупки", canSort: false, style:"gridObjZakupki", format: @<text>@Html.ActionLink((string)item.ObjectZakupki, "Details", "KP", new { id = item.Id }, null)</text>),
-                            grid.Column("ExpDate", "Действительно до", canSort: false, format: (item) =>
-            {
-                if (item.ExpDate < DateTime.Now)
-                    return new HtmlString("<span class='label'>" + string.Format("{0:dd.MM.yyyy HH:mm}", item.ExpDate) + "</span>");
-                else
-                    if (item.ExpDate >= DateTime.Now && item.ExpDate <= DateTime.Today.AddDays(1))
-                        return new HtmlString("<span class='label label-warning'>" + string.Format("{0:dd.MM.yyyy HH:mm}", item.ExpDate) + "</span>");
-                return new HtmlString("<span class='label label-info'>" + string.Format("{0:dd.MM.yyyy HH:mm}", item.ExpDate) + "</span>");//string.Format("{0:dd.MM.yyyy HH:mm}", item.ExpDate);
-            }),*@
                             grid.Column(null, "№", canSort:false, format: @<text>@Html.ActionLink(((int)item.RequestId).ToString(), "Details", "Freight", new { id = item.RequestId }, null)</text>),
                             grid.Column("Request.Status", "Статус", canSort: false, format: (item) =>
                             {
                                 return new HtmlString(Intranet.Utils.StatusChecker.Check(item.Request.Status));
-                                //if (item.Request.Status == 0)
-                                //    return new HtmlString("<span class='label'>Опубликована</span>");
-                                //else
-                                //    if (item.Request.Status == 1)
-                                //        return new HtmlString("<span class='label label-warning'>Отправлена</span>");
-                                //    else
-                                //        if (item.Request.Status == 2)
-                                //            return new HtmlString("<span class='label label-success'>Принята</span>");
-                                //        else
-                                //            if (item.Request.Status == 3)
-                                //                return new HtmlString("<span class='label label-important'>Возвращена</span>");
-                                //            else
-                                //                if (item.Request.Status == 4)
-                                //                    return new HtmlString("<span class='label label-important'>Отменена</span>");
-                                //                else
-                                //                    if (item.Request.Status == 5)
-                                //                        return new HtmlString("<span class='label label-success'>В работе</span>");
-                                //                    else
-                                //                        if (item.Request.Status == 6)
-                                //                            return new HtmlString("<span class='label label-success'>Выполнена</span>");
-                                //return new HtmlString("<span class='label'>Не определен</span>");
                             }),
                             grid.Column("Request.Customer", "Заказчик", canSort: false, style: "customercolumn"),
                             grid.Column("Request.RequestDate", "На дату", canSort: false, format: (item) => string.Format("{0:dd.MM.yyyy}", item.Request.RequestDate)),
@@ -48,8 +16,8 @@
                             grid.Column("LoadingAddress", "Адрес загрузки", canSort: false),
                             grid.Column("Request.PublishDate", "Опубликовано", canSort: false, format: (item) => string.Format("{0:dd.MM.yyyy}", item.Request.PublishDate)),
                             grid.Column("Request.UserFio", "Автор", canSort: false),
-                            grid.Column(null, "", canSort: false, format: @<text>@Html.ActionLink("Просмотр", "Details", "Freight", new { id = item.RequestId }, new { @class = "btn btn-mini" })</text>)
-
+                            grid.Column(null, "", canSort: false, format: @<text>@Html.ActionLink("Просмотр", "Details", "Freight", new { id = item.RequestId }, new { @class = "btn btn-mini" })</text>),
+    grid.Column(null, "", style:"copycolumn", canSort: false, format: @<text>@Html.ActionLink("Создать копию", "Create", "Freight", new { id = item.RequestId }, new { @class = "btn btn-mini btn-primary" })</text>)   
                             ))
 <div class="pagination pagination-small pagination-right">
     @grid.PagerList(mode: WebGridPagerModes.All)

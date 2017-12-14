@@ -29,11 +29,56 @@
                 <table style="width: 100%">
                     <tr>
                         <td>
+                            @if (Model.RequestInternational != null)
+                            {
+
+                                if (User.IsInRole("LAN\\TR_Managers"))
+                                {
+                                <div class="btn-group">
+                                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-download-alt"></i> Открыть в Word
+                                    <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a id="ExportInternational1" href="#">Закупка импорт/экспорт</a>
+                                        </li>
+                                        <li>
+                                            <a id="ExportInternational2" href="#">Закупка РБ</a>
+                                        </li>
+                                        <li>
+                                            <a id="ExportInternational3" href="#">Заявка импорт/экспорт</a>
+                                        </li>
+                                        <li>
+                                            <a id="ExportInternational4" href="#">Заявка РБ</a>
+                                        </li>
+                                        <li>
+                                            <a id="ExportInternational" href="#">Заявка заказчика</a>
+                                        </li>
+                                    </ul>
+                                </div>   
+                                }
+
+                                else
+                                {
+                                     <a id="ExportInternational" class="btn btn-info" href="#"><i class="icon-download-alt"></i> Открыть в Word</a>
+                                }
+                               
+                                
+                            }
+                            
+                           
                             @if (Model.UserLogin.ToLower() == User.Identity.Name.ToLower() || User.IsInRole("LAN\\TR_Managers"))
                             {
                                 @Html.ActionLink("Редактировать", "Edit", new { id = Model.RequestId }, new { @class = "btn btn-primary", style = "margin-right: 5px;" })
                                 @Html.ActionLink("Удалить", "Delete", new { id = Model.RequestId }, new { @class = "btn", style = "margin-right: 5px;" })
                             }
+                            
+                            
+                            <a href="@Url.Action("Create", new { id = Model.RequestId })" class="btn btn-primary">
+                              Создать копию
+                            </a>
+
                             @if (User.IsInRole("LAN\\TR_Managers"))
                             {
                                 @Html.ActionLink("Принять \\ Отклонить", "Process", new { id = Model.RequestId }, new { @class = "btn btn-warning", style = "margin-right: 5px;" })
@@ -42,12 +87,28 @@
                             {
                                 @Html.ActionLink("Подписать \\ Отклонить", "Process", new { id = Model.RequestId }, new { @class = "btn btn-warning", style = "margin-right: 5px;" })
                             }
+                            
+                            
+
+
                         </td>
                         <td>
                             <div class="pull-right">
                                 @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary" })
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @if (Model.RequestInternational != null && User.IsInRole("LAN\\TR_Managers") && (Model.SendToSpecTrans == null || !Model.SendToSpecTrans.Value))
+                            {
+                                @Html.ActionLink("Отправить в УП Нафтан-Спецтранс", "SendToSpectrans", new { id = Model.RequestId }, new { @class = "btn btn-success", style = "margin-right: 5px;" })
+                            
+                            }
+
+                        </td>
+                        
+                        <td></td>
                     </tr>
                 </table>
             </div>

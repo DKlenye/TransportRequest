@@ -24,6 +24,10 @@ namespace Intranet.Models
         public Nullable<decimal> Volume { get; set; }
         public string DestAdress { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<int> NumberOfPackages { get; set; }
+        public string KindOfPacking { get; set; }
+        public Nullable<decimal> Cost { get; set; }
+        public string SpecialProperties { get; set; }
     
         public virtual RequestFreight RequestFreight { get; set; }
         public virtual Request Request { get; set; }

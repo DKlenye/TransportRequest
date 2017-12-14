@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Intranet.Models;
 using Intranet.Utils;
@@ -67,10 +65,27 @@ namespace Intranet.Controllers
         //
         // GET: /Crane/Create
 
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             var rc = new RequestCrane();
             rc.RequestCraneSlingers.Add(new RequestCraneSlinger());
+
+            if (id != null)
+            {
+                rc = _db.Requests.Single(r => r.RequestId == id).RequestCrane;
+                rc.RequestCraneSlingers = rc.RequestCraneSlingers.Where(rcs => rcs.IsDeleted == false).ToList();
+                rc.RequestCraneSlingers.ToList().ForEach(x =>
+                {
+                    x.SlingerId = 0;
+                    x.RequestId = 0;
+                });
+
+                rc.RequestId = 0;
+
+            }
+            
+
+
             return View(rc);
         } 
 
@@ -99,14 +114,13 @@ namespace Intranet.Controllers
 
                 if (Utils.AccountManager.IsApprover(User.Identity.Name).Item2)
                 {
+                    rc.Request.SendToSpecTrans = true;
                     rc.Request.Status = 1;
                     rc.Request.ApproveDate = DateTime.Now;
                     rc.Request.ApproverLogin = User.Identity.Name;
                     rc.Request.ApproverFio = Utils.AccountManager.GetUserDisplayName(User.Identity.Name);
 
-                    RequestEvent re = new RequestEvent();
-                    re.Status = 1;
-                    re.EventDate = DateTime.Now;
+                    var re = new RequestEvent {Status = 1, EventDate = DateTime.Now};
                     rc.Request.RequestEvents.Add(re);
                 }
 
@@ -152,6 +166,13 @@ namespace Intranet.Controllers
             //    ViewBag.BackController = "Crane";
             //    return View("Denied");
             //}
+
+            if (model.Request.SpecTransReceived != null && model.Request.SpecTransReceived.Value)
+            {
+                ViewBag.BackController = "Home";
+                return View("Sended");
+            }
+
 
             //редактировать только автору, менеджеру, админу
             if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") || User.IsInRole("LAN\\TR_Admins"))
@@ -259,7 +280,15 @@ namespace Intranet.Controllers
             //    return View("Denied");
             //} 
             //return View(model);
-            
+
+
+            if (model.Request.SpecTransReceived != null && model.Request.SpecTransReceived.Value)
+            {
+                ViewBag.BackController = "Home";
+                return View("Sended");
+            }
+
+
             //удалять только автору, менеджеру, админу
             if (model.Request.UserLogin == User.Identity.Name || User.IsInRole("LAN\\TR_Managers") || User.IsInRole("LAN\\TR_Admins"))
             {

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using Intranet.Validation;
 
 namespace Intranet.Models
 {
@@ -13,6 +9,7 @@ namespace Intranet.Models
     {
         public string DetailsLink { get; set; }
         public string DetailsButton { get; set; }
+        public string CopyButton { get; set; }
         public string RequestTypeLabel { get; set; }
         public string Customer
         {
@@ -32,10 +29,10 @@ namespace Intranet.Models
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Необходимо указать дату поездки")]
         //[FutureDate(ErrorMessage = "Поле не должно быть датой из прошлого.")]
-        public Nullable<System.DateTime> RequestDate { get; set; }
+        public DateTime? RequestDate { get; set; }
 
         [DisplayName("Статус")]
-        public Nullable<int> Status { get; set; }
+        public int? Status { get; set; }
 
         [DisplayName("Создана пользователем")]
         public string UserFio { get; set; }
@@ -45,12 +42,26 @@ namespace Intranet.Models
 
         [DisplayName("Запись создана")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy HH:mm}", ApplyFormatInEditMode = true)] 
-        public Nullable<System.DateTime> PublishDate { get; set; }
+        public DateTime? PublishDate { get; set; }
 
         //[NotZero]
-        public Nullable<int> ApproverEmployeeId { get; set; }
+        public int? ApproverEmployeeId { get; set; }
 
-        [DisplayName("Наименование заказчика")]
-        public Nullable<int> CustomerId { get; set; }
+        [DisplayName("Наименование заказчика (цель)")]
+        public int? CustomerId { get; set; }
+
+        [DisplayName("Наименование структурного подразделения")] 
+        public int? DirectionId { get; set; }
+        [DisplayName("Цель")]
+        public int? AgreementPurposeId { get; set; }
+        [DisplayName("Подразделение")]
+        public int? DepartmentGroupId { get; set; }
+
+        [DisplayName("Другие дополнительные сведения")]
+        [DataType(DataType.MultilineText)]
+        public string OtherInformation { get; set; }
+
+       [DisplayName("Ответственный за использование транспорта")]
+        public string Responsible { get; set; }
     }
 }

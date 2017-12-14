@@ -4,35 +4,56 @@
     <td>
         <div class="editor-field">
             @Html.HiddenFor(c => c.CargoId)
-            @Html.TextBoxFor(c => c.CargoName, new { style = "width:380px" })
+            @Html.TextBoxFor(c => c.CargoName, new { style = "width:200px" })
         </div>
     </td>
     <td>
         <div class="editor-field">
-            @Html.EditorFor(c => c.Weight)
+            @Html.TextBoxFor(c => c.NumberOfPackages,new{@class="decimal-value"})
         </div>
     </td>
     <td>
         <div class="editor-field">
-            @Html.EditorFor(c => c.Length)
+            @Html.TextBoxFor(c => c.KindOfPacking, new { @class = "decimal-value" })
         </div>
     </td>
     <td>
         <div class="editor-field">
-            @Html.EditorFor(c => c.Width)
+            @Html.EditorFor(c => c.Weight, new { @class = "decimal-value" })
         </div>
     </td>
     <td>
         <div class="editor-field">
-            @Html.EditorFor(c => c.Height)
+            @Html.EditorFor(c => c.Length, new { @class = "decimal-value" })
         </div>
     </td>
     <td>
         <div class="editor-field">
-            @Html.EditorFor(c => c.Volume)
+            @Html.EditorFor(c => c.Width, new { @class = "decimal-value" })
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Height, new { @class = "decimal-value" })
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Volume, new { @class = "decimal-value" })
             @Html.HiddenFor(c => c.IsDeleted)
         </div>
     </td>
+    <td>
+        <div class="editor-field">
+            @Html.EditorFor(c => c.Cost, new { @class = "decimal-value" })
+        </div>
+    </td>
+    <td>
+        <div class="editor-field">
+            @Html.TextBoxFor(c => c.SpecialProperties, new { style = "width: 150px" })
+        </div>
+    </td>
+
     <td style="vertical-align:top">
         <div style="margin-top:4px" id="row-btn">            
         </div>

@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Заявка отправлена в УП 'Нафтан-Спецтранс'";
+    string backController = ViewBag.BackController;
+}
+
+<h2>
+   Редактирование заявки запрещено, так как она отправлена в УП 'Нафтан-Спецтранс'. Создайте новую заявку.
+</h2>
+
+@Html.ActionLink("Вернуться к списку", "Index", backController, null, new { @class = "btn btn-primary"})

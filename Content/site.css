@@ -3,6 +3,13 @@
     padding-bottom: 40px;
 }
 
+
+td.copycolumn{
+    word-wrap: normal;
+    white-space: nowrap;
+}
+
+
 .sidebar-nav {
     padding: 9px 0;
 }
@@ -37,7 +44,7 @@
 
 .decimal-value
 {
-    width:75px;
+    width:70px;
 }
     
 #progress, #lepPowerPermission
@@ -66,4 +73,8 @@
 }
 .customercolumn {
     font-size:small;
+}
+
+.cargoHeader label {
+    font-size: 12px;
 }

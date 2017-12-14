@@ -1,0 +1,43 @@
+﻿
+
+@model Intranet.Models.RequestInternational
+
+@{
+    ViewBag.Title = "Отправить заявку в УП Нафтан-Спецтранс";
+    ViewBag.Active = "International";
+}
+
+@section scripts {
+    @Content.Script("scrolldown.js", Url)
+}
+
+<fieldset>
+    <legend>
+        Отправить заявку № @Model.RequestId, в УП Нафтан-Спецтранс
+        @Html.Raw(Intranet.Utils.StatusChecker.Check(Model.Request.Status))
+    </legend>
+    @Html.Partial("_Info", Model)
+</fieldset>
+<table style="width: 100%">
+    <tr>
+        <td>
+            <div class="pull-right muted nomargin createdby">
+                Запись создана @Html.DisplayFor(model => model.Request.PublishDate) пользователем @Html.DisplayFor(model => model.Request.UserFio)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @using (Html.BeginForm("Action", "Home", FormMethod.Post))
+            {
+                @Html.HiddenFor(model => model.RequestId)
+                <input type="submit" name="send" value="Отправить заявку в УП Нафтан-Спецтранс" class="btn btn-success" />
+            }
+        </td>
+    </tr>
+</table>
+<script>
+
+    window.scrollTo(0, document.body.scrollHeight);
+
+</script>

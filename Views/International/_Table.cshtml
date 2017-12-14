@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Intranet.Models.RequestInternational>
+
+@{
+    var grid = new WebGrid(Model, rowsPerPage: 30);          
+    @grid.Table(         
+        tableStyle: "table table-hover smallfont",
+        columns: grid.Columns(
+                            grid.Column(null, "№", canSort:false, format: @<text>@Html.ActionLink(((int)item.RequestId).ToString(), "Details", "International", new { id = item.RequestId }, null)</text>),
+                            grid.Column("Request.Status", "Статус", canSort: false, format: (item) =>
+                            {
+                                return new HtmlString(Intranet.Utils.StatusChecker.Check(item.Request.Status));
+                            }),
+                            @*grid.Column("Request.Customer", "Заказчик", canSort: false, style: "customercolumn"),*@
+                            grid.Column("Request.RequestDate", "На дату", canSort: false, format: (item) => string.Format("{0:dd.MM.yyyy}", item.Request.RequestDate)),
+                            @*grid.Column("CargoName", "Кол-во груза", canSort: false, format: @<text>@Html.ActionLink((string)item.RequestFreightCargoes.Count.ToString(), "Details", "Freight", new { id = item.RequestId }, null)</text>),*@
+                            @*grid.Column("LoadingAddress", "Адрес загрузки", canSort: false),*@
+                            grid.Column("Request.PublishDate", "Опубликовано", canSort: false, format: (item) => string.Format("{0:dd.MM.yyyy}", item.Request.PublishDate)),
+                            grid.Column("Request.UserFio", "Автор", canSort: false),
+                            grid.Column(null, "", canSort: false, format: @<text>@Html.ActionLink("Просмотр", "Details", "International", new { id = item.RequestId }, new { @class = "btn btn-mini" })</text>),
+                            grid.Column(null, "", style:"copycolumn", canSort: false, format: @<text>@Html.ActionLink("Создать копию", "Create", "International", new { id = item.RequestId }, new { @class = "btn btn-mini btn-primary" })</text>)                        
+    ))
+<div class="pagination pagination-small pagination-right">
+    @grid.PagerList(mode: WebGridPagerModes.All)
+</div>       
+
+}

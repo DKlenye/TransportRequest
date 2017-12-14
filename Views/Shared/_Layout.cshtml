@@ -21,14 +21,14 @@
     <div class="navbar navbar-fixed-top">    
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="@Url.Content("~/")">Заявки на транспорт</a>
+                <a class="brand" href="@Url.Content("~/")" style="font-size: 14px; font-weight: bold; padding: 0; text-align: center; color: #007dcc;">Заявки<br/>на транспорт</a>
                 @Html.Partial("_NavPartial")
                 @Html.Partial("_LogOnPartial")
             </div>
         </div>
     </div>
-    <div class="container">
-        @RenderBody()        
+    <div class="container" style="width:1024px;">
+        @RenderBody()
         <hr />
         <footer>
             <div class="container" style="font-size:small; font-family:Calibri">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="row">
                     <div class="span6">
-                         <img src="/Content/images/phone.png" title="Телефон" /> 59-8309                       
+                        <img src="/Content/images/phone.png" title="Телефон" /> 59-8309
                     </div>
                     <div class="span6">
                         <div class="pull-right"><i class="icon-envelope"></i><a href="mailto:DKlenye@naftan.vitebsk.by">DKlenye@naftan.vitebsk.by</a></div>
@@ -50,12 +50,12 @@
                 </div>
                 <div class="row">
                     <div class="span6">
-                         <img src="/Content/images/fax.png" title="Факс" /> 59-4684                         
+                        <img src="/Content/images/fax.png" title="Факс" /> 59-4684
                     </div>
-                    <div class="span6">                        
+                    <div class="span6">
 
                     </div>
-                </div>                   
+                </div>
             </div>
         </footer>
     </div>        

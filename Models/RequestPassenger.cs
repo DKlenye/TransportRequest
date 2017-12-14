@@ -25,6 +25,8 @@ namespace Intranet.Models
         public string OrderNumber { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
         public string OrderName { get; set; }
+        public string ConfirmTelFax { get; set; }
+        public string ConfirmEmail { get; set; }
     
         public virtual Request Request { get; set; }
     }

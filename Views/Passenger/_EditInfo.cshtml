@@ -1,0 +1,234 @@
+﻿@using Intranet.Models
+@model Intranet.Models.RequestPassenger
+
+<div class="editor-label">
+    Вид заявки
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.Request.RequestTypeId, new SelectList(
+                  new transportEntities().v_RequestType.ToList().Select(x => new { value = x.RequestTypeId, text = x.RequestTypeName }),
+                  "value",
+                  "text")
+         )
+    @Html.ValidationMessageFor(model => model.Request.RequestTypeId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(model => model.DestinationPoint)
+</div>
+<div class="editor-field">
+    @Html.TextBoxFor(model => model.DestinationPoint, new { @class = "span7" })
+    @Html.ValidationMessageFor(model => model.DestinationPoint)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.PassengerAmount)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.PassengerAmount)
+    @Html.ValidationMessageFor(model => model.PassengerAmount)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.ChildAmount)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ChildAmount)
+    @Html.ValidationMessageFor(model => model.ChildAmount)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.RequestDate)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Request.RequestDate)
+    @Html.ValidationMessageFor(model => model.Request.RequestDate)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.SeatPlace)
+</div>
+<div class="editor-field">
+    @Html.TextBoxFor(model => model.SeatPlace, new { @class = "span7" })
+    @Html.ValidationMessageFor(model => model.SeatPlace)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.TripDuration)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.TripDuration)
+    @Html.ValidationMessageFor(model => model.TripDuration)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.TripPurpose)
+</div>
+<div class="editor-field">
+    @Html.TextBoxFor(model => model.TripPurpose, new { @class = "span7" })
+    @Html.ValidationMessageFor(model => model.TripPurpose)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.SecondedPeople)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.SecondedPeople)
+    @Html.ValidationMessageFor(model => model.SecondedPeople)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.Responsible)
+</div>
+<div class="editor-field">
+    @Html.TextBoxFor(model => model.Request.Responsible,new { @class = "span7" })
+    @Html.ValidationMessageFor(model => model.Request.Responsible)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.DepartmentGroupId)
+</div>
+<div class="editor-field">
+
+    @{
+        var _db = new Intranet.Models.transportEntities();
+        var departments = new Dictionary<int, string>();
+        departments.Add(0, String.Empty);
+
+        _db.view_ServiceDepartmentGroup.ToList()
+            .ForEach(d => departments.Add(d.ServiceDepartmentGroupId,d.Name));
+    }
+    @Html.DropDownListFor(model => model.Request.DepartmentGroupId, new SelectList(departments, "Key", "Value"), new { @class = "span10 chzn-select Select_Department", data_placeholder = "Выберите подразделение..." })
+    @Html.ValidationMessageFor(model => model.Request.DepartmentGroupId)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.DirectionId)
+</div>
+<div class="editor-field">
+
+    @{
+        var directions = new Dictionary<int, string>();
+        directions.Add(0, String.Empty);
+
+        var AgreementId = 1;
+
+        if (@Model.Request != null)
+        {
+
+            var DepartmentGroupId = @Model.Request.DepartmentGroupId;
+
+            if (DepartmentGroupId != null)
+            {
+                _db.view_ServiceDirection.Where(
+                    x => x.AgreementId == AgreementId && x.ServiceDepartmentGroupId == DepartmentGroupId)
+                    .ToList()
+                    .ForEach(d => directions.Add(d.DirectionId, d.DirectionName));
+    }
+    }
+
+    }
+    @Html.DropDownListFor(model => model.Request.DirectionId, new SelectList(directions, "Key", "Value"), new { @class = "span10 chzn-select Select_Direction", data_placeholder = "Выберите структурное подразделение..." })
+    @Html.ValidationMessageFor(model => model.Request.DirectionId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.AgreementPurposeId)
+</div>
+<div class="editor-field">
+
+    @{
+        var purposes = new Dictionary<int, string>();
+        purposes.Add(0, String.Empty);
+
+
+        if (@Model.Request != null)
+        {
+            var DepartmentGroupId = @Model.Request.DepartmentGroupId;
+            if (DepartmentGroupId != null)
+            {
+                _db.view_ServicePurpose.Where(
+                x =>
+                    x.AgreementId == AgreementId &&
+                    (x.ServiceDepartmentGroupId == null || x.ServiceDepartmentGroupId == DepartmentGroupId))
+                .ToList()
+                    .ForEach(d => purposes.Add(d.AgreementPurposeId, d.PurposeName));
+            }
+    }
+    }
+    @Html.DropDownListFor(model => model.Request.AgreementPurposeId, new SelectList(purposes, "Key", "Value"), new { @class = "span10 chzn-select Select_Purpose", data_placeholder = "Выберите цель..." })
+    @Html.ValidationMessageFor(model => model.Request.AgreementPurposeId)
+</div>
+
+
+<!--
+<table style="margin-bottom: 10px">
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.Request.CustomerId)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @{
+                var customers = new Dictionary<int, string>();
+                customers.Add(0, String.Empty);
+
+                _db.v_RequestCustomers.Where(c => c.SHZ == "Д1").OrderBy(c => c.CustomerName)
+                    .ToList().ForEach(c => customers.Add(c.CustomerId, "[" + c.SHZ + "] " + c.CustomerName.Replace("Договор 1", "")));
+            }
+            @Html.DropDownListFor(model => model.Request.CustomerId, new SelectList(customers, "Key", "Value"), new { @class = "span7 chzn-select", data_placeholder = "Выберите наименование заказчика..." })
+        </td>
+    </tr>
+</table>
+    -->
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.OrderNumber)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.OrderNumber)
+    @Html.ValidationMessageFor(model => model.OrderNumber)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.OrderDate)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.OrderDate)
+    @Html.ValidationMessageFor(model => model.OrderDate)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.OrderName)
+</div>
+<div class="editor-field">
+    @Html.TextBoxFor(model => model.OrderName, new { @class = "span7" })
+    @Html.ValidationMessageFor(model => model.OrderName)
+</div>
+
+<div class="editor-label">
+    <label>Подтверждение о принятии заявки к исполнению направить на</label>
+</div>
+<div class="editor-field">
+    <div class="input-prepend">
+        <span class="add-on"><i class="icon-print"></i></span>
+        @Html.TextBoxFor(model => model.ConfirmTelFax, new { @placeholder = "тел./факс", @class = "span4" })
+        @Html.ValidationMessageFor(model => model.ConfirmTelFax)
+    </div>
+</div>
+<div class="editor-field">
+    <div class="input-prepend">
+        <span class="add-on"><i class="icon-envelope"></i></span>
+        @Html.TextBoxFor(model => model.ConfirmEmail, new { @placeholder = "электонный адрес", @class = "span4" })
+        @Html.ValidationMessageFor(model => model.ConfirmEmail)
+    </div>
+</div>
+
+
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.OtherInformation)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Request.OtherInformation)
+    @Html.ValidationMessageFor(model => model.Request.OtherInformation)
+</div>

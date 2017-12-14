@@ -38,8 +38,9 @@
                             grid.Column("TripPurpose", "Цель поездки", canSort: false),
                             grid.Column("Request.PublishDate", "Опубликовано", canSort: false, format: (item) => string.Format("{0:dd.MM.yyyy}", item.Request.PublishDate)),
                             grid.Column("Request.UserFio", "Автор", canSort: false),
-                            grid.Column(null, "", canSort: false, format: @<text>@Html.ActionLink("Просмотр", "Details", "Passenger", new { id = item.RequestId }, new {@class = "btn btn-mini"})</text>)
-                    ))
+                            grid.Column(null, "", canSort: false, format: @<text>@Html.ActionLink("Просмотр", "Details", "Passenger", new { id = item.RequestId }, new {@class = "btn btn-mini"})</text>),
+     grid.Column(null, "", style:"copycolumn", canSort: false, format: @<text>@Html.ActionLink("Создать копию", "Create", "Passenger", new { id = item.RequestId }, new { @class = "btn btn-mini btn-primary" })</text>)                                        
+    ))
 <div class="pagination pagination-small pagination-right">
     @grid.PagerList(mode: WebGridPagerModes.All)
 </div>       

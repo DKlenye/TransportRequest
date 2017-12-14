@@ -35,6 +35,17 @@ namespace Intranet.Models
         public Nullable<bool> IsDeleted { get; set; }
         public Nullable<int> RequestTaskId { get; set; }
         public Nullable<int> CustomerId { get; set; }
+        public string OtherInformation { get; set; }
+        public Nullable<int> RequestTypeId { get; set; }
+        public Nullable<int> UserEmployeeId { get; set; }
+        public Nullable<byte> Type { get; set; }
+        public Nullable<int> DirectionId { get; set; }
+        public Nullable<int> AgreementPurposeId { get; set; }
+        public Nullable<int> DepartmentGroupId { get; set; }
+        public string RequestTime { get; set; }
+        public string Responsible { get; set; }
+        public Nullable<bool> SpecTransReceived { get; set; }
+        public Nullable<bool> SendToSpecTrans { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual ICollection<RequestAttachment> RequestAttachments { get; set; }
@@ -45,6 +56,12 @@ namespace Intranet.Models
         public virtual RequestPassenger RequestPassenger { get; set; }
         public virtual ICollection<RequestFreightCargo> RequestFreightCargoes { get; set; }
         public virtual v_RequestCustomers v_RequestCustomer { get; set; }
+        public virtual v_RequestType v_RequestType { get; set; }
+        public virtual Employee Employee1 { get; set; }
+        public virtual RequestInternational RequestInternational { get; set; }
+        public virtual view_ServiceDirection view_ServiceDirection { get; set; }
+        public virtual view_ServiceDepartmentGroup view_ServiceDepartmentGroup { get; set; }
+        public virtual view_ServicePurpose view_ServicePurpose { get; set; }
     }
     
 }

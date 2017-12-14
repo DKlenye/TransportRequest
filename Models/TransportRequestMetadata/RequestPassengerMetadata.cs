@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
@@ -15,7 +12,7 @@ namespace Intranet.Models
     public class RequestPassengerMetadata
     {
 
-        [DisplayName("Пункт назначения")]
+        [DisplayName("Маршрут перевозки")]
         public string DestinationPoint { get; set; }
 
         [DisplayName("Количество пассажиров")]
@@ -27,13 +24,13 @@ namespace Intranet.Models
         [DisplayName("Цель поездки")]
         public string TripPurpose { get; set; }
 
-        [DisplayName("Место и время посадки")]
+        [DisplayName("Место и время посадки пассажиров")]
         public string SeatPlace { get; set; }
 
-        [DisplayName("Срок командировки (дней)")]
+        [DisplayName("Срок фрахтования (дней)")]
         public Nullable<short> TripDuration { get; set; }
 
-        [DisplayName("ФИО командируемых, номер телефона")]
+        [DisplayName("ФИО пассажиров, номер телефона")]
         [DataType(DataType.MultilineText)]
         public string SecondedPeople { get; set; }
 
@@ -46,5 +43,10 @@ namespace Intranet.Models
 
         [DisplayName("Название приказа о командировании")]
         public string OrderName { get; set; }
+        
+        [DisplayName("Подтвердить принятие заявки на тел./факс")]
+        public string ConfirmTelFax { get; set; }
+        [DisplayName("Подтвердить принятие заявки по электронной почте")]
+        public string ConfirmEmail { get; set; }
     }
 }

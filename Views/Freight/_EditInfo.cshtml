@@ -1,0 +1,340 @@
+﻿@using Intranet.Models
+@model Intranet.Models.RequestFreight
+
+
+
+
+<div class="editor-label">
+    Вид заявки
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.Request.RequestTypeId, new SelectList(
+                  new transportEntities().v_RequestType.ToList().Select(x => new { value = x.RequestTypeId, text = x.RequestTypeName }),
+                  "value",
+                  "text")
+         )
+    @Html.ValidationMessageFor(model => model.Request.RequestTypeId)
+</div>
+<div class="editor-label">
+    Тип заявки
+</div>
+<div class="editor-field">
+        @Html.DropDownListFor(model => model.WithInvoice, new SelectList(
+                  new List<Object>{
+                       new { value = false , text = "По договору №2 062/2.13.11781 (фрахтование на внутризаводские перевозки грузов)"},
+                       new { value = true , text = "По договору №3 062/2.13.11782 (для перевозки грузов (ТТН))"}
+                    },
+                  "value",
+                  "text"),
+                           new { @class="Select_WithInvoice span7"}
+         )
+        @Html.ValidationMessageFor(model => model.WithInvoice)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Request.RequestDate)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Request.RequestDate)
+        @Html.ValidationMessageFor(model => model.Request.RequestDate)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.LoadingTime)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.LoadingTime, new { data_timepicker = true })
+        @Html.ValidationMessageFor(model => model.LoadingTime)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Shipper)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Shipper, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.Shipper)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.LoadingAddress)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.LoadingAddress, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.LoadingAddress)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ContactName)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.ContactName, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.ContactName)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Consignee)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Consignee, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.Consignee)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.DestinationPoint)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.DestinationPoint, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.DestinationPoint)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.ConsigneeContactName)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.ConsigneeContactName, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.ConsigneeContactName)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.DeliveryTime)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.DeliveryTime, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.DeliveryTime)
+    </div>
+
+    <div class="editor-label" style="margin-top:10px">
+        Данные о характере груза
+    </div>
+    <div class="breadcrumb">
+        <div id="cargo_container">
+            <div>
+                <table>
+                    <tr class="cargoHeader">
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().CargoName)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().NumberOfPackages)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().KindOfPacking)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().Weight)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().Length)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().Width)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().Height)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().Volume)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().Cost)
+                        </th>
+                        <th>
+                            @Html.LabelFor(model => model.RequestFreightCargoes.First().SpecialProperties)
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                    
+                    @Html.EditorFor(model => model.RequestFreightCargoes)
+                    
+                </table>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink("Добавить груз", "AddCargoRow", null, new { id = "addCargoRow", @class = "btn btn-mini" })
+        </div>
+    </div>
+
+    <div class="editor-label">
+        <label>Файлы</label>
+    </div>
+
+    <div id="filesRows">
+    </div>
+    <p>
+        @Html.ActionLink("Добавить файл...", "FileAddRow", null, new { id = "addItem", @class = "btn btn-mini" })
+    </p>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.VehicleType)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.VehicleType, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.VehicleType)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.VehicleCount)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.VehicleCount)
+        @Html.ValidationMessageFor(model => model.VehicleCount)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.VehicleCapacityTonns)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.VehicleCapacityTonns)
+        @Html.ValidationMessageFor(model => model.VehicleCapacityTonns)
+    </div>
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.LoadingType)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.LoadingType, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.LoadingType)
+    </div>
+
+    <div class="editor-label">
+        Дополнительные условия
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Request.OtherInformation)
+        @Html.ValidationMessageFor(model => model.Request.OtherInformation)
+    </div>
+
+    <div class="editor-label">
+        Информирование
+    </div>
+    <div class="editor-field">
+        <label class="checkbox">
+            @Html.CheckBoxFor(model => model.MobileConnection)
+            @Html.LabelFor(m => m.MobileConnection)
+        </label>
+        @Html.ValidationMessageFor(model => model.MobileConnection)
+    </div>
+    <div class="editor-field">
+        <label class="checkbox">
+            @Html.CheckBoxFor(model => model.LocationInfo)
+            @Html.LabelFor(m => m.LocationInfo)
+        </label>
+        @Html.ValidationMessageFor(model => model.LocationInfo)
+    </div>
+    <div class="editor-field">
+        <label class="checkbox">
+            @Html.CheckBoxFor(model => model.ChangesInfo)
+            @Html.LabelFor(m => m.ChangesInfo)
+        </label>
+        @Html.ValidationMessageFor(model => model.ChangesInfo)
+    </div>
+
+
+<div class="editor-label">
+   @Html.LabelFor(model => model.Request.DepartmentGroupId)
+</div>
+<div class="editor-field">
+    
+    @{
+        var _db = new Intranet.Models.transportEntities();
+        var departments = new Dictionary<int, string>();
+        departments.Add(0, String.Empty);
+
+        _db.view_ServiceDepartmentGroup.ToList()
+            .ForEach(d => departments.Add(d.ServiceDepartmentGroupId,d.Name));
+    }
+    @Html.DropDownListFor(model => model.Request.DepartmentGroupId, new SelectList(departments, "Key", "Value"), new { @class = "span7 chzn-select Select_Department", data_placeholder = "Выберите подразделение..." })
+    @Html.ValidationMessageFor(model => model.Request.DepartmentGroupId)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.DirectionId)
+</div>
+<div class="editor-field">
+
+    @{
+        var directions = new Dictionary<int, string>();
+        directions.Add(0, String.Empty);
+
+        var AgreementId = @Model.WithInvoice ? 3 : 2;
+
+        if (@Model.Request != null)
+        {
+
+            var DepartmentGroupId = @Model.Request.DepartmentGroupId;
+
+            if (DepartmentGroupId != null)
+            {
+                _db.view_ServiceDirection.Where(
+                    x => x.AgreementId == AgreementId && x.ServiceDepartmentGroupId == DepartmentGroupId)
+                    .ToList()
+                    .ForEach(d => directions.Add(d.DirectionId, d.DirectionName));
+            }
+        }
+
+    }
+    @Html.DropDownListFor(model => model.Request.DirectionId, new SelectList(directions, "Key", "Value"), new { @class = "span7 chzn-select Select_Direction", data_placeholder = "Выберите структурное подразделение..." })
+    @Html.ValidationMessageFor(model => model.Request.DirectionId)
+</div>
+<div class="editor-label">
+    @Html.LabelFor(model => model.Request.AgreementPurposeId)
+</div>
+<div class="editor-field">
+
+    @{
+        var purposes = new Dictionary<int, string>();
+        purposes.Add(0, String.Empty);
+
+
+        if (@Model.Request != null)
+        {
+            var DepartmentGroupId = @Model.Request.DepartmentGroupId;
+            if (DepartmentGroupId != null)
+            {
+                _db.view_ServicePurpose.Where(
+                x =>
+                    x.AgreementId == AgreementId &&
+                    (x.ServiceDepartmentGroupId == null || x.ServiceDepartmentGroupId == DepartmentGroupId))
+                .ToList()
+                    .ForEach(d => purposes.Add(d.AgreementPurposeId, d.PurposeName));
+            }
+        }
+    }
+    @Html.DropDownListFor(model => model.Request.AgreementPurposeId, new SelectList(purposes, "Key", "Value"), new { @class = "span7 chzn-select Select_Purpose", data_placeholder = "Выберите цель..." })
+    @Html.ValidationMessageFor(model => model.Request.AgreementPurposeId)
+</div>
+
+<!--
+<table style="margin-bottom:10px">
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Request.CustomerId)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @{
+                    var customers = new Dictionary<int, string>();
+                    customers.Add(0, String.Empty);
+
+                    _db.v_RequestCustomers.Where(customer => customer.SHZ == (@Model.WithInvoice ? "Д3" : "Д2"))
+                        .OrderBy(c=>c.CustomerName).ToList()
+                        .ForEach(c => customers.Add(c.CustomerId, "[" + c.SHZ + "] " + c.CustomerName.Replace("Договор 2", "").Replace("Договор 3", "")));
+                }
+                @Html.DropDownListFor(model => model.Request.CustomerId, new SelectList(customers, "Key", "Value"), new { @class = "span7 chzn-select", data_placeholder = "Выберите наименование заказчика..." })
+            </td>
+        </tr>
+</table>
+    -->
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.OrderNumber)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.OrderNumber)
+        @Html.ValidationMessageFor(model => model.OrderNumber)
+    </div>
+
+
+
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Responsible)
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(model => model.Responsible, new { @class = "span7" })
+        @Html.ValidationMessageFor(model => model.Responsible)
+    </div>

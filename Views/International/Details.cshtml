@@ -1,0 +1,26 @@
+﻿@model Intranet.Models.RequestInternational
+
+@{
+    ViewBag.Title = "Просмотр заявки на грузовой транспорт за пределами витебской области";
+    ViewBag.Active = "International";
+}
+
+<fieldset>
+    <legend>Заявка № @Model.RequestId, на выделение грузового транспорта за пределами витебской области
+        @Html.Raw(Intranet.Utils.StatusChecker.Check(Model.Request.Status))
+    </legend>
+    @Html.Partial("_Info",Model)
+</fieldset>
+
+
+
+@if (Model.Request.RequestEvents.Count != 0)
+{
+    <div class="dips-messages">
+    <p>
+        Операции с заявкой
+    </p>
+    @Html.DisplayFor(model => model.Request.RequestEvents)
+    </div>
+}
+ @Html.Partial("_DetailViewButtons", Model.Request)

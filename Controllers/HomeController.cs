@@ -38,6 +38,7 @@ namespace Intranet.Controllers
                 {
                     r.DetailsLink = RequestType.GetDetailsLink(r);
                     r.DetailsButton = RequestType.GetDetailsButton(r);
+                    r.CopyButton = RequestType.GetCopyButton(r);
                     r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
                 }                
                 indexList.Requests = model;
@@ -57,6 +58,7 @@ namespace Intranet.Controllers
                 {
                     r.DetailsLink = RequestType.GetDetailsLink(r);
                     r.DetailsButton = RequestType.GetDetailsButton(r);
+                    r.CopyButton = RequestType.GetCopyButton(r);
                     r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
                 }
                 indexList.Requests = model;
@@ -72,8 +74,44 @@ namespace Intranet.Controllers
 
         public PartialViewResult FilterRequests(string rDate)
         {
-            IndexList indexList = new IndexList();
+            var indexList = new IndexList();
             DateTime requestDate;
+
+
+            var model = _db.Requests.Where(r => (r.IsDeleted != true || r.IsDeleted == null));
+            if (User.IsInRole("LAN\\TR_Managers") || AccountManager.IsApprover(User.Identity.Name).Item2 ||
+                User.IsInRole("LAN\\TR_Viewers"))
+            {
+            }
+            else
+            {
+                model = model.Where(r => r.UserLogin == User.Identity.Name);
+            }
+
+            if (DateTime.TryParseExact(rDate, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None,
+                out requestDate))
+            {
+                model = model.Where(r => r.RequestDate == requestDate);
+            }
+
+            var rezult = model.OrderByDescending(r => r.PublishDate)
+                .ToList();
+
+
+            foreach (var r in rezult)
+            {
+                r.DetailsLink = RequestType.GetDetailsLink(r);
+                r.DetailsButton = RequestType.GetDetailsButton(r);
+                r.CopyButton = RequestType.GetCopyButton(r);
+                r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
+            }
+
+            indexList.Requests = rezult;
+            indexList.TotalRows = rezult.Count;
+            indexList.RowPerPage = rezult.Count;
+            return PartialView("_Table", indexList);
+
+            /*
             if (DateTime.TryParseExact(rDate, "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None, out requestDate))
             {
                 if (User.IsInRole("LAN\\TR_Managers") || AccountManager.IsApprover(User.Identity.Name).Item2 || User.IsInRole("LAN\\TR_Viewers"))
@@ -86,6 +124,7 @@ namespace Intranet.Controllers
                     {
                         r.DetailsLink = RequestType.GetDetailsLink(r);
                         r.DetailsButton = RequestType.GetDetailsButton(r);
+                        r.CopyButton = RequestType.GetCopyButton(r);
                         r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
                     }
                     indexList.Requests = model;
@@ -103,6 +142,7 @@ namespace Intranet.Controllers
                     {
                         r.DetailsLink = RequestType.GetDetailsLink(r);
                         r.DetailsButton = RequestType.GetDetailsButton(r);
+                        r.CopyButton = RequestType.GetCopyButton(r);
                         r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
                     }
                     indexList.Requests = model;
@@ -124,6 +164,7 @@ namespace Intranet.Controllers
                     {
                         r.DetailsLink = RequestType.GetDetailsLink(r);
                         r.DetailsButton = RequestType.GetDetailsButton(r);
+                        r.CopyButton = RequestType.GetCopyButton(r);
                         r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
                     }
                     indexList.Requests = model;
@@ -142,6 +183,7 @@ namespace Intranet.Controllers
                     {
                         r.DetailsLink = RequestType.GetDetailsLink(r);
                         r.DetailsButton = RequestType.GetDetailsButton(r);
+                        r.CopyButton = RequestType.GetCopyButton(r);
                         r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
                     }
                     indexList.Requests = model;
@@ -149,7 +191,7 @@ namespace Intranet.Controllers
                     indexList.RowPerPage = model.Count;
                     return PartialView("_Table", indexList);
                 }            
-            }
+            }*/
         }
 
         public ActionResult RequestsToApprove(int id)
@@ -170,6 +212,7 @@ namespace Intranet.Controllers
            {
                r.DetailsLink = RequestType.GetDetailsLink(r);
                r.DetailsButton = RequestType.GetDetailsButton(r);
+               r.CopyButton = RequestType.GetCopyButton(r);
                r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
            }
            indexList.Requests = model;
@@ -191,6 +234,7 @@ namespace Intranet.Controllers
             {
                 r.DetailsLink = RequestType.GetDetailsLink(r);
                 r.DetailsButton = RequestType.GetDetailsButton(r);
+                r.CopyButton = RequestType.GetCopyButton(r);
                 r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
             }
             ViewBag.Message = "Показаны подписанные и неподписанные";
@@ -215,6 +259,7 @@ namespace Intranet.Controllers
             foreach (var r in model)
             {
                 r.DetailsLink = RequestType.GetDetailsLink(r);
+                r.CopyButton = RequestType.GetCopyButton(r);
                 r.DetailsButton = RequestType.GetDetailsButton(r);
                 r.RequestTypeLabel = RequestType.GetRequestTypeLabel(r);
             }
@@ -252,6 +297,18 @@ namespace Intranet.Controllers
                     re.EventDate = DateTime.Now;
 
                     rqst.RequestEvents.Add(re);
+
+                    if (rqst.RequestInternational != null)
+                    {
+                        var tel = AccountManager.GetUserPhoneNumber(rqst.UserLogin);
+                        new EmailSender().Send(rqst.RequestId, rqst.UserFio, tel, rqst.RequestInternational.Way);
+                    }
+                    else
+                    {
+                        rqst.SendToSpecTrans = true;
+                    }
+
+
                 }
                 _db.SaveChanges();
                 ViewBag.Message = "Заявки подписаны!";                
@@ -284,7 +341,7 @@ namespace Intranet.Controllers
                 _db.SaveChanges();
                 ViewBag.Message = "Заявка принята!";                                
             }
-            catch
+            catch(Exception ex)
             {
                 ViewBag.ErrMessage = @"Ошибка при ПРИНЯТИИ заявки";
                 ViewBag.BackController = "Home";
@@ -316,11 +373,25 @@ namespace Intranet.Controllers
 
                     model.RequestEvents.Add(re);
 
+                    if (model.RequestInternational == null)
+                    {
+                        model.SendToSpecTrans = true;
+                    }
+
+
                     _db.SaveChanges();
                     ViewBag.Message = "Заявка подписана!";
+
+                    if (model.RequestInternational != null)
+                    {
+                        var tel = AccountManager.GetUserPhoneNumber(model.UserLogin);
+                        new EmailSender().Send(model.RequestId,model.UserFio,tel,model.RequestInternational.Way);    
+                    }
+                    
+
                     //return RedirectToAction("Details", new { id = RequestId });
                 }
-                catch
+                catch(Exception ex)
                 {
                     ViewBag.ErrMessage = @"Ошибка при ПОДПИСИ заявки";
                     ViewBag.BackController = "Home";
@@ -374,6 +445,36 @@ namespace Intranet.Controllers
                 return View("Error");
             }
         }
+
+        [HttpPost]
+        [HttpParamAction]
+        public ActionResult Send(int RequestId)
+        {
+            if (User.IsInRole("TR_Managers"))
+            {
+                try
+                {
+                    var model = _db.Requests.Single(r => r.RequestId == RequestId);
+                    model.SendToSpecTrans = true;
+                    _db.SaveChanges();
+                    ViewBag.Message = "Заявка поставлена в очередь на отправку!";
+                }
+                catch
+                {
+                    ViewBag.ErrMessage = @"Ошибка при отправке заявки";
+                    ViewBag.BackController = "Home";
+                    return View("Error");
+                }
+                return View("Signed");
+            }
+            else
+            {
+                ViewBag.ErrMessage = "У текущего пользователя отсутствует право отправки заявок!";
+                ViewBag.BackController = "Home";
+                return View("Error");
+            }
+        }
+
 
         public ActionResult Test(int id)
         {

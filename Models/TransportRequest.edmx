@@ -4,95 +4,31 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="transportModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="transportModelStoreContainer">
-          <EntitySet Name="Employee" EntityType="transportModel.Store.Employee" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Request" EntityType="transportModel.Store.Request" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestApprover" EntityType="transportModel.Store.RequestApprover" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestAttachments" EntityType="transportModel.Store.RequestAttachments" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestCrane" EntityType="transportModel.Store.RequestCrane" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestCraneSlingers" EntityType="transportModel.Store.RequestCraneSlingers" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestEvent" EntityType="transportModel.Store.RequestEvent" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestFreight" EntityType="transportModel.Store.RequestFreight" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestFreightCargo" EntityType="transportModel.Store.RequestFreightCargo" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="RequestPassengers" EntityType="transportModel.Store.RequestPassengers" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="v_RequestCustomers" EntityType="transportModel.Store.v_RequestCustomers" store:Type="Views" store:Schema="dbo" store:Name="v_RequestCustomers">
-            <DefiningQuery>SELECT 
-      [v_RequestCustomers].[CustomerId] AS [CustomerId], 
-      [v_RequestCustomers].[CustomerName] AS [CustomerName]
-      FROM [dbo].[v_RequestCustomers] AS [v_RequestCustomers]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK_Request_Employee" Association="transportModel.Store.FK_Request_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequestApprover_Employee" Association="transportModel.Store.FK_RequestApprover_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="RequestApprover" EntitySet="RequestApprover" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequestAttachments_Request" Association="transportModel.Store.FK_RequestAttachments_Request">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="RequestAttachments" EntitySet="RequestAttachments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequestCraneSlingers_RequestCrane" Association="transportModel.Store.FK_RequestCraneSlingers_RequestCrane">
-            <End Role="RequestCrane" EntitySet="RequestCrane" />
-            <End Role="RequestCraneSlingers" EntitySet="RequestCraneSlingers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequestFreightCargo_RequestFreight" Association="transportModel.Store.FK_RequestFreightCargo_RequestFreight">
-            <End Role="RequestFreight" EntitySet="RequestFreight" />
-            <End Role="RequestFreightCargo" EntitySet="RequestFreightCargo" />
-          </AssociationSet>
-          <AssociationSet Name="FK49D9AC63E11D1708" Association="transportModel.Store.FK49D9AC63E11D1708">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="RequestFreight" EntitySet="RequestFreight" />
-          </AssociationSet>
-          <AssociationSet Name="FK5DCEAED9FBF1EE3B" Association="transportModel.Store.FK5DCEAED9FBF1EE3B">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="RequestApprover" EntitySet="RequestApprover" />
-          </AssociationSet>
-          <AssociationSet Name="FK994383D5E11D1708" Association="transportModel.Store.FK994383D5E11D1708">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="RequestEvent" EntitySet="RequestEvent" />
-          </AssociationSet>
-          <AssociationSet Name="FK9D6A83D1E11D1708" Association="transportModel.Store.FK9D6A83D1E11D1708">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="RequestCrane" EntitySet="RequestCrane" />
-          </AssociationSet>
-          <AssociationSet Name="FKD8385831E11D1708" Association="transportModel.Store.FKD8385831E11D1708">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="RequestCraneSlingers" EntitySet="RequestCraneSlingers" />
-          </AssociationSet>
-          <AssociationSet Name="FKF72657FBE11D1708" Association="transportModel.Store.FKF72657FBE11D1708">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="RequestPassengers" EntitySet="RequestPassengers" />
-          </AssociationSet>
-          <AssociationSet Name="FKFF33B50EE11D1708" Association="transportModel.Store.FKFF33B50EE11D1708">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="RequestFreightCargo" EntitySet="RequestFreightCargo" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="transportModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="EmployeeId" />
           </Key>
-          <Property Name="EmployeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_men" Type="int" />
-          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="MiddleName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="EmployeeNumber" Type="varchar" Nullable="false" MaxLength="5" />
-          <Property Name="Department" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeNumber" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Department" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="Office" Type="varchar" MaxLength="160" />
           <Property Name="IncomeDate" Type="date" />
           <Property Name="DismissDate" Type="date" />
           <Property Name="DSC" Type="tinyint" Nullable="false" />
+          <Property Name="Login" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
             <PropertyRef Name="RequestId" />
           </Key>
-          <Property Name="RequestId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestDate" Type="datetime" />
+          <Property Name="RequestTime" Type="char" MaxLength="5" />
           <Property Name="Status" Type="int" />
           <Property Name="UserFio" Type="nvarchar" MaxLength="255" />
           <Property Name="UserLogin" Type="nvarchar" MaxLength="255" />
@@ -104,6 +40,16 @@
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="RequestTaskId" Type="int" />
           <Property Name="CustomerId" Type="int" />
+          <Property Name="OtherInformation" Type="nvarchar" MaxLength="700" />
+          <Property Name="RequestTypeId" Type="int" />
+          <Property Name="UserEmployeeId" Type="int" />
+          <Property Name="Type" Type="tinyint" />
+          <Property Name="DirectionId" Type="int" />
+          <Property Name="AgreementPurposeId" Type="int" />
+          <Property Name="DepartmentGroupId" Type="int" />
+          <Property Name="Responsible" Type="nvarchar" MaxLength="255" />
+          <Property Name="SpecTransReceived" Type="bit" />
+          <Property Name="SendToSpecTrans" Type="bit" />
         </EntityType>
         <EntityType Name="RequestApprover">
           <Key>
@@ -115,7 +61,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestId" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
           <Property Name="Cont" Type="image" />
@@ -142,7 +88,7 @@
           <Key>
             <PropertyRef Name="SlingerId" />
           </Key>
-          <Property Name="SlingerId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SlingerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestId" Type="int" />
           <Property Name="Office" Type="nvarchar" MaxLength="255" />
           <Property Name="FIO" Type="nvarchar" MaxLength="255" />
@@ -154,7 +100,7 @@
           <Key>
             <PropertyRef Name="RequestEventId" />
           </Key>
-          <Property Name="RequestEventId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RequestEventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventDate" Type="datetime" />
           <Property Name="Message" Type="nvarchar" MaxLength="255" />
           <Property Name="Status" Type="int" />
@@ -172,12 +118,23 @@
           <Property Name="ContactName" Type="nvarchar" MaxLength="511" />
           <Property Name="Responsible" Type="nvarchar" MaxLength="511" />
           <Property Name="VehicleType" Type="varchar" MaxLength="100" />
+          <Property Name="LoadingTime" Type="varchar" MaxLength="5" />
+          <Property Name="Shipper" Type="nvarchar" MaxLength="511" />
+          <Property Name="Consignee" Type="nvarchar" MaxLength="511" />
+          <Property Name="ConsigneeContactName" Type="nvarchar" MaxLength="511" />
+          <Property Name="DeliveryTime" Type="varchar" MaxLength="100" />
+          <Property Name="VehicleCount" Type="int" />
+          <Property Name="VehicleCapacityTonns" Type="int" />
+          <Property Name="MobileConnection" Type="bit" Nullable="false" />
+          <Property Name="LocationInfo" Type="bit" Nullable="false" />
+          <Property Name="ChangesInfo" Type="bit" Nullable="false" />
+          <Property Name="WithInvoice" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RequestFreightCargo">
           <Key>
             <PropertyRef Name="CargoId" />
           </Key>
-          <Property Name="CargoId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CargoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RequestId" Type="int" />
           <Property Name="CargoName" Type="nvarchar" MaxLength="255" />
           <Property Name="Weight" Type="decimal" Precision="19" Scale="5" />
@@ -187,6 +144,45 @@
           <Property Name="Volume" Type="decimal" Precision="19" Scale="5" />
           <Property Name="DestAdress" Type="nvarchar" MaxLength="511" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="NumberOfPackages" Type="int" />
+          <Property Name="KindOfPacking" Type="nvarchar" MaxLength="100" />
+          <Property Name="Cost" Type="decimal" Precision="19" Scale="5" />
+          <Property Name="SpecialProperties" Type="nvarchar" MaxLength="511" />
+        </EntityType>
+        <EntityType Name="RequestInternational">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="Way" Type="varchar" MaxLength="200" />
+          <Property Name="DeliveryBasis" Type="varchar" MaxLength="200" />
+          <Property Name="VehicleCount" Type="int" />
+          <Property Name="Consignor" Type="varchar" MaxLength="200" />
+          <Property Name="LoadingContactName" Type="varchar" MaxLength="200" />
+          <Property Name="DepartureCustoms" Type="varchar" MaxLength="200" />
+          <Property Name="DeliveryDate" Type="date" />
+          <Property Name="DeliveryAddress" Type="varchar" MaxLength="200" />
+          <Property Name="UnloadingContactName" Type="varchar" MaxLength="1000" />
+          <Property Name="ReturnCustoms" Type="varchar" MaxLength="200" />
+          <Property Name="CargoName" Type="varchar" MaxLength="200" />
+          <Property Name="DangerCargo" Type="varchar" MaxLength="200" />
+          <Property Name="PackageListNumber" Type="varchar" MaxLength="200" />
+          <Property Name="Code" Type="varchar" MaxLength="200" />
+          <Property Name="CargoDimensions" Type="varchar" MaxLength="200" />
+          <Property Name="Brutto" Type="varchar" MaxLength="200" />
+          <Property Name="Netto" Type="varchar" MaxLength="200" />
+          <Property Name="LoadingType" Type="varchar" MaxLength="200" />
+          <Property Name="CargoCost" Type="varchar" MaxLength="200" />
+          <Property Name="CargoOverloading" Type="varchar" MaxLength="200" />
+          <Property Name="CargoStackability" Type="varchar" MaxLength="200" />
+          <Property Name="DepartmentId" Type="int" />
+          <Property Name="VehicleType" Type="varchar" MaxLength="200" />
+          <Property Name="CargoPlaces" Type="varchar" MaxLength="200" />
+          <Property Name="VehicleCapacityTonns" Type="varchar" MaxLength="50" />
+          <Property Name="CargoVolume" Type="varchar" MaxLength="50" />
+          <Property Name="Currency" Type="varchar" MaxLength="50" />
+          <Property Name="DeliveryDateEnd" Type="date" />
+          <Property Name="RequestDateEnd" Type="date" />
         </EntityType>
         <EntityType Name="RequestPassengers">
           <Key>
@@ -203,20 +199,78 @@
           <Property Name="OrderNumber" Type="nvarchar" MaxLength="255" />
           <Property Name="OrderDate" Type="datetime" />
           <Property Name="OrderName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ConfirmTelFax" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConfirmEmail" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ServiceDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ServiceDepartmentGroupId" Type="int" Nullable="false" />
+          <Property Name="ShortName" Type="varchar" MaxLength="100" />
+          <Property Name="ParentDepartmentId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'transport.dbo.v_RequestCustomers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'transport.dbo.v_RequestCustomers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="v_RequestCustomers">
           <Key>
             <PropertyRef Name="CustomerId" />
           </Key>
-          <Property Name="CustomerId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
+          <Property Name="SHZ" Type="nvarchar" MaxLength="10" />
+          <Property Name="DirectionId" Type="int" />
+          <Property Name="PurposeId" Type="int" />
         </EntityType>
-        <Association Name="FK_Request_Employee">
-          <End Role="Employee" Type="transportModel.Store.Employee" Multiplicity="0..1" />
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="*" />
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'transport.dbo.v_RequestType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="v_RequestType">
+          <Key>
+            <PropertyRef Name="RequestTypeId" />
+            
+          </Key>
+          <Property Name="RequestTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'transport.dbo.view_ServiceDepartmentGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_ServiceDepartmentGroup">
+          <Key>
+            <PropertyRef Name="ServiceDepartmentGroupId" />
+            
+          </Key>
+          <Property Name="ServiceDepartmentGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'transport.dbo.view_ServiceDirection' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_ServiceDirection">
+          <Key>
+            <PropertyRef Name="DirectionId" />
+            
+          </Key>
+          <Property Name="DirectionId" Type="int" Nullable="false" />
+          <Property Name="DirectionName" Type="varchar" MaxLength="512" />
+          <Property Name="AgreementId" Type="int" Nullable="false" />
+          <Property Name="ServiceDepartmentGroupId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'transport.dbo.view_ServicePurpose' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="view_ServicePurpose">
+          <Key>
+            <PropertyRef Name="AgreementPurposeId" />
+            
+          </Key>
+          <Property Name="AgreementPurposeId" Type="int" Nullable="false" />
+          <Property Name="PurposeName" Type="varchar" MaxLength="161" />
+          <Property Name="AgreementId" Type="int" Nullable="false" />
+          <Property Name="ServiceDepartmentGroupId" Type="int" />
+        </EntityType>
+        <Association Name="FK_Request_ApproverEmployee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
@@ -226,9 +280,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Request_UserEmployee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="UserEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RequestApprover_Employee">
-          <End Role="Employee" Type="transportModel.Store.Employee" Multiplicity="1" />
-          <End Role="RequestApprover" Type="transportModel.Store.RequestApprover" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="RequestApprover" Type="Self.RequestApprover" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
@@ -239,8 +305,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RequestAttachments_Request">
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
-          <End Role="RequestAttachments" Type="transportModel.Store.RequestAttachments" Multiplicity="*" />
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="RequestAttachments" Type="Self.RequestAttachments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestId" />
@@ -251,8 +317,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RequestCraneSlingers_RequestCrane">
-          <End Role="RequestCrane" Type="transportModel.Store.RequestCrane" Multiplicity="0..1" />
-          <End Role="RequestCraneSlingers" Type="transportModel.Store.RequestCraneSlingers" Multiplicity="*" />
+          <End Role="RequestCrane" Type="Self.RequestCrane" Multiplicity="0..1" />
+          <End Role="RequestCraneSlingers" Type="Self.RequestCraneSlingers" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RequestCrane">
               <PropertyRef Name="RequestId" />
@@ -263,8 +329,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_RequestFreightCargo_RequestFreight">
-          <End Role="RequestFreight" Type="transportModel.Store.RequestFreight" Multiplicity="0..1" />
-          <End Role="RequestFreightCargo" Type="transportModel.Store.RequestFreightCargo" Multiplicity="*" />
+          <End Role="RequestFreight" Type="Self.RequestFreight" Multiplicity="0..1" />
+          <End Role="RequestFreightCargo" Type="Self.RequestFreightCargo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RequestFreight">
               <PropertyRef Name="RequestId" />
@@ -274,9 +340,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RequestInternational_Request">
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="RequestInternational" Type="Self.RequestInternational" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestInternational">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK49D9AC63E11D1708">
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="1" />
-          <End Role="RequestFreight" Type="transportModel.Store.RequestFreight" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="RequestFreight" Type="Self.RequestFreight" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestId" />
@@ -287,8 +365,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK5DCEAED9FBF1EE3B">
-          <End Role="Employee" Type="transportModel.Store.Employee" Multiplicity="1" />
-          <End Role="RequestApprover" Type="transportModel.Store.RequestApprover" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="RequestApprover" Type="Self.RequestApprover" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="EmployeeId" />
@@ -299,8 +377,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK994383D5E11D1708">
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
-          <End Role="RequestEvent" Type="transportModel.Store.RequestEvent" Multiplicity="*" />
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="RequestEvent" Type="Self.RequestEvent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestId" />
@@ -311,8 +389,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK9D6A83D1E11D1708">
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="1" />
-          <End Role="RequestCrane" Type="transportModel.Store.RequestCrane" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="RequestCrane" Type="Self.RequestCrane" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestId" />
@@ -322,21 +400,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FKD8385831E11D1708">
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
-          <End Role="RequestCraneSlingers" Type="transportModel.Store.RequestCraneSlingers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Request">
-              <PropertyRef Name="RequestId" />
-            </Principal>
-            <Dependent Role="RequestCraneSlingers">
-              <PropertyRef Name="RequestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FKF72657FBE11D1708">
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="1" />
-          <End Role="RequestPassengers" Type="transportModel.Store.RequestPassengers" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="1" />
+          <End Role="RequestPassengers" Type="Self.RequestPassengers" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestId" />
@@ -346,18 +412,105 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FKFF33B50EE11D1708">
-          <End Role="Request" Type="transportModel.Store.Request" Multiplicity="0..1" />
-          <End Role="RequestFreightCargo" Type="transportModel.Store.RequestFreightCargo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Request">
-              <PropertyRef Name="RequestId" />
-            </Principal>
-            <Dependent Role="RequestFreightCargo">
-              <PropertyRef Name="RequestId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityContainer Name="transportModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestApprover" EntityType="Self.RequestApprover" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestAttachments" EntityType="Self.RequestAttachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestCrane" EntityType="Self.RequestCrane" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestCraneSlingers" EntityType="Self.RequestCraneSlingers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestEvent" EntityType="Self.RequestEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestFreight" EntityType="Self.RequestFreight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestFreightCargo" EntityType="Self.RequestFreightCargo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestInternational" EntityType="Self.RequestInternational" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestPassengers" EntityType="Self.RequestPassengers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServiceDepartment" EntityType="Self.ServiceDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="v_RequestCustomers" EntityType="Self.v_RequestCustomers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[v_RequestCustomers].[CustomerId] AS [CustomerId], 
+[v_RequestCustomers].[CustomerName] AS [CustomerName], 
+[v_RequestCustomers].[SHZ] AS [SHZ], 
+[v_RequestCustomers].[DirectionId] AS [DirectionId], 
+[v_RequestCustomers].[PurposeId] AS [PurposeId]
+FROM [dbo].[v_RequestCustomers] AS [v_RequestCustomers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="v_RequestType" EntityType="Self.v_RequestType" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[v_RequestType].[RequestTypeId] AS [RequestTypeId], 
+[v_RequestType].[RequestTypeName] AS [RequestTypeName]
+FROM [dbo].[v_RequestType] AS [v_RequestType]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_ServiceDepartmentGroup" EntityType="Self.view_ServiceDepartmentGroup" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[view_ServiceDepartmentGroup].[ServiceDepartmentGroupId] AS [ServiceDepartmentGroupId], 
+[view_ServiceDepartmentGroup].[Name] AS [Name]
+FROM [dbo].[view_ServiceDepartmentGroup] AS [view_ServiceDepartmentGroup]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_ServiceDirection" EntityType="Self.view_ServiceDirection" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[view_ServiceDirection].[DirectionId] AS [DirectionId], 
+[view_ServiceDirection].[DirectionName] AS [DirectionName], 
+[view_ServiceDirection].[AgreementId] AS [AgreementId], 
+[view_ServiceDirection].[ServiceDepartmentGroupId] AS [ServiceDepartmentGroupId]
+FROM [dbo].[view_ServiceDirection] AS [view_ServiceDirection]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="view_ServicePurpose" EntityType="Self.view_ServicePurpose" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[view_ServicePurpose].[AgreementPurposeId] AS [AgreementPurposeId], 
+[view_ServicePurpose].[PurposeName] AS [PurposeName], 
+[view_ServicePurpose].[AgreementId] AS [AgreementId], 
+[view_ServicePurpose].[ServiceDepartmentGroupId] AS [ServiceDepartmentGroupId]
+FROM [dbo].[view_ServicePurpose] AS [view_ServicePurpose]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Request_ApproverEmployee" Association="Self.FK_Request_ApproverEmployee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_UserEmployee" Association="Self.FK_Request_UserEmployee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestApprover_Employee" Association="Self.FK_RequestApprover_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="RequestApprover" EntitySet="RequestApprover" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestAttachments_Request" Association="Self.FK_RequestAttachments_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestAttachments" EntitySet="RequestAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestCraneSlingers_RequestCrane" Association="Self.FK_RequestCraneSlingers_RequestCrane">
+            <End Role="RequestCrane" EntitySet="RequestCrane" />
+            <End Role="RequestCraneSlingers" EntitySet="RequestCraneSlingers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestFreightCargo_RequestFreight" Association="Self.FK_RequestFreightCargo_RequestFreight">
+            <End Role="RequestFreight" EntitySet="RequestFreight" />
+            <End Role="RequestFreightCargo" EntitySet="RequestFreightCargo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestInternational_Request" Association="Self.FK_RequestInternational_Request">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestInternational" EntitySet="RequestInternational" />
+          </AssociationSet>
+          <AssociationSet Name="FK49D9AC63E11D1708" Association="Self.FK49D9AC63E11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestFreight" EntitySet="RequestFreight" />
+          </AssociationSet>
+          <AssociationSet Name="FK5DCEAED9FBF1EE3B" Association="Self.FK5DCEAED9FBF1EE3B">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="RequestApprover" EntitySet="RequestApprover" />
+          </AssociationSet>
+          <AssociationSet Name="FK994383D5E11D1708" Association="Self.FK994383D5E11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestEvent" EntitySet="RequestEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK9D6A83D1E11D1708" Association="Self.FK9D6A83D1E11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestCrane" EntitySet="RequestCrane" />
+          </AssociationSet>
+          <AssociationSet Name="FKF72657FBE11D1708" Association="Self.FKF72657FBE11D1708">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="RequestPassengers" EntitySet="RequestPassengers" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -422,6 +575,36 @@
             <End Role="Request" EntitySet="Requests" />
             <End Role="v_RequestCustomers" EntitySet="v_RequestCustomers" />
           </AssociationSet>
+          <EntitySet Name="v_RequestType" EntityType="transportModel.v_RequestType" />
+          <AssociationSet Name="Requestv_RequestType" Association="transportModel.Requestv_RequestType">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="v_RequestType" EntitySet="v_RequestType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_UserEmployee" Association="transportModel.FK_Request_UserEmployee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <EntitySet Name="RequestInternationals" EntityType="transportModel.RequestInternational" />
+          <AssociationSet Name="FK_RequestInternational_Request" Association="transportModel.FK_RequestInternational_Request">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="RequestInternational" EntitySet="RequestInternationals" />
+          </AssociationSet>
+          <EntitySet Name="view_ServiceDepartmentGroup" EntityType="transportModel.view_ServiceDepartmentGroup" />
+          <EntitySet Name="view_ServiceDirection" EntityType="transportModel.view_ServiceDirection" />
+          <EntitySet Name="view_ServicePurpose" EntityType="transportModel.view_ServicePurpose" />
+          <AssociationSet Name="Requestview_ServiceDirection" Association="transportModel.Requestview_ServiceDirection">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="view_ServiceDirection" EntitySet="view_ServiceDirection" />
+          </AssociationSet>
+          <AssociationSet Name="Requestview_ServiceDepartmentGroup" Association="transportModel.Requestview_ServiceDepartmentGroup">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="view_ServiceDepartmentGroup" EntitySet="view_ServiceDepartmentGroup" />
+          </AssociationSet>
+          <AssociationSet Name="Requestview_ServicePurpose" Association="transportModel.Requestview_ServicePurpose">
+            <End Role="Request" EntitySet="Requests" />
+            <End Role="view_ServicePurpose" EntitySet="view_ServicePurpose" />
+          </AssociationSet>
+          <EntitySet Name="ServiceDepartments" EntityType="transportModel.ServiceDepartment" />
           </EntityContainer>
         <EntityType Name="RequestPassenger">
           <Key>
@@ -439,6 +622,8 @@
           <Property Type="DateTime" Name="OrderDate" Precision="3" />
           <Property Type="String" Name="OrderName" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Request" Relationship="transportModel.FKF72657FBE11D1708" FromRole="RequestPassenger" ToRole="Request" />
+          <Property Name="ConfirmTelFax" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConfirmEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RequestCraneSlinger">
           <Key>
@@ -501,6 +686,10 @@
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <NavigationProperty Name="RequestFreight" Relationship="transportModel.FK_RequestFreightCargo_RequestFreight" FromRole="RequestFreightCargo" ToRole="RequestFreight" />
           <NavigationProperty Name="Request" Relationship="transportModel.FKFF33B50EE11D1708" FromRole="RequestFreightCargo" ToRole="Request" />
+          <Property Name="NumberOfPackages" Type="Int32" />
+          <Property Name="KindOfPacking" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="5" />
+          <Property Name="SpecialProperties" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RequestFreight">
           <Key>
@@ -516,6 +705,17 @@
           <NavigationProperty Name="Request" Relationship="transportModel.FK49D9AC63E11D1708" FromRole="RequestFreight" ToRole="Request" />
           <Property Type="String" Name="VehicleType" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DestinationPoint" MaxLength="511" FixedLength="false" Unicode="false" />
+          <Property Name="LoadingTime" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Shipper" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="Consignee" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="ConsigneeContactName" Type="String" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveryTime" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleCount" Type="Int32" />
+          <Property Name="VehicleCapacityTonns" Type="Int32" />
+          <Property Name="MobileConnection" Type="Boolean" Nullable="false" />
+          <Property Name="LocationInfo" Type="Boolean" Nullable="false" />
+          <Property Name="ChangesInfo" Type="Boolean" Nullable="false" />
+          <Property Name="WithInvoice" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_RequestFreightCargo_RequestFreight">
           <End Type="transportModel.RequestFreight" Role="RequestFreight" Multiplicity="0..1" />
@@ -568,6 +768,8 @@
           <Property Type="Byte" Name="DSC" Nullable="false" />
           <NavigationProperty Name="Requests" Relationship="transportModel.FK_Request_Employee" FromRole="Employee" ToRole="Request" />
           <NavigationProperty Name="RequestApprover" Relationship="transportModel.FK_RequestApprover_Employee" FromRole="Employee" ToRole="RequestApprover" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requests1" Relationship="transportModel.FK_Request_UserEmployee" FromRole="Employee" ToRole="Request" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -595,6 +797,23 @@
           <NavigationProperty Name="RequestFreightCargoes" Relationship="transportModel.FKFF33B50EE11D1708" FromRole="Request" ToRole="RequestFreightCargo" />
           <Property Type="Int32" Name="CustomerId" />
           <NavigationProperty Name="v_RequestCustomer" Relationship="transportModel.Requestv_RequestCustomers" FromRole="Request" ToRole="v_RequestCustomers" />
+          <Property Name="OtherInformation" Type="String" MaxLength="700" FixedLength="false" Unicode="true" />
+          <Property Name="RequestTypeId" Type="Int32" />
+          <NavigationProperty Name="v_RequestType" Relationship="transportModel.Requestv_RequestType" FromRole="Request" ToRole="v_RequestType" />
+          <Property Name="UserEmployeeId" Type="Int32" />
+          <Property Name="Type" Type="Byte" />
+          <NavigationProperty Name="Employee1" Relationship="transportModel.FK_Request_UserEmployee" FromRole="Request" ToRole="Employee" />
+          <NavigationProperty Name="RequestInternational" Relationship="transportModel.FK_RequestInternational_Request" FromRole="Request" ToRole="RequestInternational" />
+          <Property Name="DirectionId" Type="Int32" />
+          <Property Name="AgreementPurposeId" Type="Int32" />
+          <Property Name="DepartmentGroupId" Type="Int32" />
+          <NavigationProperty Name="view_ServiceDirection" Relationship="transportModel.Requestview_ServiceDirection" FromRole="Request" ToRole="view_ServiceDirection" />
+          <NavigationProperty Name="view_ServiceDepartmentGroup" Relationship="transportModel.Requestview_ServiceDepartmentGroup" FromRole="Request" ToRole="view_ServiceDepartmentGroup" />
+          <NavigationProperty Name="view_ServicePurpose" Relationship="transportModel.Requestview_ServicePurpose" FromRole="Request" ToRole="view_ServicePurpose" />
+          <Property Name="RequestTime" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="Responsible" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SpecTransReceived" Type="Boolean" />
+          <Property Name="SendToSpecTrans" Type="Boolean" />
         </EntityType>
         <EntityType Name="RequestApprover">
           <Key>
@@ -718,6 +937,9 @@
           <Property Type="Int32" Name="CustomerId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="CustomerName" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Requests" Relationship="transportModel.Requestv_RequestCustomers" FromRole="v_RequestCustomers" ToRole="Request" />
+          <Property Name="SHZ" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DirectionId" Type="Int32" />
+          <Property Name="PurposeId" Type="Int32" />
         </EntityType>
         <Association Name="Requestv_RequestCustomers">
           <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
@@ -731,6 +953,159 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="v_RequestType">
+          <Key>
+            <PropertyRef Name="RequestTypeId" />
+          </Key>
+          <Property Name="RequestTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Request" Relationship="transportModel.Requestv_RequestType" FromRole="v_RequestType" ToRole="Request" />
+        </EntityType>
+        <Association Name="Requestv_RequestType">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
+          <End Type="transportModel.v_RequestType" Role="v_RequestType" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="v_RequestType">
+              <PropertyRef Name="RequestTypeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="RequestTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_UserEmployee">
+          <End Type="transportModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="UserEmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RequestInternational">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="Way" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryBasis" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleCount" Type="Int32" />
+          <Property Name="Consignor" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LoadingContactName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DepartureCustoms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
+          <Property Name="DeliveryAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UnloadingContactName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ReturnCustoms" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CargoName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DangerCargo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PackageListNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CargoDimensions" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Brutto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Netto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LoadingType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CargoCost" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CargoOverloading" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CargoStackability" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Request" Relationship="transportModel.FK_RequestInternational_Request" FromRole="RequestInternational" ToRole="Request" />
+          <Property Name="VehicleType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CargoPlaces" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Currency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeliveryDateEnd" Type="DateTime" Precision="0" />
+          <Property Name="RequestDateEnd" Type="DateTime" Precision="0" />
+          <Property Name="VehicleCapacityTonns" Type="String" Unicode="false" FixedLength="false" MaxLength="50" />
+          <Property Name="CargoVolume" Type="String" Unicode="false" FixedLength="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_RequestInternational_Request">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="transportModel.RequestInternational" Role="RequestInternational" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="RequestInternational">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="view_ServiceDepartmentGroup">
+          <Key>
+            <PropertyRef Name="ServiceDepartmentGroupId" />
+          </Key>
+          <Property Name="ServiceDepartmentGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requests" Relationship="transportModel.Requestview_ServiceDepartmentGroup" FromRole="view_ServiceDepartmentGroup" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="view_ServiceDirection">
+          <Key>
+            <PropertyRef Name="DirectionId" />
+          </Key>
+          <Property Name="DirectionId" Type="Int32" Nullable="false" />
+          <Property Name="DirectionName" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <Property Name="AgreementId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceDepartmentGroupId" Type="Int32" />
+          <NavigationProperty Name="Requests" Relationship="transportModel.Requestview_ServiceDirection" FromRole="view_ServiceDirection" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="view_ServicePurpose">
+          <Key>
+            <PropertyRef Name="AgreementPurposeId" />
+          </Key>
+          <Property Name="AgreementPurposeId" Type="Int32" Nullable="false" />
+          <Property Name="AgreementId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceDepartmentGroupId" Type="Int32" />
+          <Property Name="PurposeName" Type="String" MaxLength="161" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Requests" Relationship="transportModel.Requestview_ServicePurpose" FromRole="view_ServicePurpose" ToRole="Request" />
+        </EntityType>
+        <Association Name="Requestview_ServiceDirection">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
+          <End Type="transportModel.view_ServiceDirection" Role="view_ServiceDirection" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="view_ServiceDirection">
+              <PropertyRef Name="DirectionId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="DirectionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Requestview_ServiceDepartmentGroup">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
+          <End Type="transportModel.view_ServiceDepartmentGroup" Role="view_ServiceDepartmentGroup" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="view_ServiceDepartmentGroup">
+              <PropertyRef Name="ServiceDepartmentGroupId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="DepartmentGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Requestview_ServicePurpose">
+          <End Type="transportModel.Request" Role="Request" Multiplicity="*" />
+          <End Type="transportModel.view_ServicePurpose" Role="view_ServicePurpose" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="view_ServicePurpose">
+              <PropertyRef Name="AgreementPurposeId" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="AgreementPurposeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ServiceDepartment">
+          <Key>
+            <PropertyRef Name="DepartmentId" />
+          </Key>
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceDepartmentGroupId" Type="Int32" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ParentDepartmentId" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -740,6 +1115,8 @@
           <EntitySetMapping Name="RequestPassengers">
             <EntityTypeMapping TypeName="transportModel.RequestPassenger">
               <MappingFragment StoreEntitySet="RequestPassengers">
+                <ScalarProperty Name="ConfirmEmail" ColumnName="ConfirmEmail" />
+                <ScalarProperty Name="ConfirmTelFax" ColumnName="ConfirmTelFax" />
                 <ScalarProperty Name="OrderName" ColumnName="OrderName" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
@@ -788,6 +1165,10 @@
           <EntitySetMapping Name="RequestFreightCargoes">
             <EntityTypeMapping TypeName="transportModel.RequestFreightCargo">
               <MappingFragment StoreEntitySet="RequestFreightCargo">
+                <ScalarProperty Name="SpecialProperties" ColumnName="SpecialProperties" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="KindOfPacking" ColumnName="KindOfPacking" />
+                <ScalarProperty Name="NumberOfPackages" ColumnName="NumberOfPackages" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="DestAdress" ColumnName="DestAdress" />
                 <ScalarProperty Name="Volume" ColumnName="Volume" />
@@ -804,6 +1185,17 @@
           <EntitySetMapping Name="RequestFreights">
             <EntityTypeMapping TypeName="transportModel.RequestFreight">
               <MappingFragment StoreEntitySet="RequestFreight">
+                <ScalarProperty Name="WithInvoice" ColumnName="WithInvoice" />
+                <ScalarProperty Name="ChangesInfo" ColumnName="ChangesInfo" />
+                <ScalarProperty Name="LocationInfo" ColumnName="LocationInfo" />
+                <ScalarProperty Name="MobileConnection" ColumnName="MobileConnection" />
+                <ScalarProperty Name="VehicleCapacityTonns" ColumnName="VehicleCapacityTonns" />
+                <ScalarProperty Name="VehicleCount" ColumnName="VehicleCount" />
+                <ScalarProperty Name="DeliveryTime" ColumnName="DeliveryTime" />
+                <ScalarProperty Name="ConsigneeContactName" ColumnName="ConsigneeContactName" />
+                <ScalarProperty Name="Consignee" ColumnName="Consignee" />
+                <ScalarProperty Name="Shipper" ColumnName="Shipper" />
+                <ScalarProperty Name="LoadingTime" ColumnName="LoadingTime" />
                 <ScalarProperty Name="DestinationPoint" ColumnName="DestinationPoint" />
                 <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
                 <ScalarProperty Name="Responsible" ColumnName="Responsible" />
@@ -840,6 +1232,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="transportModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="DSC" ColumnName="DSC" />
                 <ScalarProperty Name="DismissDate" ColumnName="DismissDate" />
                 <ScalarProperty Name="IncomeDate" ColumnName="IncomeDate" />
@@ -857,6 +1250,17 @@
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="transportModel.Request">
               <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="SendToSpecTrans" ColumnName="SendToSpecTrans" />
+                <ScalarProperty Name="SpecTransReceived" ColumnName="SpecTransReceived" />
+                <ScalarProperty Name="Responsible" ColumnName="Responsible" />
+                <ScalarProperty Name="RequestTime" ColumnName="RequestTime" />
+                <ScalarProperty Name="DepartmentGroupId" ColumnName="DepartmentGroupId" />
+                <ScalarProperty Name="AgreementPurposeId" ColumnName="AgreementPurposeId" />
+                <ScalarProperty Name="DirectionId" ColumnName="DirectionId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserEmployeeId" ColumnName="UserEmployeeId" />
+                <ScalarProperty Name="RequestTypeId" ColumnName="RequestTypeId" />
+                <ScalarProperty Name="OtherInformation" ColumnName="OtherInformation" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="RequestTaskId" ColumnName="RequestTaskId" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -883,8 +1287,93 @@
           <EntitySetMapping Name="v_RequestCustomers">
             <EntityTypeMapping TypeName="transportModel.v_RequestCustomers">
               <MappingFragment StoreEntitySet="v_RequestCustomers">
+                <ScalarProperty Name="PurposeId" ColumnName="PurposeId" />
+                <ScalarProperty Name="DirectionId" ColumnName="DirectionId" />
+                <ScalarProperty Name="SHZ" ColumnName="SHZ" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_RequestType">
+            <EntityTypeMapping TypeName="transportModel.v_RequestType">
+              <MappingFragment StoreEntitySet="v_RequestType">
+                <ScalarProperty Name="RequestTypeName" ColumnName="RequestTypeName" />
+                <ScalarProperty Name="RequestTypeId" ColumnName="RequestTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestInternationals">
+            <EntityTypeMapping TypeName="transportModel.RequestInternational">
+              <MappingFragment StoreEntitySet="RequestInternational">
+                <ScalarProperty Name="CargoVolume" ColumnName="CargoVolume" />
+                <ScalarProperty Name="VehicleCapacityTonns" ColumnName="VehicleCapacityTonns" />
+                <ScalarProperty Name="RequestDateEnd" ColumnName="RequestDateEnd" />
+                <ScalarProperty Name="DeliveryDateEnd" ColumnName="DeliveryDateEnd" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="CargoPlaces" ColumnName="CargoPlaces" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="CargoStackability" ColumnName="CargoStackability" />
+                <ScalarProperty Name="CargoOverloading" ColumnName="CargoOverloading" />
+                <ScalarProperty Name="CargoCost" ColumnName="CargoCost" />
+                <ScalarProperty Name="LoadingType" ColumnName="LoadingType" />
+                <ScalarProperty Name="Netto" ColumnName="Netto" />
+                <ScalarProperty Name="Brutto" ColumnName="Brutto" />
+                <ScalarProperty Name="CargoDimensions" ColumnName="CargoDimensions" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="PackageListNumber" ColumnName="PackageListNumber" />
+                <ScalarProperty Name="DangerCargo" ColumnName="DangerCargo" />
+                <ScalarProperty Name="CargoName" ColumnName="CargoName" />
+                <ScalarProperty Name="ReturnCustoms" ColumnName="ReturnCustoms" />
+                <ScalarProperty Name="UnloadingContactName" ColumnName="UnloadingContactName" />
+                <ScalarProperty Name="DeliveryAddress" ColumnName="DeliveryAddress" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="DepartureCustoms" ColumnName="DepartureCustoms" />
+                <ScalarProperty Name="LoadingContactName" ColumnName="LoadingContactName" />
+                <ScalarProperty Name="Consignor" ColumnName="Consignor" />
+                <ScalarProperty Name="VehicleCount" ColumnName="VehicleCount" />
+                <ScalarProperty Name="DeliveryBasis" ColumnName="DeliveryBasis" />
+                <ScalarProperty Name="Way" ColumnName="Way" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_ServiceDepartmentGroup">
+            <EntityTypeMapping TypeName="transportModel.view_ServiceDepartmentGroup">
+              <MappingFragment StoreEntitySet="view_ServiceDepartmentGroup">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ServiceDepartmentGroupId" ColumnName="ServiceDepartmentGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_ServiceDirection">
+            <EntityTypeMapping TypeName="transportModel.view_ServiceDirection">
+              <MappingFragment StoreEntitySet="view_ServiceDirection">
+                <ScalarProperty Name="ServiceDepartmentGroupId" ColumnName="ServiceDepartmentGroupId" />
+                <ScalarProperty Name="AgreementId" ColumnName="AgreementId" />
+                <ScalarProperty Name="DirectionName" ColumnName="DirectionName" />
+                <ScalarProperty Name="DirectionId" ColumnName="DirectionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_ServicePurpose">
+            <EntityTypeMapping TypeName="transportModel.view_ServicePurpose">
+              <MappingFragment StoreEntitySet="view_ServicePurpose">
+                <ScalarProperty Name="PurposeName" ColumnName="PurposeName" />
+                <ScalarProperty Name="ServiceDepartmentGroupId" ColumnName="ServiceDepartmentGroupId" />
+                <ScalarProperty Name="AgreementId" ColumnName="AgreementId" />
+                <ScalarProperty Name="AgreementPurposeId" ColumnName="AgreementPurposeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceDepartments">
+            <EntityTypeMapping TypeName="transportModel.ServiceDepartment">
+              <MappingFragment StoreEntitySet="ServiceDepartment">
+                <ScalarProperty Name="ParentDepartmentId" ColumnName="ParentDepartmentId" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="ServiceDepartmentGroupId" ColumnName="ServiceDepartmentGroupId" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -905,13 +1394,14 @@
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="TransportRequest" ZoomLevel="85">
-        <EntityTypeShape EntityType="transportModel.RequestPassenger" Width="1.5" PointX="2.75" PointY="9.875" Height="2.9070849609374996" />
-        <EntityTypeShape EntityType="transportModel.RequestCraneSlinger" Width="1.5" PointX="7.125" PointY="6" Height="2.4140429687500005" />
+        <EntityTypeShape EntityType="transportModel.RequestPassenger" Width="1.5" PointX="2.625" PointY="9.25" Height="2.9070849609374996" />
+        <EntityTypeShape EntityType="transportModel.RequestCraneSlinger" Width="1.5" PointX="7.25" PointY="6" Height="2.4140429687500005" />
         <EntityTypeShape EntityType="transportModel.RequestCrane" Width="1.5" PointX="4.625" PointY="6" Height="3.2357796223958326" />
         <AssociationConnector Association="transportModel.FK_RequestCraneSlingers_RequestCrane" >
           <ConnectorPoint PointX="6.125" PointY="7.207021484375" />
@@ -919,17 +1409,17 @@
           <ConnectorPoint PointX="6.630208333333333" PointY="7.207021484375" />
           <ConnectorPoint PointX="7.125" PointY="7.207021484375" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="transportModel.RequestFreightCargo" Width="1.5" PointX="8.875" PointY="0.625" Height="2.9070849609374996" />
-        <EntityTypeShape EntityType="transportModel.RequestFreight" Width="1.5" PointX="5.875" PointY="0.875" Height="2.2496956380208317" />
+        <EntityTypeShape EntityType="transportModel.RequestFreightCargo" Width="1.5" PointX="11.125" PointY="0.5" Height="2.9070849609374996" />
+        <EntityTypeShape EntityType="transportModel.RequestFreight" Width="1.5" PointX="9" PointY="0.5" Height="2.2496956380208317" />
         <AssociationConnector Association="transportModel.FK_RequestFreightCargo_RequestFreight" >
           <ConnectorPoint PointX="4.5" PointY="2.9998478190104159" />
           <ConnectorPoint PointX="6.75" PointY="2.9998478190104159" />
         </AssociationConnector>
         <EntityTypeShape EntityType="transportModel.RequestAttachment" Width="2.25" PointX="4.875" PointY="10.125" Height="1.9210009765624996" />
-        <EntityTypeShape EntityType="transportModel.RequestEvent" Width="1.5" PointX="8.5" PointY="10.125" />
-        <EntityTypeShape EntityType="transportModel.Employee" Width="1.5" PointX="2.75" PointY="13.625" FillColor="Green" />
-        <EntityTypeShape EntityType="transportModel.Request" Width="1.5" PointX="0.875" PointY="4.125" />
-        <EntityTypeShape EntityType="transportModel.RequestApprover" Width="1.5" PointX="5.625" PointY="14.5" FillColor="Green" />
+        <EntityTypeShape EntityType="transportModel.RequestEvent" Width="1.5" PointX="8" PointY="10.125" />
+        <EntityTypeShape EntityType="transportModel.Employee" Width="1.5" PointX="4.875" PointY="13" FillColor="Green" />
+        <EntityTypeShape EntityType="transportModel.Request" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="transportModel.RequestApprover" Width="1.5" PointX="6.875" PointY="13" FillColor="Green" />
         <AssociationConnector Association="transportModel.FK_Request_Employee" />
         <AssociationConnector Association="transportModel.FK_RequestApprover_Employee" />
         <AssociationConnector Association="transportModel.FK_RequestAttachments_Request" />
@@ -939,8 +1429,20 @@
         <AssociationConnector Association="transportModel.FKD8385831E11D1708" />
         <AssociationConnector Association="transportModel.FKF72657FBE11D1708" />
         <AssociationConnector Association="transportModel.FKFF33B50EE11D1708" />
-        <EntityTypeShape EntityType="transportModel.v_RequestCustomers" Width="2.625" PointX="2.5" PointY="1.125" FillColor="255, 128, 128" />
+        <EntityTypeShape EntityType="transportModel.v_RequestCustomers" Width="2.625" PointX="6.125" PointY="0.5" FillColor="255, 128, 128" IsExpanded="true" />
         <AssociationConnector Association="transportModel.Requestv_RequestCustomers" />
+        <EntityTypeShape EntityType="transportModel.v_RequestType" Width="1.5" PointX="7.25" PointY="3.375" />
+        <AssociationConnector Association="transportModel.Requestv_RequestType" />
+        <AssociationConnector Association="transportModel.FK_Request_UserEmployee" />
+        <EntityTypeShape EntityType="transportModel.RequestInternational" Width="3.125" PointX="4.875" PointY="17.25" />
+        <AssociationConnector Association="transportModel.FK_RequestInternational_Request" />
+        <EntityTypeShape EntityType="transportModel.view_ServiceDepartmentGroup" Width="1.875" PointX="3.375" PointY="2.875" />
+        <EntityTypeShape EntityType="transportModel.view_ServiceDirection" Width="1.5" PointX="0.625" PointY="0.5" />
+        <EntityTypeShape EntityType="transportModel.view_ServicePurpose" Width="1.5" PointX="2.375" PointY="0.5" />
+        <AssociationConnector Association="transportModel.Requestview_ServiceDirection" />
+        <AssociationConnector Association="transportModel.Requestview_ServiceDepartmentGroup" />
+        <AssociationConnector Association="transportModel.Requestview_ServicePurpose" />
+        <EntityTypeShape EntityType="transportModel.ServiceDepartment" Width="1.5" PointX="9" PointY="17.25" />
       </Diagram>
     </Diagrams>
   </Designer>

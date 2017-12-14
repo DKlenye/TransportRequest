@@ -12,136 +12,16 @@
         @Content.Script("dropdownlist.js", Url)
     }
 
-@using (Html.BeginForm("Create", "Passenger", FormMethod.Post)) {
+@using (Html.BeginForm("Create", "Passenger", FormMethod.Post))
+{
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Новая заявка на выделение пассажирского транспорта</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DestinationPoint)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.DestinationPoint, new { @class = "span7" })            
-            @Html.ValidationMessageFor(model => model.DestinationPoint)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PassengerAmount)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PassengerAmount)
-            @Html.ValidationMessageFor(model => model.PassengerAmount)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ChildAmount)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ChildAmount)
-            @Html.ValidationMessageFor(model => model.ChildAmount)
-        </div>      
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Request.RequestDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Request.RequestDate )
-            @Html.ValidationMessageFor(model => model.Request.RequestDate)
-        </div>
-        
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TripPurpose)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.TripPurpose, new { @class = "span7"})
-            @Html.ValidationMessageFor(model => model.TripPurpose)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SeatPlace)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.SeatPlace, new { @class = "span7"})
-            @Html.ValidationMessageFor(model => model.SeatPlace)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.TripDuration)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.TripDuration)
-            @Html.ValidationMessageFor(model => model.TripDuration)
-        </div>
-
-        <table style="margin-bottom:10px">
+        @Html.Partial("_EditInfo",Model)
+        <table>
             <tr>
                 <td>
-                    @Html.LabelFor(model => model.Request.CustomerId)
-                    @*<div class="alert">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Внимание!</strong> Диспетчер не увидит вашу заявку, пока её не подпишет руководитель
-                    </div>*@
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @{
-                        Intranet.Models.transportEntities _db = new Intranet.Models.transportEntities();
-                        Dictionary<int, string> customers = new Dictionary<int, string>();
-                        customers.Add(0, String.Empty);
-                        foreach (var cust in _db.v_RequestCustomers.OrderBy(c => c.CustomerName).ToList())
-                        {
-                            customers.Add(cust.CustomerId, cust.CustomerName); 
-                        }                        
-                     }
-                    @*@{
-                        if (errorMessage != String.Empty)
-                        {
-                            <div style="color: red">
-                            @errorMessage
-                            </div>
-                        }            
-                    }*@
-                    @Html.DropDownListFor(model => model.Request.CustomerId, new SelectList(customers, "Key", "Value"), new { @class = "span7 chzn-select", data_placeholder="Выберите наименование заказчика..."})                    
-                </td>
-            </tr>
-        </table>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SecondedPeople)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SecondedPeople)
-            @Html.ValidationMessageFor(model => model.SecondedPeople)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OrderNumber)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OrderNumber)
-            @Html.ValidationMessageFor(model => model.OrderNumber)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OrderDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OrderDate)
-            @Html.ValidationMessageFor(model => model.OrderDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OrderName)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.OrderName, new { @class = "span7"})
-            @Html.ValidationMessageFor(model => model.OrderName)
-        </div>
-
-      <table>
-            <tr>
-                <td>Отправить заявку на подпись
+                    Отправить заявку на подпись
                     <div class="alert">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <strong>Внимание!</strong> Диспетчер не увидит вашу заявку, пока её не подпишет руководитель
@@ -151,27 +31,27 @@
             <tr>
                 <td>
                     @{
-                        
+                        var _db = new Intranet.Models.transportEntities();
                         Dictionary<int, string> approvers = new Dictionary<int, string>();
                         approvers.Add(0, String.Empty);
                         foreach (var apr in _db.RequestApprovers.OrderBy(a => a.Employee.LastName).ToList())
-                        {                            
-                            approvers.Add(apr.EmployeeId, apr.Employee.Fio + ", " + apr.Employee.Office); 
-                        }                        
-                     }
+                        {
+                            approvers.Add(apr.EmployeeId, apr.Employee.Fio + ", " + apr.Employee.Office);
+                        }
+                    }
                     @{
                         if (errorMessage != String.Empty)
                         {
                             <div style="color: red">
-                            @errorMessage
+                                @errorMessage
                             </div>
-                        }            
+                        }
                     }
-                    @Html.DropDownListFor(model => model.Request.ApproverEmployeeId, new SelectList(approvers, "Key", "Value"), new { @class = "span7 chzn-select", data_placeholder="Выберите руководителя, который подпишет вашу заявку..."})                    
+                    @Html.DropDownListFor(model => model.Request.ApproverEmployeeId, new SelectList(approvers, "Key", "Value"), new {@class = "span7 chzn-select", data_placeholder = "Выберите руководителя, который подпишет вашу заявку..."})
                 </td>
             </tr>
         </table>
-               
+
     </fieldset>
     <br />
     <div class="form-actions nomargin">
@@ -181,7 +61,7 @@
                     <input type="submit" value="Опубликовать" class="btn btn-success" />
                 </td>
                 <td>
-                    @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new { @class = "btn btn-primary pull-right" })
+                    @Html.ActionLink("Вернуться к списку", "Index", "Home", null, new {@class = "btn btn-primary pull-right"})
                 </td>
             </tr>
         </table>
