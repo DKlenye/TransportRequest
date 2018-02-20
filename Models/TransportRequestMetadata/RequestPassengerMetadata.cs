@@ -16,9 +16,11 @@ namespace Intranet.Models
         public string DestinationPoint { get; set; }
 
         [DisplayName("Количество пассажиров")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Ожидается ввод числа, если информации нет, то оставьте поле пустым")]
         public Nullable<short> PassengerAmount { get; set; }
 
         [DisplayName("Количество детей")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Ожидается ввод числа, если детей нет, то оставьте поле пустым")]
         public Nullable<short> ChildAmount { get; set; }
 
         [DisplayName("Цель поездки")]
